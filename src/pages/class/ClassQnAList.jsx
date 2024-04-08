@@ -1,4 +1,3 @@
-ß;
 function ClassQnAList() {
   return <div>ClassQnAList</div>;
 }

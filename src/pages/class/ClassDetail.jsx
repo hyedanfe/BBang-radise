@@ -1,4 +1,3 @@
-ß;
 function ClassDetail() {
   return <div>ClassDetail</div>;
 }
