@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-const useMemberStore = create()(
+const useMemberStore = create(
   persist(
     (set) => ({
       user: {},
-      setUser: (userData) => set(() => ({ user: userData })),
+      setUser: (userData) => set({ user: userData }),
     }),
     {
       name: 'user',

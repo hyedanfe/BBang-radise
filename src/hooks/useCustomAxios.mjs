@@ -9,9 +9,11 @@ function useCustomAxios() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 로그인 된 사용자 정보
+  // const user = useMemberStore(memberState);
   const { user } = useMemberStore((state) => ({
     user: state.user,
-    setUser: state.setUser,
+    // setUser: state.setUser,
   }));
 
   // ajax 통신에 사용할 공통 설정 지정
@@ -21,13 +23,13 @@ function useCustomAxios() {
     headers: {
       'content-type': 'application/json', // request 데이터 타입
       accept: 'application/json', // response 데이터 타입
-      'client-id': '08-BBangradise',
+      'client-id': '00-sample',
     },
   });
 
   // 요청 인터셉터
   instance.interceptors.request.use((config) => {
-    if (user) {
+    if (user && user.token) {
       let token = user.token.accessToken;
       if (config.url === REFRESH_URL) {
         token = user.token.refreshToken;
@@ -48,7 +50,7 @@ function useCustomAxios() {
         if (config.url === REFRESH_URL) {
           // refresh 토큰 인증 실패
           const gotoLogin = confirm('로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?');
-          gotoLogin && navigate('/login', { state: { from: location.pathname } });
+          gotoLogin && navigate('/users/login', { state: { from: location.pathname } });
         } else {
           // refresh 토큰으로 access 토큰 재발급 요청
           const accessToken = await getAccessToken(instance);
