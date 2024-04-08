@@ -1,14 +1,6 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-Select.propTypes = {
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  name: PropTypes.string,
-  label: PropTypes.string,
-  optionData: PropTypes.arrayOf(PropTypes.object),
-};
-
 const Select = forwardRef(({ onChange, onBlur, name, label, optionData, ...rest }, ref) => {
   return (
     <div>
@@ -23,6 +15,14 @@ const Select = forwardRef(({ onChange, onBlur, name, label, optionData, ...rest 
     </div>
   );
 });
+
+Select.propTypes = {
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  optionData: PropTypes.arrayOf(PropTypes.object),
+};
 
 Select.displayName = 'Select';
 

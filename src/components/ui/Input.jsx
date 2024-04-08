@@ -1,15 +1,6 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-Input.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  label: PropTypes.string,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  error: PropTypes.string,
-};
-
 const Input = forwardRef(({ id, name, label, type, placeholder, error, ...rest }, ref) => {
   const errorColor = error ? 'red' : 'initial';
   return (
@@ -25,6 +16,15 @@ const Input = forwardRef(({ id, name, label, type, placeholder, error, ...rest }
     </div>
   );
 });
+
+Input.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  error: PropTypes.string,
+};
 
 Input.displayName = 'Input';
 
