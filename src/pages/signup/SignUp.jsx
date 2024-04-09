@@ -3,6 +3,7 @@ import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useNavigate } from 'react-router-dom';
 import Submit from '@components/ui/Submit';
 import Input from '@components/ui/Input';
+import TextArea from '@components/ui/TextArea';
 
 function SignUp() {
   const axios = useCustomAxios();
@@ -16,7 +17,7 @@ function SignUp() {
 
   const onSubmit = async (formData) => {
     try {
-      formData.type = 'user';
+      formData.type = 'seller';
 
       console.log(formData);
 
@@ -43,8 +44,8 @@ function SignUp() {
       }
 
       const res = await axios.post('/users', formData);
-      alert(res.data.item.name + '님 회원가입이 완료 되었습니다.\n로그인 후에 이용하세요.');
-      navigate('/login');
+      // alert(res.data.item.name + '님 회원가입이 완료 되었습니다.\n로그인 후에 이용하세요.');
+      navigate('/signup-alert', { state: { user: res.data.item } });
     } catch (err) {
       // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
       if (err.response?.data.errors) {
@@ -65,11 +66,13 @@ function SignUp() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="name">이름</label>
             <Input
               type="text"
               id="name"
+              label="이름"
+              height="40px"
               placeholder="이름을 입력하세요"
+              error={errors.name && errors.name.message}
               {...register('name', {
                 required: '이름을 입력하세요.',
                 minLength: {
@@ -78,15 +81,14 @@ function SignUp() {
                 },
               })}
             />
-            {errors.name && <p>{errors.name.message}</p>}
           </div>
-          <div className="mb-4">
-            <label htmlFor="email">이메일</label>
-            <input
+          <div>
+            <Input
               type="email"
               id="email"
+              label="이메일"
               placeholder="이메일을 입력하세요"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700"
+              error={errors.email && errors.email.message}
               {...register('email', {
                 required: '이메일을 입력하세요.',
                 pattern: {
@@ -95,26 +97,25 @@ function SignUp() {
                 },
               })}
             />
-            {errors.email && <p>{errors.email.message}</p>}
           </div>
-          <div className="mb-4">
-            <label htmlFor="password">비밀번호</label>
-            <input
+          <div>
+            <Input
               type="password"
               id="password"
+              label="비밀번호"
               placeholder="비밀번호를 입력하세요"
+              error={errors.password && errors.password.message}
               {...register('password', {
                 required: '비밀번호를 입력하세요.',
               })}
             />
-            {errors.password && <p>{errors.password.message}</p>}
           </div>
-
           <div>
-            <label htmlFor="profileImage">프로필 이미지</label>
-            <input type="file" accept="image/*" id="profileImage" placeholder="이미지를 선택하세요" {...register('profileImage')} />
+            <Input type="file" accept="image/*" id="profileImage" label="프로필 이미지" placeholder="이미지를 선택하세요" {...register('profileImage')} />
           </div>
-
+          <div>
+            <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
+          </div>
           <div>
             <Submit>회원가입</Submit>
           </div>
