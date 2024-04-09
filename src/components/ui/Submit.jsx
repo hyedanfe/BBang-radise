@@ -1,15 +1,16 @@
+import Button from '@components/ui/Button';
 import PropTypes from 'prop-types';
 
 Submit.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-const Submit = ({ children, ...rest }) => {
+function Submit({ children, ...rest }) {
   return (
-    <button type="submit" {...rest}>
+    <Button type="submit" {...rest}>
       {children}
-    </button>
+    </Button>
   );
-};
+}
 
 export default Submit;

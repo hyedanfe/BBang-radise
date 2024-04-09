@@ -5,12 +5,12 @@ Button.propTypes = {
   type: PropTypes.string,
 };
 
-const Button = ({ children, type = 'button', ...rest }) => {
+function Button({ children, type = 'button', ...rest }) {
   return (
     <button type={type} {...rest}>
       {children}
     </button>
   );
-};
+}
 
 export default Button;

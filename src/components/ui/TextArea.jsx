@@ -1,17 +1,6 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-TextArea.propTypes = {
-  labelText: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  isValid: PropTypes.bool,
-  validateText: PropTypes.string,
-};
-
 const TextArea = forwardRef(({ labelText, name, value, placeholder, onBlur, onChange, isValid, validateText, ...rest }, ref) => {
   return (
     <div>
@@ -22,6 +11,17 @@ const TextArea = forwardRef(({ labelText, name, value, placeholder, onBlur, onCh
     </div>
   );
 });
+
+TextArea.propTypes = {
+  labelText: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  isValid: PropTypes.bool,
+  validateText: PropTypes.string,
+};
 
 TextArea.displayName = 'TextArea';
 
