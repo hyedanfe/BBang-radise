@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const Select = forwardRef(({ onChange, onBlur, name, label, optionData, ...rest }, ref) => {
+const Select = forwardRef(({ id, onChange, onBlur, name, label, optionData, ...rest }, ref) => {
   return (
     <div>
-      <label>{label}</label>
-      <select name={name} ref={ref} onChange={onChange} onBlur={onBlur} {...rest}>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} name={name} aria-label={label} ref={ref} onChange={onChange} onBlur={onBlur} {...rest}>
         {optionData.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -17,6 +17,7 @@ const Select = forwardRef(({ onChange, onBlur, name, label, optionData, ...rest 
 });
 
 Select.propTypes = {
+  id: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   name: PropTypes.string,

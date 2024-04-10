@@ -23,7 +23,7 @@ function useCustomAxios() {
     headers: {
       'content-type': 'application/json', // request 데이터 타입
       accept: 'application/json', // response 데이터 타입
-      'client-id': '00-sample',
+      'client-id': '08-bbangradise',
     },
   });
 
