@@ -5,13 +5,14 @@ RecipeListItem.propTypes = {
 };
 
 function RecipeListItem({ item }) {
+  console.log(`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`);
   return (
     <>
-      {item.content.image && <img src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.content.image.fileName}`} alt="" />}
+      {item.extra && <img style={{ width: '150px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />}
       <p>글번호: {item._id}</p>
       <p>글제목: {item.title}</p>
-      <p>작성자: {item.user.name}</p>
-      <p>작성일자: {item.updatedAt}</p>
+      <p>작성자: {item.user?.name}</p>
+      <p>작성일자: {item?.updatedAt}</p>
     </>
   );
 }
