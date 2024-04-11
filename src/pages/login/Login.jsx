@@ -5,13 +5,14 @@ import useMemberStore from '@zustand/memberStore.mjs';
 import Input from '@components/ui/Input';
 import Submit from '@components/ui/Submit';
 import Button from '@components/ui/Button';
+import useUserApis from '@hooks/apis/useUserApis.mjs';
 
 function Login() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { postLogin } = useUserApis();
   // zustand setter 반환
   const setUserData = useMemberStore((state) => state.setUser);
-  const axios = useCustomAxios();
   const {
     register,
     handleSubmit,
@@ -27,7 +28,7 @@ function Login() {
   const onSubmit = async (formData) => {
     console.log(formData);
     try {
-      const res = await axios.post('/users/login', formData);
+      const res = await postLogin(formData);
       console.log(res);
 
       // 사용자 정보를 zustand에 저장
@@ -57,6 +58,7 @@ function Login() {
         <div>
           <h2>로그인</h2>
         </div>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input

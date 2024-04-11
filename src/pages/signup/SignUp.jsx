@@ -1,13 +1,15 @@
 import { useForm } from 'react-hook-form';
-import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useNavigate } from 'react-router-dom';
 import Submit from '@components/ui/Submit';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
+import useUserApis from '@hooks/apis/useUserApis.mjs';
+import useFileApis from '@hooks/apis/useFileApis.mjs';
 
 function SignUp() {
-  const axios = useCustomAxios();
   const navigate = useNavigate();
+  const { postSignUp } = useUserApis();
+  const { postSingleFile } = useFileApis();
   const {
     register,
     handleSubmit,
@@ -19,37 +21,20 @@ function SignUp() {
     try {
       formData.type = 'seller';
 
-      console.log(formData);
-
-      // 이미지 먼저 업로드
       if (formData.profileImage.length > 0) {
-        // 프로필 이미지를 추가한 경우
-        const imageFormData = new FormData();
-        imageFormData.append('attach', formData.profileImage[0]);
+        const fileRes = await postSingleFile(formData.profileImage[0]);
 
-        const fileRes = await axios('/files', {
-          method: 'post',
-          headers: {
-            // 파일 업로드시 필요한 설정
-            'Content-Type': 'multipart/form-data',
-          },
-          data: imageFormData,
-        });
-
-        // 서버로부터 응답받은 이미지 이름을 회원 정보에 포함
         formData.profileImage = fileRes.data.file.name;
       } else {
-        // profileImage 속성을 제거
         delete formData.profileImage;
       }
 
-      const res = await axios.post('/users', formData);
-      // alert(res.data.item.name + '님 회원가입이 완료 되었습니다.\n로그인 후에 이용하세요.');
+      const res = await postSignUp(formData);
       navigate('/signup-alert', { state: { user: res.data.item } });
     } catch (err) {
+      console.log(err);
       // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
       if (err.response?.data.errors) {
-        // API 서버가 응답한 에러
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
         alert(err.response?.data.message);
