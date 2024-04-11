@@ -22,7 +22,19 @@ export const initData = async (nextSeq) => {
     // 즐겨찾기/북마크
     bookmark: [],
     // QnA, 공지사항, 게시판
-    post: [],
+    post: [
+      {
+        _id: 3,
+        type: 'recipe',
+        title: '지옥에서 온 츄러스..',
+        content: '홀랑 태워먹었군요',
+        mainimage: {
+          originalname: 'churos.jpg',
+          name: '4lzP_1ner.jpg',
+          path: 'https://market-lion.koyeb.app/api/files/08-bbangradise/4lzP_1ner.jpg',
+        },
+      },
+    ],
     // 코드
     code: [],
     // 설정
