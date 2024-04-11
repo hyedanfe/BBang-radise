@@ -17,7 +17,7 @@ function RecipeDetail() {
   const { data } = useQuery({
     queryKey: ['posts', id],
     queryFn: () =>
-      axios.get(`/posts/23`, {
+      axios.get(`/posts/${id}`, {
         params: { incrementView: firstRender.current },
       }),
     select: (response) => response.data,
