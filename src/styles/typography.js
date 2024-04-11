@@ -16,7 +16,7 @@ export const typographyMap = {
   `,
 
   display_l: css`
-    font-family: dunkel-sans-variable, sans-serif;ㄴ
+    font-family: dunkel-sans-variable, sans-serif;
     font-variation-settings: "GLAT" 1000, "wdth" 850;
     font-size: 2.5rem;
     line-height: 1.5;
