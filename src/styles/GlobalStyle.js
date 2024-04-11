@@ -143,6 +143,14 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: inherit;
   }
+  :root{
+    font-size: 10px;
+  }
+  @media all and (min-width:768px){
+    :root{
+      font-size: 13px;
+    }
+  }
 `;
 
 export default GlobalStyle;
