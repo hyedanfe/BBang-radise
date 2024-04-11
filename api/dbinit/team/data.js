@@ -30,8 +30,8 @@ export const initData = async (nextSeq) => {
         content: '홀랑 태워먹었군요',
         mainimage: {
           originalname: 'churos.jpg',
-          name: '4lzP_1ner.jpg',
-          path: 'https://market-lion.koyeb.app/api/files/08-bbangradise/4lzP_1ner.jpg',
+          name: 'churos.jpg',
+          path: 'https://market-lion.koyeb.app/api/files/08-bbangradise/churos.jpg',
         },
       },
     ],
