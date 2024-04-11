@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const MainPage = () => {
   return (
     <div>
-      <Text color="primary01" display="block" fontWeight="bold" typography="t1">
-        MainPage
+      <Text color="primary01" display="block" typography="display_l">
+        베이킹 레시피
       </Text>
       <PText>얍 시험해보고 있음!!</PText>
     </div>
@@ -14,7 +14,7 @@ const MainPage = () => {
 };
 
 const PText = styled.p`
-  ${({ typography = 't1' }) => typographyMap[typography]},
+  ${({ typography = 'semibold_s' }) => typographyMap[typography]},
 `;
 
 export default MainPage;
