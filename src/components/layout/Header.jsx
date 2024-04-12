@@ -11,8 +11,8 @@ function Header() {
     position: fixed;
     width: 100vw;
     padding: 20px 17px 0px 19px;
+    align-items: center;
     gap: 16px;
-    transition: all 0.3s;
 
     @media all and (min-width: 768px) {
       padding: 20px 33px 0px 33px;
@@ -20,25 +20,35 @@ function Header() {
     }
   `;
 
+  const LogoLayout = styled.div`
+    padding-top: 2px;
+    @media all and (min-width: 768px) {
+      padding-top: 5px;
+    }
+  `;
+
   const Navigation = styled.nav`
     display: flex;
+    height: 42px;
     flex-grow: 1;
     justify-content: space-between;
-    backdrop-filter: blur(5px);
-    padding: 6px 34px 0px 34px;
+    backdrop-filter: blur(3px);
+    padding: 3.5px 32px 0px 32px;
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.15);
     border-radius: 30px;
     border: solid 1px rgba(255, 255, 255, 0.25);
-
-    &:hover {
-      background-color: var(--primary-01);
-    }
+    transition: all 0.4s ease-in-out;
 
     @media all and (min-width: 768px) {
       justify-content: flex-end;
-      padding: 8px 34px 0px 34px;
-      gap: 50px;
+      height: 56px;
+      padding: 7px 34px 0px 34px;
+      gap: 60px;
+
+      &:hover {
+        background-color: var(--primary-01);
+      }
     }
   `;
 
@@ -64,7 +74,9 @@ function Header() {
 
   return (
     <Header>
-      <Link to="/"> {isMobile < 768 ? <img src={HomeMobileIcon} /> : <img src={HomeWebIcon} />}</Link>
+      <Link to="/">
+        <LogoLayout>{isMobile < 768 ? <img src={HomeMobileIcon} /> : <img src={HomeWebIcon} />}</LogoLayout>
+      </Link>
       <Navigation>
         <li>
           <StyledNavLink to="/login">
