@@ -3,27 +3,23 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const API_SERVER = import.meta.env.VITE_API_SERVER;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const REFRESH_URL = '/auth/refresh';
 
 function useCustomAxios() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 로그인 된 사용자 정보
-  // const user = useMemberStore(memberState);
   const { user } = useMemberStore((state) => ({
     user: state.user,
-    // setUser: state.setUser,
   }));
 
-  // ajax 통신에 사용할 공통 설정 지정
   const instance = axios.create({
     baseURL: API_SERVER,
     timeout: 1000 * 10,
     headers: {
-      'content-type': 'application/json', // request 데이터 타입
-      accept: 'application/json', // response 데이터 타입
-      'client-id': '08-bbangradise',
+      'content-type': 'application/json',
+      'client-id': CLIENT_ID,
     },
   });
 
@@ -46,17 +42,13 @@ function useCustomAxios() {
     async (err) => {
       const { config, response } = err;
       if (response?.status === 401) {
-        // 인증 되지 않음
         if (config.url === REFRESH_URL) {
-          // refresh 토큰 인증 실패
           const gotoLogin = confirm('로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?');
           gotoLogin && navigate('/users/login', { state: { from: location.pathname } });
         } else {
-          // refresh 토큰으로 access 토큰 재발급 요청
           const accessToken = await getAccessToken(instance);
           if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
-            // 갱신된 accessToken으로 재요청
             return axios(config);
           }
         }
