@@ -1,6 +1,6 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
 function RecipeDetail() {

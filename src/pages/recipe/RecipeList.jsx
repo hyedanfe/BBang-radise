@@ -1,7 +1,7 @@
 import Button from '@components/ui/Button';
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import RecipeListItem from '@pages/recipe/RecipeListItem';
 
 function RecipeList() {
