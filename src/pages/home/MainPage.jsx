@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const MainPage = () => {
   return (
     <div>
-      <Text color="primary01" display="block" typography="display_l">
+      <Text color="primary01" display="block" typography="display_xl">
         베이킹 레시피
         <BookmarkIcon fill="var(--primary-01)" width="30" />
       </Text>
