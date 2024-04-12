@@ -19,7 +19,7 @@ function SignUp() {
     watch,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm({ mode: 'onChange' });
   const { email } = watch();
 
   const onSubmit = async (formData) => {
