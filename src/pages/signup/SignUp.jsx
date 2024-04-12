@@ -5,17 +5,22 @@ import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
+import Button from '@components/ui/Button';
+import { useState } from 'react';
 
 function SignUp() {
+  const [emailMsg, setEmailMsg] = useState('');
   const navigate = useNavigate();
-  const { postSignUp } = useUserApis();
+  const { postSignUp, getEmailVerify } = useUserApis();
   const { postSingleFile } = useFileApis();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     setError,
   } = useForm();
+  const { email } = watch();
 
   const onSubmit = async (formData) => {
     try {
@@ -39,6 +44,17 @@ function SignUp() {
       } else if (err.response?.data.message) {
         alert(err.response?.data.message);
       }
+    }
+  };
+
+  const checkDuplicateEmail = async () => {
+    try {
+      const res = await getEmailVerify(email);
+      if (res.status === 200) {
+        setEmailMsg('회원가입 가능한 이메일입니다.');
+      }
+    } catch (err) {
+      setEmailMsg(err.response?.data.message);
     }
   };
 
@@ -82,6 +98,12 @@ function SignUp() {
                 },
               })}
             />
+          </div>
+          <div>
+            {emailMsg && <span>{emailMsg}</span>}
+            <Button disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
+              중복확인
+            </Button>
           </div>
           <div>
             <Input
