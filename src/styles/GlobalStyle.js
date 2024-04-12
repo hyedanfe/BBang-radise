@@ -91,6 +91,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -110,7 +111,8 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
   }
   ol,
-  ul {
+  ul,
+  li {
     list-style: none;
   }
   blockquote,
