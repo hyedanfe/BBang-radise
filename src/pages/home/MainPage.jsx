@@ -2,13 +2,14 @@ import AddIcon from '@assets/AddIcon';
 import BookmarkIcon from '@assets/BookmarkIcon';
 import Button from '@components/ui/Button';
 import RoundButton from '@components/ui/RoundButton';
+import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import { typographyMap } from '@styles/typography';
 import styled from 'styled-components';
 
 const MainPage = () => {
   return (
-    <div>
+    <Section>
       <Text color="primary01" display="block" typography="display_xl">
         베이킹 레시피
         <BookmarkIcon fill="var(--primary-01)" width="30" />
@@ -20,7 +21,7 @@ const MainPage = () => {
       </Button>
       <Button type="submit">제출 버튼 테스트</Button>
       <RoundButton></RoundButton>
-    </div>
+    </Section>
   );
 };
 
