@@ -57,7 +57,7 @@ function Login() {
   return (
     <Section>
       <S.LoginWrapper>
-        <Text typography="display_xl">로그인</Text>
+        <Text typography="display_l">로그인</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input

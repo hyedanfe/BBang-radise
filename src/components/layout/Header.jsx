@@ -10,7 +10,7 @@ const HeaderStyle = styled.header`
   display: flex;
   position: fixed;
   width: 100vw;
-  padding: 20px 17px 0px 19px;
+  padding: 20px 17px 0px 15px;
   align-items: center;
   gap: 16px;
 
@@ -74,7 +74,7 @@ function Header() {
   }, []);
 
   const user = useMemberStore((state) => state.user);
-  const id = user._id;
+  const id = user?._id;
 
   return (
     <HeaderStyle>
