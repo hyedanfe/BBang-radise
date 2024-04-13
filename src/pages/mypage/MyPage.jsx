@@ -1,4 +1,4 @@
-import Button from '@components/ui/Button';
+import Button from '@components/ui/button/Button';
 import useMemberStore from '@zustand/memberStore.mjs';
 import { useNavigate } from 'react-router-dom';
 

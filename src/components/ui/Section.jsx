@@ -5,7 +5,7 @@ const SectionStyle = styled.section`
   margin: 0 14px;
 
   @media all and (min-width: 768px) {
-    margin: 0 50px;
+    margin: 0 48px;
   }
 `;
 
