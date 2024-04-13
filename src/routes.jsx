@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         element: <RecipeEdit />,
       },
       {
-        path: 'mypage',
+        path: 'mypage/:_id',
         element: <MyPage />,
       },
       {
