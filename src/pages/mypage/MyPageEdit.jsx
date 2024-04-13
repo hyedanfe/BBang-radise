@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetUserInfo } from '@hooks/queries/user';
-import Button from '@components/ui/Button';
+import Button from '@components/ui/button/Button';
 import { useForm } from 'react-hook-form';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
