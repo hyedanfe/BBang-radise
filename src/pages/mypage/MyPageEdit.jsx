@@ -48,7 +48,6 @@ function MyPageEdit() {
       alert('회원정보 수정에 성공하였습니다.');
     } catch (err) {
       console.log(err);
-      // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
       if (err.response?.data.errors) {
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
