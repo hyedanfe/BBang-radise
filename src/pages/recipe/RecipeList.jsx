@@ -6,6 +6,7 @@ import Text from '@components/ui/Text';
 import AddIcon from '@assets/AddIcon';
 import { useEffect } from 'react';
 import Search from '@components/ui/Search';
+import Section from '@components/ui/Section';
 
 function RecipeList() {
   const axios = useCustomAxios();
@@ -45,27 +46,29 @@ function RecipeList() {
   console.log(recipeList);
 
   return (
-    <div className="main">
-      <section className="main-content">
-        <Text color="black" display="block" typography="display_l">
-          베이킹 레시피
-        </Text>
-        <Text color="black" typography="light_l">
-          이곳은 빵라다이스의 광장입니다. 빵라다이스의 거주민들은 서로 다양한 레시피를 공유하고 빵을 만들며 빵라다이스를 만들어 나가고 있습니다.
-        </Text>
-      </section>
-      <section className="content">
-        <Search onClick={handleSearch} />
-        <div className="content-list">
-          {isLoading && '로딩 중..'}
-          {error && error.message}
-          {recipeList}
-        </div>
-      </section>
-      <button type="button">
-        <AddIcon stroke="black" width="27px" />
-      </button>
-    </div>
+    <Section>
+      <div className="main">
+        <section className="main-content">
+          <Text color="black" display="block" typography="display_l">
+            베이킹 레시피
+          </Text>
+          <Text color="black" typography="light_l">
+            이곳은 빵라다이스의 광장입니다. 빵라다이스의 거주민들은 서로 다양한 레시피를 공유하고 빵을 만들며 빵라다이스를 만들어 나가고 있습니다.
+          </Text>
+        </section>
+        <section className="content">
+          <Search onClick={handleSearch} />
+          <div className="content-list">
+            {isLoading && '로딩 중..'}
+            {error && error.message}
+            {recipeList}
+          </div>
+        </section>
+        <button type="button">
+          <AddIcon stroke="black" width="27px" />
+        </button>
+      </div>
+    </Section>
   );
 }
 
