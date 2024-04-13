@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetUserInfo } from '@hooks/queries/user';
 import Button from '@components/ui/Button';
-import useMemberStore from '@zustand/memberStore.mjs';
 import { useForm } from 'react-hook-form';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
@@ -28,9 +27,9 @@ function MyPageEdit() {
       introduction: '',
     },
   });
+
   const item = data?.item || [];
   console.log(item);
-  const setUserData = useMemberStore((state) => state.setUser);
 
   useEffect(() => {
     if (item) {
@@ -45,7 +44,7 @@ function MyPageEdit() {
 
   const onSubmit = async (formData) => {
     try {
-      await patchUserInfo(formData);
+      await patchUserInfo(_id, formData);
       alert('회원정보 수정에 성공하였습니다.');
     } catch (err) {
       console.log(err);
@@ -56,11 +55,6 @@ function MyPageEdit() {
         alert(err.response?.data.message);
       }
     }
-  };
-
-  const handleLogout = () => {
-    setUserData(null);
-    navigate('/');
   };
 
   return (
@@ -112,7 +106,6 @@ function MyPageEdit() {
           </form>
         </div>
       </div>
-      <Button onClick={handleLogout}>로그아웃</Button>
     </>
   );
 }
