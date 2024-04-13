@@ -64,7 +64,7 @@ function SignUp() {
   return (
     <Section>
       <S.SignUpWrapper>
-        <Text typography="display_xl">회원가입</Text>
+        <Text typography="display_l">회원가입</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
