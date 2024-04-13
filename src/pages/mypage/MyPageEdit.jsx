@@ -4,7 +4,7 @@ import Button from '@components/ui/Button';
 import { useForm } from 'react-hook-form';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
-import Submit from '@components/ui/Submit';
+import Submit from '@components/ui/button/Submit';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import { useEffect } from 'react';
 
