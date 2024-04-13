@@ -28,11 +28,12 @@ function SignUp() {
   const onSubmit = async (formData) => {
     try {
       formData.type = 'seller';
+      console.log(formData);
 
       if (formData.profileImage.length > 0) {
         const fileRes = await postSingleFile(formData.profileImage[0]);
         console.log(fileRes);
-        formData.profileImage = fileRes.data.item.name;
+        formData.profileImage = fileRes.data.item[0].name;
       } else {
         delete formData.profileImage;
       }
