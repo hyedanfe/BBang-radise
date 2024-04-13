@@ -1,12 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetUserInfo } from '@hooks/queries/user';
-import Button from '@components/ui/button/Button';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import Button from '@components/ui/button/Button';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import Submit from '@components/ui/button/Submit';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
-import { useEffect } from 'react';
+import Section from '@components/ui/Section';
+import * as S from '@styles/mypage/mypage.style';
 
 function MyPageEdit() {
   const navigate = useNavigate();
@@ -57,55 +59,50 @@ function MyPageEdit() {
   };
 
   return (
-    <>
-      <div>
-        <div>
+    <Section>
+      <S.MyPageWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <h2>내 정보 수정</h2>
+            <Input
+              type="text"
+              id="name"
+              label="이름"
+              height="40px"
+              placeholder="이름을 입력하세요"
+              error={errors.name && errors.name.message}
+              {...register('name', {
+                required: '이름을 입력하세요.',
+                minLength: {
+                  value: 2,
+                  message: '이름을 2글자 이상 입력하세요.',
+                },
+              })}
+            />
           </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <Input
-                type="text"
-                id="name"
-                label="이름"
-                height="40px"
-                placeholder="이름을 입력하세요"
-                error={errors.name && errors.name.message}
-                {...register('name', {
-                  required: '이름을 입력하세요.',
-                  minLength: {
-                    value: 2,
-                    message: '이름을 2글자 이상 입력하세요.',
-                  },
-                })}
-              />
-            </div>
-            <div>
-              <Input type="email" id="email" label="이메일" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
-            </div>
-            <div>
-              <img src="" alt="" />
-            </div>
-            <div>
-              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
-            </div>
-            <div>
-              <Button
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                수정 취소
-              </Button>
-            </div>
-            <div>
-              <Submit>수정 완료</Submit>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
+          <div>
+            <Input type="email" id="email" label="이메일" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
+          </div>
+          <div>
+            <img src="" alt="" />
+          </div>
+          <div>
+            <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
+          </div>
+          <div>
+            <Button
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              수정 취소
+            </Button>
+          </div>
+          <div>
+            <Submit>수정 완료</Submit>
+          </div>
+        </form>
+      </S.MyPageWrapper>
+    </Section>
   );
 }
 
