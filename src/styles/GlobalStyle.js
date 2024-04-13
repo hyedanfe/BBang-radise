@@ -133,7 +133,7 @@ const GlobalStyle = createGlobalStyle`
   }
   @media all and (min-width: 768px) {
     :root {
-      font-size: 13px;
+      font-size: 11px;
     }
   }
   table {
