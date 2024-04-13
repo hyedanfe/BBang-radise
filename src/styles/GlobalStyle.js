@@ -91,7 +91,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    box-sizing: border-box;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -106,6 +105,9 @@ const GlobalStyle = createGlobalStyle`
   nav,
   section {
     display: block;
+  }
+  *{
+    box-sizing: border-box;
   }
   body {
     line-height: 1;
@@ -126,6 +128,14 @@ const GlobalStyle = createGlobalStyle`
     content: '';
     content: none;
   }
+  :root {
+    font-size: 10px;
+  }
+  @media all and (min-width: 768px) {
+    :root {
+      font-size: 13px;
+    }
+  }
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -144,14 +154,6 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
     text-decoration: inherit;
-  }
-  :root{
-    font-size: 10px;
-  }
-  @media all and (min-width:768px){
-    :root{
-      font-size: 13px;
-    }
   }
 `;
 
