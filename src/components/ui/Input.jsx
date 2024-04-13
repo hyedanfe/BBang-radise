@@ -18,13 +18,16 @@ const LabelStyle = styled.label`
 const InputStyle = styled.input`
   width: 100%;
   border-radius: 6px;
-  padding: 10px 12px;
+  padding: 10px 12px 9px 12px;
   margin-left: 1px;
   font-family: pretendard, sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   font-size: 1.5rem;
   line-height: 1.5;
+  color: var(--gray-08);
+  outline: var(--gray-06) solid 1px;
+  border: none;
 
   &:focus,
   &:hover {
@@ -34,6 +37,7 @@ const InputStyle = styled.input`
 
   &::placeholder {
     color: var(--gray-05);
+    font-weight: 400;
   }
 `;
 
@@ -44,9 +48,7 @@ const ErrorMessageStyle = styled.div`
 `;
 
 const Input = forwardRef(({ id, name, label, type, placeholder, error, ...rest }, ref) => {
-  const errorOutline = error ? '2px solid var(--primary-01)' : 'inherit';
-  const errorBoxshadow = error ? '0 0 4px 3px rgba(255, 107, 0, 0.7)' : 'inherit';
-  const errorBorder = error ? 'none' : 'solid 1px var(--gray-06)';
+  const errorBoxshadow = error ? '0 0 4px 4px rgba(255, 107, 0, 0.7)' : 'none';
 
   return (
     <InputContainerStyle>
@@ -58,16 +60,7 @@ const Input = forwardRef(({ id, name, label, type, placeholder, error, ...rest }
             </Text>
           </LabelStyle>
         )}
-        <InputStyle
-          id={id}
-          name={name}
-          aria-label={label}
-          type={type}
-          placeholder={placeholder}
-          ref={ref}
-          {...rest}
-          style={{ outline: errorOutline, boxShadow: errorBoxshadow, border: errorBorder }}
-        />
+        <InputStyle id={id} name={name} aria-label={label} type={type} placeholder={placeholder} ref={ref} {...rest} style={{ boxShadow: errorBoxshadow }} />
       </div>
       {error && (
         <ErrorMessageStyle>
