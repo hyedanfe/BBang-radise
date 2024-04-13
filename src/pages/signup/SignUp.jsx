@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Submit from '@components/ui/Submit';
+import Submit from '@components/ui/button/Submit';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
-import Button from '@components/ui/Button';
+import Button from '@components/ui/button/Button';
 import { useState } from 'react';
 import Section from '@components/ui/Section';
 import * as S from '@styles/signup/signup.style';

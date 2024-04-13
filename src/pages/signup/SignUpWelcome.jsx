@@ -1,4 +1,4 @@
-import Button from '@components/ui/Button';
+import Button from '@components/ui/button/Button';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import Button from '@components/ui/Button';
+import Button from '@components/ui/button/Button';
 import PropTypes from 'prop-types';
 
 Submit.propTypes = {
