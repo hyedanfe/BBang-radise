@@ -20,8 +20,8 @@ function SignUp() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
     setError,
+    formState: { errors },
   } = useForm({ mode: 'onChange' });
   const { email } = watch();
 
@@ -31,8 +31,8 @@ function SignUp() {
 
       if (formData.profileImage.length > 0) {
         const fileRes = await postSingleFile(formData.profileImage[0]);
-
-        formData.profileImage = fileRes.data.file.name;
+        console.log(fileRes);
+        formData.profileImage = fileRes.data.item.name;
       } else {
         delete formData.profileImage;
       }
