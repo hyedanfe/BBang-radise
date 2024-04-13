@@ -14,13 +14,8 @@ Section.propTypes = {
   sectionTitle: PropTypes.string,
 };
 
-function Section({ children, sectionTitle }) {
-  return (
-    <SectionStyle>
-      {sectionTitle && <h2>{sectionTitle}</h2>}
-      {children}
-    </SectionStyle>
-  );
+function Section({ children }) {
+  return <SectionStyle>{children}</SectionStyle>;
 }
 
 export default Section;
