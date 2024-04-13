@@ -7,6 +7,9 @@ import useUserApis from '@hooks/apis/useUserApis.mjs';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
 import Button from '@components/ui/button/Button';
 import { useState } from 'react';
+import Section from '@components/ui/Section';
+import * as S from '@styles/signup/signup.style';
+import Text from '@components/ui/Text';
 
 function SignUp() {
   const [emailMsg, setEmailMsg] = useState('');
@@ -19,7 +22,7 @@ function SignUp() {
     watch,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm({ mode: 'onChange' });
   const { email } = watch();
 
   const onSubmit = async (formData) => {
@@ -59,12 +62,9 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>회원가입</h2>
-        </div>
-
+    <Section>
+      <S.SignUpWrapper>
+        <Text typography="display_xl">회원가입</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
@@ -127,8 +127,8 @@ function SignUp() {
             <Submit>회원가입</Submit>
           </div>
         </form>
-      </div>
-    </div>
+      </S.SignUpWrapper>
+    </Section>
   );
 }
 

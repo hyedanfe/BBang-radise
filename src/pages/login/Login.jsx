@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
-import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useMemberStore from '@zustand/memberStore.mjs';
 import Input from '@components/ui/Input';
 import Submit from '@components/ui/button/Submit';
 import Button from '@components/ui/button/Button';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
+import Section from '@components/ui/Section';
+import * as S from '@styles/login/login.style';
+import Text from '@components/ui/Text';
 
 function Login() {
   const location = useLocation();
@@ -53,12 +55,9 @@ function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>로그인</h2>
-        </div>
-
+    <Section>
+      <S.LoginWrapper>
+        <Text typography="display_xl">로그인</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
@@ -100,8 +99,8 @@ function Login() {
             </Button>
           </div>
         </form>
-      </div>
-    </div>
+      </S.LoginWrapper>
+    </Section>
   );
 }
 
