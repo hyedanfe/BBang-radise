@@ -1,10 +1,13 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import Text from '@components/ui/Text';
 
-const TextArea = forwardRef(({ id, label, name, value, placeholder, onBlur, onChange, isValid, validateText, ...rest }, ref) => {
+const TextArea = forwardRef(({ id, typography, label, name, value, placeholder, onBlur, onChange, isValid, validateText, ...rest }, ref) => {
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>
+        <Text typography={typography}>{label}</Text>
+      </label>
       <textarea
         id={id}
         name={name}
@@ -25,6 +28,7 @@ const TextArea = forwardRef(({ id, label, name, value, placeholder, onBlur, onCh
 
 TextArea.propTypes = {
   id: PropTypes.string.isRequired,
+  typography: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,

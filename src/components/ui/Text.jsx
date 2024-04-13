@@ -10,7 +10,7 @@ const Text = styled.span(
     textAlign,
     fontWeight: bold ? 'bold' : fontWeight,
   }),
-  ({ typography = 't1' }) => typographyMap[typography],
+  ({ typography = 'regular_m' }) => typographyMap[typography],
 );
 
 Text.propTypes = {
