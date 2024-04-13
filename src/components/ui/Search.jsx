@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Submit from '@components/ui/Submit';
+import Submit from '@components/ui/button/Submit';
 
 Search.propTypes = {
   onClick: PropTypes.func,

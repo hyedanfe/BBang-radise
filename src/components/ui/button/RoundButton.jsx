@@ -1,5 +1,7 @@
 import AddIcon from '@assets/AddIcon';
+import EditIcon from '@assets/EditIcon';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const RoundButtonStyle = styled.button`
   width: 65px;
@@ -9,7 +11,7 @@ const RoundButtonStyle = styled.button`
   bottom: 18px;
   right: 15px;
   background-color: ${(props) => (props.disabled ? 'var(--gray-05)' : 'var(--primary-02)')};
-  box-shadow: 2px 3px 8px 1px rgba(0, 0, 0, 0.55);
+  box-shadow: 1px 2px 7px 1px rgba(20, 20, 20, 0.45);
   transition: all 0.2s ease-in-out;
 
   &:hover {
@@ -31,12 +33,14 @@ const IconDiv = styled.div`
   }
 `;
 
-function RoundButton({ ...rest }) {
+RoundButton.propTypes = {
+  page: PropTypes.string,
+};
+
+function RoundButton({ page, ...rest }) {
   return (
-    <RoundButtonStyle {...rest}>
-      <IconDiv>
-        <AddIcon stroke="var(--white)"></AddIcon>
-      </IconDiv>
+    <RoundButtonStyle type="button" page={page} {...rest}>
+      <IconDiv>{page == 'add' ? <AddIcon stroke="var(--white)"></AddIcon> : <EditIcon stroke="var(--white)"></EditIcon>}</IconDiv>
     </RoundButtonStyle>
   );
 }

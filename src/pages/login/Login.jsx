@@ -3,8 +3,8 @@ import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useMemberStore from '@zustand/memberStore.mjs';
 import Input from '@components/ui/Input';
-import Submit from '@components/ui/Submit';
-import Button from '@components/ui/Button';
+import Submit from '@components/ui/button/Submit';
+import Button from '@components/ui/button/Button';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 
 function Login() {

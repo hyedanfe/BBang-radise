@@ -1,7 +1,11 @@
 import AddIcon from '@assets/AddIcon';
+import ArrowIcon from '@assets/ArrowIcon';
 import BookmarkIcon from '@assets/BookmarkIcon';
-import Button from '@components/ui/Button';
-import RoundButton from '@components/ui/RoundButton';
+import BookmarkButton from '@components/ui/button/BookmarkButton';
+import Button from '@components/ui/button/Button';
+import CommentDeleteButton from '@components/ui/button/CommentDeleteButton';
+import CommentEditButton from '@components/ui/button/CommentEditButton';
+import RoundButton from '@components/ui/button/RoundButton';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import { typographyMap } from '@styles/typography';
@@ -20,7 +24,13 @@ const MainPage = () => {
         버튼 테스트
       </Button>
       <Button type="submit">제출 버튼 테스트</Button>
-      <RoundButton></RoundButton>
+      <RoundButton page="edit"></RoundButton>
+      <BookmarkButton toggle={false}></BookmarkButton>
+      <BookmarkButton></BookmarkButton>
+      <BookmarkButton toggle={true}></BookmarkButton>
+      <CommentEditButton></CommentEditButton>
+      <CommentDeleteButton></CommentDeleteButton>
+      <ArrowIcon stroke="var(--primary-01)"></ArrowIcon>
     </Section>
   );
 };
