@@ -10,9 +10,9 @@ const HeaderStyle = styled.header`
   display: flex;
   position: fixed;
   width: 100vw;
-  padding: 20px 17px 0px 15px;
+  padding: 20px 17px 0px 16px;
   align-items: center;
-  gap: 16px;
+  gap: 13px;
 
   @media all and (min-width: 768px) {
     padding: 20px 33px 0px 33px;
@@ -43,7 +43,7 @@ const Navigation = styled.nav`
   @media all and (min-width: 768px) {
     justify-content: flex-end;
     height: 56px;
-    padding: 7px 34px 0px 34px;
+    padding: 9px 34px 0px 34px;
     gap: 60px;
 
     &:hover {
