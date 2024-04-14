@@ -22,7 +22,7 @@ const SelectStyle = styled.select`
   font-family: pretendard, sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.5;
   color: var(--gray-08);
   outline: var(--gray-06) solid 1px;
