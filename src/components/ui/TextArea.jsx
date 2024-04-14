@@ -47,7 +47,7 @@ const ErrorMessageStyle = styled.div`
   left: 2px;
 `;
 
-const TextArea = forwardRef(({ id, label, name, value, placeholder, isValid, validateText, onChange, onBlur, ...rest }, ref) => {
+const TextArea = forwardRef(({ id, label, name, value, placeholder, isValid, validateText, onChange, onBlur, rows, ...rest }, ref) => {
   return (
     <TextareaContainerStyle>
       {label && (
@@ -66,6 +66,7 @@ const TextArea = forwardRef(({ id, label, name, value, placeholder, isValid, val
         onBlur={onBlur}
         style={{ boxShadow: isValid ? '0 0 4px 4px rgba(255, 107, 0, 0.7)' : 'none' }}
         onChange={onChange}
+        rows={rows}
         {...rest}
         ref={ref}
       />
@@ -91,6 +92,7 @@ TextArea.propTypes = {
   onChange: PropTypes.func,
   isValid: PropTypes.bool,
   validateText: PropTypes.string,
+  rows: PropTypes.string,
 };
 
 TextArea.displayName = 'TextArea';
