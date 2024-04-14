@@ -5,11 +5,11 @@ import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
-import Button from '@components/ui/button/Button';
 import { useState } from 'react';
 import Section from '@components/ui/Section';
 import * as S from '@styles/signup/signup.style';
 import Text from '@components/ui/Text';
+import ValidationButton from '@components/ui/button/ValidationButton';
 
 function SignUp() {
   const [emailMsg, setEmailMsg] = useState('');
@@ -101,10 +101,14 @@ function SignUp() {
             />
           </div>
           <div>
-            {emailMsg && <span>{emailMsg}</span>}
-            <Button disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
-              중복확인
-            </Button>
+            {emailMsg && (
+              <Text typography="bold_s" color="primary02">
+                {emailMsg}
+              </Text>
+            )}
+            <ValidationButton disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
+              중복 확인
+            </ValidationButton>
           </div>
           <div>
             <Input
