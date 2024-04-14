@@ -17,14 +17,14 @@ export const typographyMap = {
 
   display_l: css`
     font-family: dunkel-sans-variable, sans-serif;
-    font-variation-settings: "GLAT" 1000, "wdth" 850;
+    font-variation-settings: 'GLAT' 1000, 'wdth' 850;
     font-size: 2.5rem;
     line-height: 1.5;
   `,
 
   display_m: css`
     font-family: dunkel-sans-variable, sans-serif;
-    font-variation-settings: "GLAT" 1000, "wdth" 850;
+    font-variation-settings: 'GLAT' 1000, 'wdth' 850;
     font-size: 1.8rem;
     line-height: 1.5;
   `,
@@ -142,6 +142,14 @@ export const typographyMap = {
     font-style: normal;
     font-size: 1.4rem;
     line-height: 1.5;
+  `,
+
+  medium_s: css`
+    font-family: pretendard, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.2rem;
+    line-height: 1;
   `,
 
   medium_xs: css`

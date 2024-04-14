@@ -1,12 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Submit from '@components/ui/Submit';
+import Submit from '@components/ui/button/Submit';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
-import Button from '@components/ui/Button';
 import { useState } from 'react';
+import Section from '@components/ui/Section';
+import * as S from '@styles/signup/signup.style';
+import Text from '@components/ui/Text';
+import ValidationButton from '@components/ui/button/ValidationButton';
 
 function SignUp() {
   const [emailMsg, setEmailMsg] = useState('');
@@ -17,19 +20,20 @@ function SignUp() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
     setError,
-  } = useForm();
+    formState: { errors },
+  } = useForm({ mode: 'onChange' });
   const { email } = watch();
 
   const onSubmit = async (formData) => {
     try {
       formData.type = 'seller';
+      console.log(formData);
 
       if (formData.profileImage.length > 0) {
         const fileRes = await postSingleFile(formData.profileImage[0]);
-
-        formData.profileImage = fileRes.data.file.name;
+        console.log(fileRes);
+        formData.profileImage = fileRes.data.item[0].name;
       } else {
         delete formData.profileImage;
       }
@@ -59,12 +63,9 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>회원가입</h2>
-        </div>
-
+    <Section>
+      <S.SignUpWrapper>
+        <Text typography="display_l">회원가입</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
@@ -100,10 +101,14 @@ function SignUp() {
             />
           </div>
           <div>
-            {emailMsg && <span>{emailMsg}</span>}
-            <Button disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
-              중복확인
-            </Button>
+            {emailMsg && (
+              <Text typography="bold_s" color="primary02">
+                {emailMsg}
+              </Text>
+            )}
+            <ValidationButton disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
+              중복 확인
+            </ValidationButton>
           </div>
           <div>
             <Input
@@ -127,8 +132,8 @@ function SignUp() {
             <Submit>회원가입</Submit>
           </div>
         </form>
-      </div>
-    </div>
+      </S.SignUpWrapper>
+    </Section>
   );
 }
 

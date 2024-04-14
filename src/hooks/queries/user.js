@@ -11,3 +11,14 @@ export const useGetUserInfo = (_id) => {
     suspense: true,
   });
 };
+
+export const useGetUserClass = () => {
+  const { getMyClassList } = useUserApis();
+
+  return useQuery({
+    queryKey: ['seller'],
+    queryFn: () => getMyClassList(),
+    select: (response) => response.data,
+    suspense: true,
+  });
+};

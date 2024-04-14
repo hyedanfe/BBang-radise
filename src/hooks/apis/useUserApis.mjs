@@ -24,11 +24,23 @@ const useUserApis = () => {
     return axios.get(`/users/${_id}`);
   };
 
+  const getMyClassList = () => {
+    return axios.get(`/seller/products`);
+  };
+
+  const patchUserInfo = (_id) => {
+    return axios.patch(`/users/${_id}`, {
+      params: { _id: _id },
+    });
+  };
+
   return {
     postSignUp,
     getEmailVerify,
     postLogin,
     getUserInfo,
+    getMyClassList,
+    patchUserInfo,
   };
 };
 

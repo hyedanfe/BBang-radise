@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 const useMemberStore = create(
   persist(
     (set) => ({
-      user: {},
+      user: null,
       setUser: (userData) => set({ user: userData }),
     }),
     {
