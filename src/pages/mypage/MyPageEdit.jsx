@@ -1,19 +1,18 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useGetUserInfo } from '@hooks/queries/user';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import useUserApis from '@hooks/apis/useUserApis.mjs';
 import Button from '@components/ui/button/Button';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import Submit from '@components/ui/button/Submit';
-import useUserApis from '@hooks/apis/useUserApis.mjs';
 import Section from '@components/ui/Section';
+import Text from '@components/ui/Text';
 import * as S from '@styles/mypage/mypage.style';
 
 function MyPageEdit() {
   const navigate = useNavigate();
   const { _id } = useParams();
-  const { data } = useGetUserInfo(_id);
   const { patchUserInfo } = useUserApis();
   const {
     register,
@@ -30,19 +29,19 @@ function MyPageEdit() {
     },
   });
 
-  const item = data?.item || [];
-  console.log(item);
+  const location = useLocation();
+  const user = location.state?.user;
 
   useEffect(() => {
-    if (item) {
+    if (user) {
       reset({
-        name: item.name,
-        email: item.email,
-        password: item.password,
-        introduction: item.introduction,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        introduction: user.introduction,
       });
     }
-  }, [item]);
+  }, [user]);
 
   const onSubmit = async (formData) => {
     try {
@@ -61,46 +60,50 @@ function MyPageEdit() {
   return (
     <Section>
       <S.MyPageWrapper>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Input
-              type="text"
-              id="name"
-              label="이름"
-              height="40px"
-              placeholder="이름을 입력하세요"
-              error={errors.name && errors.name.message}
-              {...register('name', {
-                required: '이름을 입력하세요.',
-                minLength: {
-                  value: 2,
-                  message: '이름을 2글자 이상 입력하세요.',
-                },
-              })}
-            />
-          </div>
-          <div>
-            <Input type="email" id="email" label="이메일" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
-          </div>
-          <div>
-            <img src="" alt="" />
-          </div>
-          <div>
-            <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
-          </div>
-          <div>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              수정 취소
-            </Button>
-          </div>
-          <div>
-            <Submit>수정 완료</Submit>
-          </div>
-        </form>
+        {user && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <Input
+                type="text"
+                id="name"
+                label="이름"
+                height="40px"
+                typography="semibold_m"
+                placeholder="이름을 입력하세요"
+                error={errors.name && errors.name.message}
+                {...register('name', {
+                  required: '이름을 입력하세요.',
+                  minLength: {
+                    value: 2,
+                    message: '이름을 2글자 이상 입력하세요.',
+                  },
+                })}
+              />
+            </div>
+            <div>
+              <Input type="email" id="email" label="이메일" typography="semibold_m" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
+            </div>
+            <div>
+              <Text typography="semibold_m">프로필 이미지</Text>
+            </div>
+            <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
+            <div>
+              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" typography="semibold_m" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
+            </div>
+            <div>
+              <Button
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                수정 취소
+              </Button>
+            </div>
+            <div>
+              <Submit>수정 완료</Submit>
+            </div>
+          </form>
+        )}
       </S.MyPageWrapper>
     </Section>
   );

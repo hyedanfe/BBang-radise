@@ -75,6 +75,7 @@ const Input = forwardRef(({ id, name, label, type, placeholder, error, ...rest }
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
+  typography: PropTypes.string,
   name: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
