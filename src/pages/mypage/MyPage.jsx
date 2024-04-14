@@ -5,6 +5,7 @@ import SimpleButton from '@pages/mypage/SimpleButton';
 import * as S from '@styles/mypage/mypage.style';
 import { useGetUserInfo } from '@hooks/queries/user';
 import Text from '@components/ui/Text';
+import Badge from '@components/ui/Badge';
 
 function MyPage() {
   const { _id } = useParams();
@@ -35,7 +36,7 @@ function MyPage() {
             <div>
               <Text typography="medium_xs">{user.email}</Text>
             </div>
-            <div>베이킹 새싹</div>
+            <Badge type="beginner" />
             <div>
               <Text typography="light_s">
                 이곳은 베이킹 클래스 페이지 입니다. 빵라다이스의 거주민들은 서로 빵라다이스에 모여 빵을 만듭니다. 베이킹 마스터가 진행하는 베이킹 클래스를 들어보며 빵라다이스 거주민이 되어보세요.

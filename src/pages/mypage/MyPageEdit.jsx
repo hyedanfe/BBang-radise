@@ -81,14 +81,14 @@ function MyPageEdit() {
               />
             </div>
             <div>
-              <Input type="email" id="email" label="이메일" typography="semibold_m" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
+              <Input type="email" id="email" label="이메일" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
             </div>
             <div>
               <Text typography="semibold_m">프로필 이미지</Text>
             </div>
             <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
             <div>
-              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" typography="semibold_m" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
+              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
             </div>
             <div>
               <Button

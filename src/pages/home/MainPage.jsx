@@ -8,6 +8,7 @@ import CommentEditButton from '@components/ui/button/CommentEditButton';
 import RoundButton from '@components/ui/button/RoundButton';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
+import TextArea from '@components/ui/TextArea';
 import { typographyMap } from '@styles/typography';
 import styled from 'styled-components';
 
@@ -31,6 +32,7 @@ const MainPage = () => {
       <CommentEditButton></CommentEditButton>
       <CommentDeleteButton></CommentDeleteButton>
       <ArrowIcon stroke="var(--primary-01)"></ArrowIcon>
+      <TextArea maxLength="49" validateText="50자 이내로 작성해주세요"></TextArea>
     </Section>
   );
 };
