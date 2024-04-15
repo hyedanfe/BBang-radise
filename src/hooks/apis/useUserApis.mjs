@@ -20,15 +20,31 @@ const useUserApis = () => {
   };
 
   // 마이페이지
-  const getUserInfo = (_id) => {
+  const getMyInfo = (_id) => {
     return axios.get(`/users/${_id}`);
+  };
+
+  const getMyRecipeList = (recipe) => {
+    return axios.get(`/posts`, {
+      params: {
+        type: recipe,
+      },
+    });
   };
 
   const getMyClassList = () => {
     return axios.get(`/seller/products`);
   };
 
-  const patchUserInfo = (_id, formData) => {
+  const getMyBookmarkList = () => {
+    return axios.get(`bookmarks/product`);
+  };
+
+  const getMyJoinList = () => {
+    return axios.get(`orders`);
+  };
+
+  const patchMyInfo = (_id, formData) => {
     return axios.patch(`/users/${_id}`, formData);
   };
 
@@ -36,9 +52,12 @@ const useUserApis = () => {
     postSignUp,
     getEmailVerify,
     postLogin,
-    getUserInfo,
+    getMyInfo,
+    getMyRecipeList,
     getMyClassList,
-    patchUserInfo,
+    getMyBookmarkList,
+    getMyJoinList,
+    patchMyInfo,
   };
 };
 
