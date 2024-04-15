@@ -129,7 +129,7 @@ const GlobalStyle = createGlobalStyle`
     content: none;
   }
   :root {
-    font-size: 10px;
+    font-size: 9px;
   }
   @media all and (min-width: 768px) {
     :root {
