@@ -50,7 +50,7 @@ const ClassCardContent = styled.div`
   margin: 0px 7px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 `;
 
 const ClassCardTitle = styled.div`

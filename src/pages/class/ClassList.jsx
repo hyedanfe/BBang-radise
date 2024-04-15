@@ -23,7 +23,7 @@ const ClassListPage = styled.div`
 `;
 
 const ClassListText = styled.div`
-  width: 85%;
+  width: 86%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -44,7 +44,22 @@ const ClassListContent = styled.div`
 `;
 
 function ClassList() {
-  const { isLoading, data, error } = useGetClassInfo();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = searchParams.get('page');
+
+  const { isLoading, data, error, refetch } = useGetClassInfo(page, searchParams);
+
+  useEffect(() => {
+    refetch();
+  }, [searchParams.toString()]);
+
+  // 검색 요청시 주소의 query string 수정
+  const handleSearch = (keyword) => {
+    searchParams.set('keyword', keyword);
+    searchParams.set('page', 1);
+    setSearchParams(searchParams);
+  };
 
   const classList = data?.item.map((item) => <ClassListItem key={item._id} item={item} />);
 
@@ -70,7 +85,7 @@ function ClassList() {
               </Text>
             </ClassListSub>
           </ClassListText>
-          <Search></Search>
+          <Search onClick={handleSearch}></Search>
         </ClassListPage>
 
         <ClassListContent>
