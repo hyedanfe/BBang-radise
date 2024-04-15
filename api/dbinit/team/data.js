@@ -12,15 +12,16 @@ export const initData = async (nextSeq) => {
     // 회원
     user: [
       {
+        _id: 1,
         email: 'admin@market.com',
         password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: 'admin',
         phone: '0118889999',
-        address: '서울시 강남구 역삼동 123',
         type: 'admin',
         profileImage: 'likelion.png',
       },
       {
+        _id: 2,
         email: 'GD@market.com',
         password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: 'GD',
@@ -36,6 +37,24 @@ export const initData = async (nextSeq) => {
               name: '집',
               value: '서울시 강남구 역삼동 123',
             },
+            {
+              _id: 3,
+              email: 'seller1@market.com',
+              password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+              name: 'seller',
+              phone: '0118889999',
+              type: 'seller',
+              profileImage: 'likelion.png',
+            },
+            {
+              _id: 4,
+              email: 'seller2@market.com',
+              password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+              name: 'seller',
+              phone: '0118889999',
+              type: 'admin',
+              profileImage: 'likelion.png',
+            },
           ],
         },
       },
@@ -49,8 +68,8 @@ export const initData = async (nextSeq) => {
         name: '따끈따끈 매일 아침 갓 만든 식빵과 함께하기',
         mainImages: [
           {
-            'path ': '/files/00-sample/sample-football.jpg',
-            'name ': 'bbang03.jpg',
+            path: '/files/00-sample/sample-football.jpg',
+            name: 'bbang03.jpg',
           },
         ],
         content: '베이킹에 관심있는 사람이라면 누구나 도전할 만한 베이킹 클래스입니다. 매 수업마다 새로운 빵을 만듭니다',
@@ -77,8 +96,8 @@ export const initData = async (nextSeq) => {
         name: '누구나 쉽게 할 수 있는 일일 클래스 ',
         mainImages: [
           {
-            'path ': '/files/00-sample/sample-football.jpg',
-            'name ': 'bbang02.jpg',
+            path: '/files/00-sample/sample-football.jpg',
+            name: 'bbang02.jpg',
           },
         ],
         content: '베이킹에 관심있는 사람이라면 누구나 도전할 만한 베이킹 클래스입니다. 매 수업마다 새로운 빵을 만듭니다',
@@ -105,8 +124,8 @@ export const initData = async (nextSeq) => {
         name: '버터 가득 모닝빵 만들기 글자 수 제한 1줄보다는 길게 ',
         mainImages: [
           {
-            'path ': '/files/00-sample/sample-football.jpg',
-            'name ': 'bbang01.jpg',
+            path: '/files/00-sample/sample-football.jpg',
+            name: 'bbang01.jpg',
           },
         ],
         content:
@@ -134,8 +153,8 @@ export const initData = async (nextSeq) => {
         name: '에클레어 디저트 마스터 클래스 ',
         mainImages: [
           {
-            'path ': '/files/00-sample/sample-football.jpg',
-            'name ': 'bbang04.jpg',
+            path: '/files/00-sample/sample-football.jpg',
+            name: 'bbang04.jpg',
           },
         ],
         content:
@@ -144,7 +163,7 @@ export const initData = async (nextSeq) => {
           startAt: '2024.03.10 12:00:00',
           endAt: '2024.04.02 12:00:00',
           classAt: '2024.04.10 12:00:00',
-          address: '광주광역시 동구',
+          address: '광주광역시 북구 문흥동',
         },
         show: true,
         shippingFees: 0,
