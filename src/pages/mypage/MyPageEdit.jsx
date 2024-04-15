@@ -17,7 +17,7 @@ function MyPageEdit() {
   const { _id } = useParams();
   const navigate = useNavigate();
   const { data } = useGetUserInfo(_id);
-  const { patchUserInfo } = useUserApis();
+  const { patchMyInfo } = useUserApis();
   const { isOpen, handleModalToggle } = useModal();
   const [showToast, setShowToast] = useState(false);
 
@@ -51,7 +51,7 @@ function MyPageEdit() {
 
   const onSubmit = async (formData) => {
     try {
-      await patchUserInfo(_id, formData);
+      await patchMyInfo(_id, formData);
       handleModalToggle();
       setShowToast(true);
     } catch (err) {
