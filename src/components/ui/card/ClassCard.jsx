@@ -71,10 +71,33 @@ const ClassCardTitle = styled.div`
   align-items: center;
 `;
 
+const H1 = styled.h1`
+  font-family: pretendard, sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1.9rem;
+  line-height: 1.5;
+  color: var(--black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+
+  @media all and (min-width: 768px) {
+    font-size: 1.7rem;
+  }
+`;
+
 const ClassCardHover = styled.div`
   display: none;
+  width: 9px;
   margin-top: 4px;
   margin-right: 6px;
+
+  @media all and (min-width: 768px) {
+    width: 9.5px;
+    margin-top: 1.4px;
+  }
 `;
 
 const ClassCardInfo = styled.div`
@@ -118,12 +141,10 @@ function ClassCard({ item }) {
         <ClassCardContent>
           <ClassCardTitle>
             <ClassCardHover className="card-hover">
-              <ArrowIcon width="9px" stroke="var(--primary-01)"></ArrowIcon>
+              <ArrowIcon width="100%" stroke="var(--primary-01)"></ArrowIcon>
             </ClassCardHover>
 
-            <Text typography="black_m" color="black" display="block">
-              {item.name}
-            </Text>
+            <H1>{item.name}</H1>
           </ClassCardTitle>
 
           <ClassCardInfo>

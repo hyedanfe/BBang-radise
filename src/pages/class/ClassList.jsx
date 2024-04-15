@@ -21,12 +21,12 @@ const ClassListWrapper = styled.div`
     width: calc(100% - 96px);
     height: 100vh;
     position: fixed;
-    padding: 120px 10px 0px 10px;
+    padding-top: 120px;
     flex-direction: row;
     overflow-y: scroll;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    gap: 90px;
+    gap: 60px;
   }
 `;
 
@@ -38,8 +38,8 @@ const ClassListPage = styled.div`
   @media all and (min-width: 768px) {
     max-width: 500px;
     position: sticky;
+
     top: 0px;
-    gap: 4%;
   }
 `;
 
@@ -53,6 +53,13 @@ const ClassListText = styled.div`
 const ClassListSub = styled.div`
   display: flex;
   gap: 5px;
+`;
+
+const ClassListSearch = styled.div`
+  @media all and (min-width: 768px) {
+    width: 86%;
+    padding-left: 3px;
+  }
 `;
 
 const ClassListContent = styled.div`
@@ -70,7 +77,7 @@ const ClassListContent = styled.div`
     columns-gap: 2%;
     padding-top: 13px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 `;
 
@@ -114,7 +121,9 @@ function ClassList() {
               </Text>
             </ClassListSub>
           </ClassListText>
-          <Search onClick={handleSearch}></Search>
+          <ClassListSearch>
+            <Search onClick={handleSearch}></Search>
+          </ClassListSearch>
         </ClassListPage>
 
         <ClassListContent>
