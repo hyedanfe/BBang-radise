@@ -9,17 +9,38 @@ import styled from 'styled-components';
 
 const ClassListWrapper = styled.div`
   width: 100%;
-  padding-top: 96px;
+  position: reltaive;
+  padding-top: 110px;
   display: flex;
+
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   margin-bottom: 100px;
+
+  @media all and (min-width: 768px) {
+    width: calc(100% - 96px);
+    height: 100vh;
+    position: fixed;
+    padding: 120px 10px 0px 10px;
+    flex-direction: row;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+    gap: 90px;
+  }
 `;
 
 const ClassListPage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+
+  @media all and (min-width: 768px) {
+    max-width: 500px;
+    position: sticky;
+    top: 0px;
+    gap: 4%;
+  }
 `;
 
 const ClassListText = styled.div`
@@ -34,20 +55,29 @@ const ClassListSub = styled.div`
   gap: 5px;
 `;
 
-const H1 = styled.h1``;
-
 const ClassListContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 2px;
+  padding: 0 2px;
+
+  > article:last-of-type {
+    padding-bottom: 120px;
+  }
+
+  @media all and (min-width: 768px) {
+    flex-grow: 1;
+    columns-gap: 2%;
+    padding-top: 13px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  }
 `;
 
 function ClassList() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = searchParams.get('page');
-
   const { isLoading, data, error, refetch } = useGetClassInfo(page, searchParams);
 
   useEffect(() => {
@@ -68,11 +98,10 @@ function ClassList() {
       <ClassListWrapper>
         <ClassListPage>
           <ClassListText>
-            <H1>
-              <Text typography="display_l" display="block" color="black">
-                베이킹 클래스
-              </Text>
-            </H1>
+            <Text typography="display_l" display="block" color="black">
+              베이킹 클래스
+            </Text>
+
             <Text typography="light_l" color="black" display="block">
               빵라다이스에서는 베이킹 마스터 주민분들께서 다양한 베이킹 클래스를 진행하고 있습니다. 베이킹 마스터분들이 진행하는 다양한 클래스에 참여하며 빵라다이스의 거주민 혜택을 누려보세요.
             </Text>

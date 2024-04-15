@@ -13,6 +13,7 @@ const HeaderStyle = styled.header`
   padding: 20px 17px 0px 16px;
   align-items: center;
   gap: 13px;
+  z-index: 999999;
 
   @media all and (min-width: 768px) {
     padding: 20px 33px 0px 33px;
