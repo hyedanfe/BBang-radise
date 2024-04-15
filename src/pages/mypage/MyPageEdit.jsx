@@ -1,19 +1,26 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useUserApis from '@hooks/apis/useUserApis.mjs';
 import Button from '@components/ui/button/Button';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
-import Submit from '@components/ui/button/Submit';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
+import { useGetUserInfo } from '@hooks/queries/user';
 import * as S from '@styles/mypage/mypage.style';
+import useModal from '@hooks/useModal';
+import Modal from '@components/ui/Modal';
+import Toast from '@components/ui/Toast';
 
 function MyPageEdit() {
-  const navigate = useNavigate();
   const { _id } = useParams();
+  const navigate = useNavigate();
+  const { data } = useGetUserInfo(_id);
   const { patchUserInfo } = useUserApis();
+  const { isOpen, handleModalToggle } = useModal();
+  const [showToast, setShowToast] = useState(false);
+
   const {
     register,
     reset,
@@ -29,8 +36,7 @@ function MyPageEdit() {
     },
   });
 
-  const location = useLocation();
-  const user = location.state?.user;
+  const user = data?.item;
 
   useEffect(() => {
     if (user) {
@@ -41,18 +47,20 @@ function MyPageEdit() {
         introduction: user.introduction,
       });
     }
-  }, [user]);
+  }, [user, reset]);
 
   const onSubmit = async (formData) => {
     try {
       await patchUserInfo(_id, formData);
-      alert('회원정보 수정에 성공하였습니다.');
+      handleModalToggle();
+      setShowToast(true);
     } catch (err) {
       console.log(err);
       if (err.response?.data.errors) {
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
         alert(err.response?.data.message);
+        handleModalToggle();
       }
     }
   };
@@ -60,6 +68,7 @@ function MyPageEdit() {
   return (
     <Section>
       <S.MyPageWrapper>
+        {showToast && <Toast setToast={setShowToast} text="회원 정보가 수정되었습니다." />}
         {user && (
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -92,6 +101,7 @@ function MyPageEdit() {
             </div>
             <div>
               <Button
+                color="var(--gray-07)"
                 onClick={() => {
                   navigate(-1);
                 }}
@@ -100,7 +110,10 @@ function MyPageEdit() {
               </Button>
             </div>
             <div>
-              <Submit>수정 완료</Submit>
+              <Button color="var(--primary-01)" onClick={handleModalToggle}>
+                수정 완료
+              </Button>
+              <Modal isOpen={isOpen} handleModalToggle={handleModalToggle} handleConfirmClick={handleSubmit} contentText="정말 수정하시겠습니까?" confirmText="예" closeText="아니오" />
             </div>
           </form>
         )}
