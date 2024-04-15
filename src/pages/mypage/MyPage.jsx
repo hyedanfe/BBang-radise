@@ -48,7 +48,7 @@ function MyPage() {
             <div>
               <SimpleButton
                 onClick={() => {
-                  navigate(`/mypage/${_id}/edit`, { state: { user: user } });
+                  navigate(`/mypage/${_id}/edit`);
                 }}
               >
                 내 정보 수정
