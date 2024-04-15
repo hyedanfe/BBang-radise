@@ -1,5 +1,5 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import RecipeListItem from '@pages/recipe/RecipeListItem';
 import Text from '@components/ui/Text';
@@ -7,6 +7,9 @@ import AddIcon from '@assets/AddIcon';
 import { useEffect } from 'react';
 import Search from '@components/ui/Search';
 import Section from '@components/ui/Section';
+import useMemberStore from '@zustand/memberStore.mjs';
+import useModal from '@hooks/useModal';
+import Modal from '@components/ui/Modal';
 
 function RecipeList() {
   const axios = useCustomAxios();
@@ -41,6 +44,21 @@ function RecipeList() {
     setSearchParams(searchParams);
   };
 
+  const user = useMemberStore().user;
+  console.log(user);
+  const navigate = useNavigate();
+  const { isOpen, handleModalToggle } = useModal();
+
+  const handleAddRecipe = () => {
+    if (!user) {
+      // const gotoLogin = confirm('로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?');
+      // gotoLogin && navigate('/login');
+      handleModalToggle();
+    } else {
+      navigate(`/recipe/add`);
+    }
+  };
+
   const recipeList = data?.item.map((item) => <RecipeListItem key={item._id} item={item} />);
 
   console.log(recipeList);
@@ -64,9 +82,17 @@ function RecipeList() {
             {recipeList}
           </div>
         </section>
-        <button type="button">
+        <button type="button" onClick={handleAddRecipe}>
           <AddIcon stroke="black" width="27px" />
         </button>
+        <Modal
+          isOpen={isOpen}
+          handleModalToggle={handleModalToggle}
+          handleConfirmClick={() => navigate(`/login`)}
+          contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?"
+          confirmText="예"
+          closeText="아니오"
+        />
       </div>
     </Section>
   );
