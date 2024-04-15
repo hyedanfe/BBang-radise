@@ -14,7 +14,12 @@ const ClassListWrapper = styled.div`
   padding-top: 96px;
 `;
 
-const ClassListContent = styled.div``;
+const ClassListContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 2px;
+`;
 
 function ClassList() {
   const { isLoading, data, error } = useGetClassInfo();

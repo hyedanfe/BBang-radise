@@ -4,12 +4,21 @@ import { useGetUserInfo } from '@hooks/queries/user';
 import styled from 'styled-components';
 import Text from '@components/ui/Text';
 import Badge from '@components/ui/Badge';
+import BookmarkButton from '@components/ui/button/BookmarkButton';
 
-const ClassCardStyle = styled.article`
+const ClassCard = styled.article`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+`;
+
+const ClassCardBookmark = styled.div`
+  position: absolute;
+  z-index: 1;
+  right: 17px;
+  top: -13px;
 `;
 
 const ClassCardImgLayout = styled.div`
@@ -28,13 +37,13 @@ const ClassCardImg = styled.img`
 `;
 
 const ClassCardBadge = styled.div`
-  positon: absolute;
-  top: 12px;
-  left: 14px;
+  position: absolute;
+  top: 11px;
+  left: 13px;
 `;
 
 const ClassCardContent = styled.div`
-  margin: 0px 6px;
+  margin: 0px 7px;
 `;
 
 ClassListItem.propTypes = {
@@ -49,30 +58,33 @@ function ClassListItem({ item }) {
   console.log(mainImage);
 
   return (
-    <div onClick={() => navigate(`/recipe/${item._id}`)}>
-      <ClassCardStyle>
-        <ClassCardImgLayout>
-          <ClassCardImg src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${mainImage}`} alt="클래스대표이미지" />
-          <ClassCardBadge>
-            <Badge type="active"></Badge>
-          </ClassCardBadge>
-        </ClassCardImgLayout>
-        <ClassCardContent>
-          <Text typography="black_m" color="black" display="block">
-            {item.name}
-          </Text>
+    <ClassCard>
+      <ClassCardBookmark>
+        <BookmarkButton toggle />
+      </ClassCardBookmark>
+      <ClassCardImgLayout>
+        <ClassCardImg src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${mainImage}`} alt="클래스대표이미지" />
+        <ClassCardBadge>
+          <Badge type="active"></Badge>
+        </ClassCardBadge>
+      </ClassCardImgLayout>
+      <ClassCardContent>
+        <Text typography="black_m" color="black" display="block">
+          {item.name}
+        </Text>
+        <Text display="block">
           <Text typography="bold_m" color="gray08">
             {item.extra.startAt}
           </Text>
           <Text typography="black_s" color="primary01">
             {item.buyQuantity}/{item.quantity}명
           </Text>
-          <Text typography="extrabold_s" color="gray08">
-            {item.extra.address} {item.seller_id}
-          </Text>
-        </ClassCardContent>
-      </ClassCardStyle>
-    </div>
+        </Text>
+        <Text typography="extrabold_s" color="gray08">
+          {item.extra.address} {item.seller_id}
+        </Text>
+      </ClassCardContent>
+    </ClassCard>
   );
 }
 

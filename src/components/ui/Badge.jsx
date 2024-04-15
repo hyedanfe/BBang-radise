@@ -19,7 +19,7 @@ const BadgeStyle = styled.div`
         return null;
     }
   }};
-  padding: 3px 9px 3px 9px;
+  padding: 2.4px 9px;
   font-family: pretendard, sans-serif;
   font-weight: 600;
   font-style: normal;
