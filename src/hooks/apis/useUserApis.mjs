@@ -28,10 +28,8 @@ const useUserApis = () => {
     return axios.get(`/seller/products`);
   };
 
-  const patchUserInfo = (_id) => {
-    return axios.patch(`/users/${_id}`, {
-      params: { _id: _id },
-    });
+  const patchUserInfo = (_id, formData) => {
+    return axios.patch(`/users/${_id}`, formData);
   };
 
   return {
