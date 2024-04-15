@@ -1,10 +1,10 @@
 import MyPageList from '@pages/mypage/list/MyPageList';
-import MyPageUserInfo from '@pages/mypage/MyPageMyInfo';
+import MyPageMyInfo from '@pages/mypage/MyPageMyInfo';
 
 function MyPage() {
   return (
     <>
-      <MyPageUserInfo />
+      <MyPageMyInfo />
       <MyPageList />
     </>
   );
