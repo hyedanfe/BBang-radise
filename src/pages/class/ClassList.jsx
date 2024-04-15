@@ -2,7 +2,7 @@ import Search from '@components/ui/Search';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import { useGetClassInfo } from '@hooks/queries/class';
-import ClassListItem from '@pages/class/ClassListItem';
+import ClassCard from '@components/ui/card/ClassCard';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -61,7 +61,7 @@ function ClassList() {
     setSearchParams(searchParams);
   };
 
-  const classList = data?.item.map((item) => <ClassListItem key={item._id} item={item} />);
+  const classList = data?.item.map((item) => <ClassCard key={item._id} item={item} />);
 
   return (
     <Section>
