@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useGetUserInfo } from '@hooks/queries/user';
+import { useState } from 'react';
 import useMemberStore from '@zustand/memberStore.mjs';
 import Section from '@components/ui/Section';
 import SimpleButton from '@pages/mypage/SimpleButton';
 import * as S from '@styles/mypage/mypage.style';
-import { useGetUserInfo } from '@hooks/queries/user';
 import Text from '@components/ui/Text';
 import Badge from '@components/ui/Badge';
+import Toast from '@components/ui/Toast';
 
 function MyPageMyInfo() {
   const { _id } = useParams();
@@ -13,19 +15,22 @@ function MyPageMyInfo() {
   const navigate = useNavigate();
   const setUserData = useMemberStore((state) => state.setUser);
   const clearUserDataStorage = useMemberStore.persist.clearStorage;
+  const [showToast, setShowToast] = useState(false);
 
   const user = data?.item;
   console.log(user);
   const handleLogout = () => {
-    alert('로그아웃되었습니다.');
     setUserData(null);
     clearUserDataStorage();
     navigate('/');
+    setShowToast(true);
   };
 
+  //TODO: 토스트 이동 후에 안 뜸
   return (
     <Section>
       <S.MyPageWrapper>
+        {showToast && <Toast setToast={setShowToast} text="로그아웃되었습니다." />}
         {user && (
           <>
             <S.MyPageProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />

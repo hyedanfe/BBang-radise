@@ -43,7 +43,10 @@ const Select = forwardRef(({ id, onChange, onBlur, name, label, optionData, ...r
           {label}
         </Text>
       </LabelStyle>
-      <SelectStyle id={id} name={name} aria-label={label} ref={ref} onChange={onChange} onBlur={onBlur} {...rest}>
+      <SelectStyle id={id} name={name} aria-label={label} defaultValue="" ref={ref} onChange={onChange} onBlur={onBlur} {...rest}>
+        <option value="" disabled hidden>
+          선택
+        </option>
         {optionData?.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
