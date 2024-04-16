@@ -4,82 +4,12 @@ import Text from '@components/ui/Text';
 import { useGetClassInfo } from '@hooks/queries/class';
 import ClassCard from '@components/ui/card/ClassCard';
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
-
-const ClassListWrapper = styled.div`
-  width: 100%;
-  position: reltaive;
-  padding-top: 110px;
-  display: flex;
-
-  flex-direction: column;
-  gap: 30px;
-  margin-bottom: 100px;
-
-  @media all and (min-width: 768px) {
-    width: calc(100% - 96px);
-    height: 100vh;
-    position: fixed;
-    padding-top: 120px;
-    flex-direction: row;
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* 인터넷 익스플로러 */
-    scrollbar-width: none; /* 파이어폭스 */
-    gap: 60px;
-  }
-`;
-
-const ClassListPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-
-  @media all and (min-width: 768px) {
-    max-width: 500px;
-    position: sticky;
-
-    top: 0px;
-  }
-`;
-
-const ClassListText = styled.div`
-  width: 86%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const ClassListSub = styled.div`
-  display: flex;
-  gap: 5px;
-`;
-
-const ClassListSearch = styled.div`
-  @media all and (min-width: 768px) {
-    width: 86%;
-    padding-left: 3px;
-  }
-`;
-
-const ClassListContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 0 2px;
-
-  > article:last-of-type {
-    padding-bottom: 120px;
-  }
-
-  @media all and (min-width: 768px) {
-    flex-grow: 1;
-    columns-gap: 2%;
-    padding-top: 13px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-`;
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import RoundButton from '@components/ui/button/RoundButton';
+import Modal from '@components/ui/Modal';
+import useMemberStore from '@zustand/memberStore.mjs';
+import useModal from '@hooks/useModal';
+import { ClassListContent, ClassListPage, ClassListSearch, ClassListSub, ClassListText, ClassListWrapper } from '@styles/class/classList.style';
 
 function ClassList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -91,11 +21,22 @@ function ClassList() {
     refetch();
   }, [searchParams.toString()]);
 
-  // 검색 요청시 주소의 query string 수정
   const handleSearch = (keyword) => {
     searchParams.set('keyword', keyword);
     searchParams.set('page', 1);
     setSearchParams(searchParams);
+  };
+
+  const user = useMemberStore().user;
+  const navigate = useNavigate();
+  const { isOpen, handleModalToggle } = useModal();
+
+  const handleAddClass = () => {
+    if (!user) {
+      handleModalToggle();
+    } else {
+      navigate(`/class/add`);
+    }
   };
 
   const classList = data?.item.map((item) => <ClassCard key={item._id} item={item} />);
@@ -132,6 +73,15 @@ function ClassList() {
           {classList}
         </ClassListContent>
       </ClassListWrapper>
+      <RoundButton page="add" onClick={handleAddClass} />
+      <Modal
+        isOpen={isOpen}
+        handleModalToggle={handleModalToggle}
+        handleConfirmClick={() => navigate(`/login`)}
+        contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?"
+        confirmText="예"
+        closeText="아니오"
+      />
     </Section>
   );
 }

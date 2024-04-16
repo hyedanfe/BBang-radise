@@ -31,5 +31,4 @@ export const colors = {
   primary02: 'var(--primary-02)',
   secondary01: 'var(--secondary-01)',
   secondary02: 'var(--secondary-02)',
-
 };

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 const SectionStyle = styled.section`
   margin: 0 14px;
+  position: relative;
 
   @media all and (min-width: 768px) {
-    margin: 0 48px;
+    margin: 0 70px;
   }
 `;
 
