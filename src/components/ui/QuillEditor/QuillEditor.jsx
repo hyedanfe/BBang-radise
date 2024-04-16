@@ -27,7 +27,7 @@ function QuillEditor() {
     };
   }, []);
 
-  return <ReactQuill theme="snow" modules={modules} formats={formats} onChange={setValues} style={{ marginTop: '100px' }} />;
+  return <ReactQuill theme="snow" modules={modules} formats={formats} onChange={setValues} />;
 }
 
 export default QuillEditor;
