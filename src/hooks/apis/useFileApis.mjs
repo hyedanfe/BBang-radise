@@ -1,5 +1,4 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
-import { error } from 'jquery';
 
 const useFileApis = () => {
   const axios = useCustomAxios();
