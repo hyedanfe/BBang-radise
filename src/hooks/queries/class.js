@@ -5,9 +5,9 @@ export const useGetClassInfo = (page, searchParams) => {
   const axios = useCustomAxios();
 
   return useQuery({
-    queryKey: ['/products', page],
+    queryKey: ['/products?showSoldOut=true', page],
     queryFn: () =>
-      axios.get('/products', {
+      axios.get('/products?showSoldOut=true', {
         params: {
           page,
           limit: import.meta.env.VITE_POST_LIMIT,

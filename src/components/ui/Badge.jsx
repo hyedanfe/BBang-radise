@@ -8,9 +8,11 @@ const BadgeStyle = styled.div`
       case 'active':
         return 'var(--primary-01)';
       case 'closed':
-        return 'var(--gray-07)';
+        return 'var(--primary-02)';
       case 'inactive':
-        return 'var(--gray-06)';
+        return 'var(--gray-07)';
+      case 'queue':
+        return 'var(--secondary-01)';
       case 'beginner':
         return 'var(--secondary-01)';
       case 'master':
@@ -38,9 +40,11 @@ function Badge({ type }) {
           case 'active':
             return '모집중';
           case 'closed':
-            return '모집마감';
+            return '모집완료';
           case 'inactive':
             return '모집종료';
+          case 'queue':
+            return '모집예정';
           case 'beginner':
             return '베이킹 새싹';
           case 'master':
