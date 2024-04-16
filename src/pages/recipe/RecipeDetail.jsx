@@ -2,6 +2,8 @@ import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
+import * as S from '@styles/recipe/recipedetail.style';
+import Section from '@components/ui/Section';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
@@ -34,24 +36,24 @@ function RecipeDetail() {
   const item = data?.item;
 
   return (
-    <>
-      <div>RecipeDetail</div>
+    <Section>
+      <S.RecipeDetailWrapper>
+        {item && (
+          <div className="main">
+            <section className="card">
+              <img style={{ width: '300px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
+              <h1>글제목: {item.title}</h1>
+              <p>작성자: {item.user.name}</p>
+              <p>작성일자: {item.updatedAt}</p>
+            </section>
 
-      {item && (
-        <div className="main">
-          <section className="card">
-            <img style={{ width: '300px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
-            <h1>글제목: {item.title}</h1>
-            <p>작성자: {item.user.name}</p>
-            <p>작성일자: {item.updatedAt}</p>
-          </section>
-
-          <section className="content">
-            <p>내용: {item.content}</p>
-          </section>
-        </div>
-      )}
-    </>
+            <section className="content">
+              <p>내용: {item.content}</p>
+            </section>
+          </div>
+        )}
+      </S.RecipeDetailWrapper>
+    </Section>
   );
 }
 
