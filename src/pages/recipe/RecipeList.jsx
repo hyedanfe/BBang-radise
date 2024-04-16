@@ -10,6 +10,7 @@ import Section from '@components/ui/Section';
 import useMemberStore from '@zustand/memberStore.mjs';
 import useModal from '@hooks/useModal';
 import Modal from '@components/ui/Modal';
+import RoundButton from '@components/ui/button/RoundButton';
 
 function RecipeList() {
   const axios = useCustomAxios();
@@ -82,9 +83,7 @@ function RecipeList() {
             {recipeList}
           </div>
         </section>
-        <button type="button" onClick={handleAddRecipe}>
-          <AddIcon stroke="black" width="27px" />
-        </button>
+        <RoundButton page="add" onClick={handleAddRecipe} />
         <Modal
           isOpen={isOpen}
           handleModalToggle={handleModalToggle}
