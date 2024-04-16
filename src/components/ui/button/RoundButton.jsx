@@ -13,6 +13,7 @@ const RoundButtonStyle = styled.button`
   background-color: ${(props) => (props.disabled ? 'var(--gray-05)' : 'var(--primary-02)')};
   box-shadow: 1px 2px 7px 1px rgba(20, 20, 20, 0.45);
   transition: all 0.2s ease-in-out;
+  z-index: 99;
 
   &:hover {
     box-shadow: 0 0 8px 5px rgba(85, 68, 57, 0.7);
@@ -21,8 +22,8 @@ const RoundButtonStyle = styled.button`
   @media all and (min-width: 768px) {
     width: 77px;
     height: 77px;
-    bottom: 23px;
-    right: 24px;
+    bottom: 30px;
+    right: 38px;
   }
 `;
 

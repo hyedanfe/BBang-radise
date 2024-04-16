@@ -8,11 +8,11 @@ const BadgeStyle = styled.div`
       case 'active':
         return 'var(--primary-01)';
       case 'closed':
-        return 'var(--gray-07)';
-      case 'inactive':
-        return 'var(--gray-06)';
-      case 'queue':
         return 'var(--primary-02)';
+      case 'inactive':
+        return 'var(--gray-07)';
+      case 'queue':
+        return 'var(--secondary-01)';
       case 'beginner':
         return 'var(--secondary-01)';
       case 'master':
