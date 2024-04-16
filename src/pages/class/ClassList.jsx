@@ -78,9 +78,9 @@ function ClassList() {
         isOpen={isOpen}
         handleModalToggle={handleModalToggle}
         handleConfirmClick={() => navigate(`/login`)}
-        contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?"
-        confirmText="예"
-        closeText="아니오"
+        contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
+        confirmText="로그인"
+        closeText="돌아가기"
       />
     </Section>
   );
