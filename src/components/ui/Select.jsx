@@ -33,11 +33,10 @@ const SelectStyle = styled.select`
     outline: var(--primary-01) solid 2px;
     border: none;
   }
+
   &::placeholder {
     color: var(--gray-05);
     font-weight: 400;
-  }
-  
   }
 `;
 
