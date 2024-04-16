@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import RecipeListItem from '@pages/recipe/RecipeListItem';
 import Text from '@components/ui/Text';
-import AddIcon from '@assets/AddIcon';
 import { useEffect } from 'react';
 import Search from '@components/ui/Search';
 import Section from '@components/ui/Section';
@@ -11,6 +10,7 @@ import useMemberStore from '@zustand/memberStore.mjs';
 import useModal from '@hooks/useModal';
 import Modal from '@components/ui/Modal';
 import RoundButton from '@components/ui/button/RoundButton';
+import * as S from '@styles/recipe/recipelist.style';
 
 function RecipeList() {
   const axios = useCustomAxios();
@@ -66,17 +66,21 @@ function RecipeList() {
 
   return (
     <Section>
-      <div className="main">
-        <section className="main-content">
-          <Text color="black" display="block" typography="display_l">
-            베이킹 레시피
-          </Text>
-          <Text color="black" typography="light_l">
-            이곳은 빵라다이스의 광장입니다. 빵라다이스의 거주민들은 서로 다양한 레시피를 공유하고 빵을 만들며 빵라다이스를 만들어 나가고 있습니다.
-          </Text>
-        </section>
+      <S.RecipeListWrapper>
+        <S.RecipeListPage>
+          <S.RecipeListText>
+            <Text color="black" display="block" typography="display_l">
+              베이킹 레시피
+            </Text>
+            <Text color="black" typography="light_l">
+              이곳은 빵라다이스의 광장입니다. 빵라다이스의 거주민들은 서로 다양한 레시피를 공유하고 빵을 만들며 빵라다이스를 만들어 나가고 있습니다.
+            </Text>
+          </S.RecipeListText>
+          <S.RecipeListSearch>
+            <Search onClick={handleSearch} />
+          </S.RecipeListSearch>
+        </S.RecipeListPage>
         <section className="content">
-          <Search onClick={handleSearch} />
           <div className="content-list">
             {isLoading && '로딩 중..'}
             {error && error.message}
@@ -92,7 +96,7 @@ function RecipeList() {
           confirmText="예"
           closeText="아니오"
         />
-      </div>
+      </S.RecipeListWrapper>
     </Section>
   );
 }
