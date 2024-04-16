@@ -122,7 +122,7 @@ ClassCard.propTypes = {
 
 function ClassCard({ item }) {
   const navigate = useNavigate();
-  const mainImage = item.mainImages[0].name;
+  const mainImage = item?.mainImages[0].name;
 
   return (
     <ClassCardContainer>
