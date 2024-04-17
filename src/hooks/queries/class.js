@@ -1,3 +1,4 @@
+import useClassApis from '@hooks/apis/useClassApis.mjs';
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useQuery } from '@tanstack/react-query';
 
@@ -16,5 +17,16 @@ export const useGetClassInfo = (page, searchParams) => {
       }),
     select: (response) => response.data,
     suspense: true,
+  });
+};
+
+export const useGetClassDetail = (_id) => {
+  const { getClassDetail } = useClassApis();
+
+  return useQuery({
+    queryKey: ['products', _id],
+    queryFn: () => getClassDetail(_id),
+    select: (response) => response.data,
+    enabled: !!_id,
   });
 };
