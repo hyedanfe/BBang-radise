@@ -1,4 +1,3 @@
-import Button from '@components/ui/button/Button';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
 import { useMemo, useRef } from 'react';
 import ReactQuill from 'react-quill';
@@ -48,7 +47,6 @@ function QuillEditor({ values, setValues }) {
   return (
     <>
       <ReactQuill theme="snow" ref={quillRef} modules={modules} formats={formats} onChange={setValues} value={values} placeholder={'레시피를 작성해주세요'} />
-      <Button onClick={() => console.log(quillRef.current.value)}>버튼</Button>
     </>
   );
 }

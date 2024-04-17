@@ -10,8 +10,10 @@ import Section from '@components/ui/Section';
 import Submit from '@components/ui/button/Submit';
 import Button from '@components/ui/button/Button';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
+import { useEffect, useState } from 'react';
 
 function RecipeAdd() {
+  const [quillValue, setquillValue] = useState();
   const { postSingleFile } = useFileApis();
   const {
     register,
@@ -29,6 +31,7 @@ function RecipeAdd() {
       console.log(formData);
 
       if (formData.extra.length > 0) {
+        // console.log(formData);
         const fileRes = await postSingleFile(formData.extra[0]);
         console.log(fileRes);
         formData.extra = fileRes.data.item[0].name;
@@ -48,6 +51,10 @@ function RecipeAdd() {
       }
     }
   };
+
+  useEffect(() => {
+    console.log('퀼:' + quillValue);
+  }, [quillValue]);
 
   return (
     <Section>
@@ -84,6 +91,9 @@ function RecipeAdd() {
             </Text>
             <QuillEditor
               id="content"
+              name="content"
+              values={quillValue}
+              setValues={setquillValue}
               {...register('content', {
                 required: '내용을 입력해주세요',
               })}

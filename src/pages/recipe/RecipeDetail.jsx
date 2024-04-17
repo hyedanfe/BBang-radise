@@ -4,11 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import * as S from '@styles/recipe/recipedetail.style';
 import Section from '@components/ui/Section';
+import useMemberStore from '@zustand/memberStore.mjs';
+import RoundButton from '@components/ui/button/RoundButton';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = useMemberStore().user;
 
   let firstRender = useRef(true);
 
@@ -27,10 +30,8 @@ function RecipeDetail() {
   });
 
   // 삭제
-  const handleDelete = async () => {
-    await axios.delete(`/posts/${id}`);
-    alert('삭제되었습니다.');
-    navigate('/recipe');
+  const handleEdit = async () => {
+    navigate(`recipe/${id}/edit`);
   };
 
   const item = data?.item;
@@ -48,10 +49,12 @@ function RecipeDetail() {
             </section>
 
             <section className="content">
-              <p>내용: {item.content}</p>
+              <p>내용: </p>
+              <div dangerouslySetInnerHTML={{ __html: item.content }} />
             </section>
           </div>
         )}
+        {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}
       </S.RecipeDetailWrapper>
     </Section>
   );
