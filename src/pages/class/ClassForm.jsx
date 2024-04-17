@@ -8,25 +8,24 @@ import Button from '@components/ui/button/Button';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import Select from '@components/ui/Select';
-import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import * as S from '@styles/class/class.style';
 import DefaultImagePreview from '@assets/DefaultImagePreview.png';
 import { useEffect, useState } from 'react';
 import { useGetClassDetail } from '@hooks/queries/class';
+import useClassApis from '@hooks/apis/useClassApis.mjs';
 
 // TODO: 파일 미리보기 공동 컴포넌트
 function ClassForm() {
   const navigate = useNavigate();
   const { _id } = useParams();
-  const axios = useCustomAxios();
   const { postSingleFile, postMultipleFiles } = useFileApis();
-  const { data, error } = useGetClassDetail(_id);
+  const { postClass, patchClass } = useClassApis();
+  const { data } = useGetClassDetail(_id);
 
   const {
     register,
     handleSubmit,
     setError,
-    setValue,
     watch,
     reset,
     formState: { errors },
@@ -53,7 +52,6 @@ function ClassForm() {
     label: number,
   }));
 
-  console.log(data);
   const classInfo = data?.item;
   useEffect(() => {
     if (classInfo) {
@@ -72,6 +70,19 @@ function ClassForm() {
     }
   }, [classInfo, reset]);
 
+  useEffect(() => {
+    if (classInfo && classInfo.mainImages.length > 0) {
+      setMainImagesPreview(`${import.meta.env.VITE_API_SERVER}/${classInfo.mainImages[0].path}`);
+    }
+  }, [classInfo]);
+
+  useEffect(() => {
+    if (classInfo && classInfo.detailImages.length > 0) {
+      const imageURLs = classInfo.detailImages.map((image) => `${import.meta.env.VITE_API_SERVER}/${image.path}`);
+      setDetailImagesPreview(imageURLs);
+    }
+  }, [classInfo]);
+
   const mainImages = watch('mainImages');
   const detailImages = watch('detailImages');
 
@@ -87,27 +98,24 @@ function ClassForm() {
       const selectedFiles = [...detailImages].slice(0, 10);
       const files = selectedFiles.map((file) => URL.createObjectURL(file));
       setDetailImagesPreview(files);
-      console.log(files);
     }
   }, [detailImages]);
 
   const renderImageArray = [...detailImagesPreview, ...Array(10 - detailImagesPreview.length).fill(DefaultImagePreview)];
 
-  const deleteMainImage = () => {
-    setValue('mainImages', { mainImage: {} });
-    setMainImagesPreview([]);
-  };
+  // 이미지 삭제
+  // const deleteMainImage = () => {
+  //   setValue('mainImages', { mainImage: {} });
+  //   setMainImagesPreview([]);
+  // };
 
-  const deleteDetailImage = (index) => {
-    const newDetailImagesPreview = detailImagesPreview.filter((_, i) => i !== index);
-    setDetailImagesPreview(newDetailImagesPreview);
+  // const deleteDetailImage = (index) => {
+  //   const newDetailImagesPreview = detailImagesPreview.filter((_, i) => i !== index);
+  //   setDetailImagesPreview(newDetailImagesPreview);
 
-    console.log(detailImages);
-    const newDetailImages = [...detailImages].filter((_, i) => i !== index);
-    // 인풋파일을 가리고 파일 이미지 리스트를 따로 보내는 걸로! 리스트에 추가되는 이미지를 추가해주는 걸로,,,
-    setValue('detailImages', newDetailImages);
-    console.log(detailImages);
-  };
+  //   const newDetailImages = [...detailImages].filter((_, i) => i !== index);
+  //   setValue('detailImages', newDetailImages);
+  // };
 
   const onSubmit = async (formData) => {
     try {
@@ -130,8 +138,13 @@ function ClassForm() {
         delete formData.detailImages;
       }
 
-      const res = await axios.post(`seller/products`, formData);
-      navigate(`/class/${res?.data.item._id}`);
+      if (!_id) {
+        const res = await postClass(formData);
+        navigate(`/class/${res?.data.item._id}`);
+      } else {
+        await patchClass(_id, formData);
+        navigate(`/class/${_id}`);
+      }
     } catch (err) {
       console.log(err);
       if (err.response?.data.errors) {
@@ -145,7 +158,7 @@ function ClassForm() {
   return (
     <Section>
       <S.ClassAddWrapper>
-        <Text typography="display_l"> 베이킹 클래스 모집하기</Text>
+        <Text typography="display_l"> {_id ? '게시물 수정' : '게시물 등록'}</Text>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
@@ -156,11 +169,11 @@ function ClassForm() {
               {mainImagesPreview && mainImagesPreview.length > 0 ? (
                 <S.PreviewImageWrapper>
                   <S.PreviewImageStyle src={mainImagesPreview} className="hidden" width="160" height="160" alt="main_image" />
-                  <S.DeleteButtonWrapper>
+                  {/* <S.DeleteButtonWrapper>
                     <S.DeleteButtonStyle type="button" onClick={deleteMainImage}>
                       x
                     </S.DeleteButtonStyle>
-                  </S.DeleteButtonWrapper>
+                  </S.DeleteButtonWrapper> */}
                 </S.PreviewImageWrapper>
               ) : (
                 <S.PreviewImageWrapper>
@@ -177,13 +190,13 @@ function ClassForm() {
               ? renderImageArray.slice(0, 10).map((url, i) => (
                   <S.PreviewImageWrapper key={i}>
                     <S.PreviewImageStyle src={url} className="hidden" width="160" height="160" alt={`image${i}`} />
-                    {url !== DefaultImagePreview && (
+                    {/* {url !== DefaultImagePreview && (
                       <S.DeleteButtonWrapper>
                         <S.DeleteButtonStyle type="button" onClick={() => deleteDetailImage(i)}>
                           x
                         </S.DeleteButtonStyle>
                       </S.DeleteButtonWrapper>
-                    )}
+                    )} */}
                   </S.PreviewImageWrapper>
                 ))
               : [...Array(10)].map((_, i) => (
@@ -309,7 +322,7 @@ function ClassForm() {
           </div>
 
           <div>
-            <Submit>개설하기</Submit>
+            <Submit>{_id ? '수정하기' : '개설하기'}</Submit>
           </div>
         </form>
       </S.ClassAddWrapper>

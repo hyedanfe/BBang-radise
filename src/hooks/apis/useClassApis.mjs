@@ -11,7 +11,11 @@ const useClassApis = () => {
     return axios.post(`seller/products`, formData);
   };
 
-  return { postClass, getClassDetail };
+  const patchClass = (_id, formData) => {
+    return axios.patch(`seller/products/${_id}`, formData);
+  };
+
+  return { postClass, getClassDetail, patchClass };
 };
 
 export default useClassApis;
