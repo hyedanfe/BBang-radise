@@ -1,5 +1,7 @@
+import ClassForm from '@pages/class/ClassForm';
+
 function ClassEdit() {
-  return <div>ClassEdit</div>;
+  return <ClassForm />;
 }
 
 export default ClassEdit;
