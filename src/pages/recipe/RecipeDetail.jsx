@@ -6,6 +6,7 @@ import * as S from '@styles/recipe/recipedetail.style';
 import Section from '@components/ui/Section';
 import useMemberStore from '@zustand/memberStore.mjs';
 import RoundButton from '@components/ui/button/RoundButton';
+import Text from '@components/ui/Text';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
@@ -41,17 +42,25 @@ function RecipeDetail() {
       <S.RecipeDetailWrapper>
         {item && (
           <div className="main">
-            <section className="card">
-              <img style={{ width: '300px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
-              <h1>글제목: {item.title}</h1>
-              <p>작성자: {item.user.name}</p>
-              <p>작성일자: {item.updatedAt}</p>
-            </section>
+            <S.RecipeDetailCard>
+              <S.RecipeDetailCardImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
+              <S.RecipeDetailCardContent>
+                <Text color="black" typography="black_xl">
+                  {item.title}
+                </Text>
+                <Text color="black" typography="extrabold_l">
+                  {item.user.name}
+                </Text>
+                <Text color="black" typography="semibold_s">
+                  {item.updatedAt}
+                </Text>
+              </S.RecipeDetailCardContent>
+            </S.RecipeDetailCard>
 
-            <section className="content">
+            <S.RecipeDetailContent>
               <p>내용: </p>
               <div dangerouslySetInnerHTML={{ __html: item.content }} />
-            </section>
+            </S.RecipeDetailContent>
           </div>
         )}
         {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}

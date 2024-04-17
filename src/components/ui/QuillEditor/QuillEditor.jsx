@@ -9,8 +9,6 @@ function QuillEditor({ values, setValues }) {
   const quillRef = useRef(null);
   const { postSingleFile } = useFileApis();
 
-  console.log(quillRef.current?.value);
-
   // 에디터에 이미지 첨부 이벤트가 일어나면 서버에 API 요청을 보내 응답값으로 URL을 돌려받고 이미지 태그의 src에 그 URL을 넣어주는 함수
   const imageHandler = () => {
     const input = document.createElement('input');

@@ -90,15 +90,7 @@ function RecipeAdd() {
             <Text typography="semibold_s" display="block" color="gray08">
               레시피 내용
             </Text>
-            <QuillEditor
-              id="content"
-              name="content"
-              values={quillValue}
-              setValues={setquillValue}
-              // {...register('content', {
-              //   required: '내용을 입력해주세요',
-              // })}
-            />
+            <QuillEditor id="content" name="content" values={quillValue} setValues={setquillValue} />
             {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
           </div>
           <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
