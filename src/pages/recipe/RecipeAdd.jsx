@@ -1,4 +1,3 @@
-// import QuillApp from '@components/ui/QuillEditor/QuillApp';
 import Input from '@components/ui/Input';
 import QuillEditor from '@components/ui/QuillEditor/QuillEditor';
 import Select from '@components/ui/Select';
@@ -29,12 +28,12 @@ function RecipeAdd() {
       formData.type = 'recipe';
       console.log(formData);
 
-      if (formData.mainImage.length > 0) {
-        const fileRes = await postSingleFile(formData.mainImage[0]);
+      if (formData.extra.length > 0) {
+        const fileRes = await postSingleFile(formData.extra[0]);
         console.log(fileRes);
-        formData.mainImage = fileRes.data.item[0].extra;
+        formData.extra = fileRes.data.item[0].name;
       } else {
-        delete formData.mainImage;
+        delete formData.extra;
       }
 
       const res = await axios.post('/posts', formData);
@@ -77,7 +76,7 @@ function RecipeAdd() {
             <Select id="category" label="카테고리" placeholder="레시피 카테고리를 선택해주세요" />
           </div>
           <div className="upload-mainimage">
-            <Input type="file" accept="image/*" id="mainImage" label="대표 이미지" {...register('mainImage')} />
+            <Input type="file" accept="image/*" id="extra" label="대표 이미지" {...register('extra')} />
           </div>
           <div className="input-content">
             <Text typography="semibold_s" display="block" color="gray08">
@@ -89,11 +88,12 @@ function RecipeAdd() {
                 required: '내용을 입력해주세요',
               })}
             />
-            <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
-              취소하기
-            </Button>
-            <Submit>등록하기</Submit>
+            {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
           </div>
+          <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
+            취소하기
+          </Button>
+          <Submit>등록하기</Submit>
         </form>
       </S.RecipeAddWrapper>
     </Section>
