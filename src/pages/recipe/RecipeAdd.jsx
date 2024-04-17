@@ -27,6 +27,7 @@ function RecipeAdd() {
 
   const onSubmit = async (formData) => {
     try {
+      formData.content = quillValue;
       formData.type = 'recipe';
       console.log(formData);
 
@@ -94,9 +95,9 @@ function RecipeAdd() {
               name="content"
               values={quillValue}
               setValues={setquillValue}
-              {...register('content', {
-                required: '내용을 입력해주세요',
-              })}
+              // {...register('content', {
+              //   required: '내용을 입력해주세요',
+              // })}
             />
             {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
           </div>
