@@ -13,8 +13,11 @@ export const palette = css`
     --white: rgb(251, 251, 251);
     --primary-01: rgb(255, 107, 0);
     --primary-02: rgb(85, 68, 57);
-    --secondary-01: rgb(255, 181, 0);
-    --secondary-02: rgb(67, 128, 64);
+    --secondary-01: rgb(197, 101, 31);
+    --secondary-02: rgb(255, 162, 53);
+    --secondary-03: rgb(255, 174, 38);
+    --secondary-04: rgb(255, 235, 168);
+    --secondary-05: rgb(255, 245, 225);
   }
 `;
 
@@ -31,4 +34,7 @@ export const colors = {
   primary02: 'var(--primary-02)',
   secondary01: 'var(--secondary-01)',
   secondary02: 'var(--secondary-02)',
+  secondary03: 'var(--secondary-03)',
+  secondary04: 'var(--secondary-04)',
+  secondary05: 'var(--secondary-05)',
 };
