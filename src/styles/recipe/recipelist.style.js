@@ -49,3 +49,7 @@ export const RecipeListSearch = styled.div`
     padding-left: 3px;
   }
 `;
+
+export const RecipeListContent = styled.section`
+  width: 100%;
+`;
