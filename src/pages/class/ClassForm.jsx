@@ -17,10 +17,10 @@ import { useGetClassDetail } from '@hooks/queries/class';
 // TODO: 파일 미리보기 공동 컴포넌트
 function ClassForm() {
   const navigate = useNavigate();
-  // const { _id } = useParams();
+  const { _id } = useParams();
   const axios = useCustomAxios();
   const { postSingleFile, postMultipleFiles } = useFileApis();
-  // const { data, isLoading, error } = useGetClassDetail(_id);
+  const { data, error } = useGetClassDetail(_id);
 
   const {
     register,
@@ -53,23 +53,24 @@ function ClassForm() {
     label: number,
   }));
 
-  // const classInfo = data?.item;
-  // useEffect(() => {
-  //   if (classInfo) {
-  //     reset({
-  //       mainImages: '',
-  //       detailImages: [],
-  //       name: '',
-  //       classAt: '',
-  //       startAt: '',
-  //       endAt: '',
-  //       address: '',
-  //       quantity: '',
-  //       price: '',
-  //       content: '',
-  //     });
-  //   }
-  // }, [classInfo, reset]);
+  console.log(data);
+  const classInfo = data?.item;
+  useEffect(() => {
+    if (classInfo) {
+      reset({
+        mainImages: '',
+        detailImages: [],
+        name: classInfo.name,
+        classAt: classInfo.classAt,
+        startAt: classInfo.startAt,
+        endAt: classInfo.endAt,
+        address: classInfo.address,
+        quantity: classInfo.quantity,
+        price: classInfo.price,
+        content: classInfo.content,
+      });
+    }
+  }, [classInfo, reset]);
 
   const mainImages = watch('mainImages');
   const detailImages = watch('detailImages');
@@ -103,6 +104,7 @@ function ClassForm() {
 
     console.log(detailImages);
     const newDetailImages = [...detailImages].filter((_, i) => i !== index);
+    // 인풋파일을 가리고 파일 이미지 리스트를 따로 보내는 걸로! 리스트에 추가되는 이미지를 추가해주는 걸로,,,
     setValue('detailImages', newDetailImages);
     console.log(detailImages);
   };
