@@ -12,11 +12,11 @@ const BadgeStyle = styled.div`
       case 'inactive':
         return 'var(--gray-07)';
       case 'queue':
-        return 'var(--secondary-01)';
+        return 'var(--secondary-03)';
       case 'beginner':
-        return 'var(--secondary-01)';
-      case 'master':
         return 'var(--secondary-02)';
+      case 'master':
+        return 'var(--secondary-01)';
       default:
         return null;
     }

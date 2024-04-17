@@ -33,7 +33,7 @@ const Navigation = styled.nav`
   height: 42px;
   flex-grow: 1;
   justify-content: space-between;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(5px);
   padding: 6px 28px 0px 28px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.15);
