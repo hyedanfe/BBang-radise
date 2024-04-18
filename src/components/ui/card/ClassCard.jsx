@@ -5,6 +5,7 @@ import BookmarkButton from '@components/ui/button/BookmarkButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import useBadge from '@hooks/utils/useBadge';
 
 const ClassCardContainer = styled.article`
   width: 100%;
@@ -124,45 +125,11 @@ ClassCard.propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-// 현재 날짜를 input 날짜값과 비교 가능 형식으로 만드는 함수
-function getFormatDate(date) {
-  var year = date.getFullYear();
-  var month = 1 + date.getMonth();
-  month = month >= 10 ? month : '0' + month;
-  var day = date.getDate();
-  day = day >= 10 ? day : '0' + day;
-  return year + '-' + month + '-' + day;
-}
-
 function ClassCard({ item }) {
   const navigate = useNavigate();
 
   const mainImage = item?.mainImages[0].name;
-
-  const date = new Date();
-  const today = getFormatDate(date);
-
-  let badgeType;
-  let textColor;
-  let quantityColor;
-
-  if (item?.extra?.classAt < today || item?.extra?.endAt < today) {
-    badgeType = 'inactive';
-    quantityColor = 'gray06';
-    textColor = 'gray06';
-  } else if (item?.extra?.startAt > today) {
-    badgeType = 'queue';
-    quantityColor = 'gray07';
-    textColor = 'black';
-  } else if (item?.buyQuantity == item?.quantity) {
-    badgeType = 'closed';
-    quantityColor = 'primary02';
-    textColor = 'gray07';
-  } else {
-    badgeType = 'active';
-    quantityColor = 'primary01';
-    textColor = 'black';
-  }
+  const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
   return (
     <ClassCardContainer>
@@ -173,7 +140,7 @@ function ClassCard({ item }) {
       <ClassCardNavigation onClick={() => navigate(`/class/${item._id}`)}>
         <ClassCardImgLayout>
           <ClassCardImg src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${mainImage}`} alt="클래스 대표 이미지" />
-          {(item?.extra?.classAt < today || item?.extra?.endAt < today) && <ClassCardImgCover />}
+          {expired && <ClassCardImgCover />}
           <ClassCardBadge>
             <Badge type={badgeType}></Badge>
           </ClassCardBadge>
@@ -209,7 +176,7 @@ function ClassCard({ item }) {
                 {item.extra.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
-                {item.seller_id}
+                {item.seller?.name}
               </Text>
             </ClassCardStatic>
           </ClassCardInfo>
