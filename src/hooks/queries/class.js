@@ -21,12 +21,12 @@ export const useGetClassInfo = (page, searchParams) => {
 };
 
 export const useGetClassDetail = (_id) => {
-  const { classDetail } = useClassApis();
+  const { getClassDetail } = useClassApis();
 
   return useQuery({
     queryKey: ['products', _id],
-    queryFn: () => classDetail(_id),
+    queryFn: () => getClassDetail(_id),
     select: (response) => response.data,
-    suspense: true,
+    enabled: !!_id,
   });
 };

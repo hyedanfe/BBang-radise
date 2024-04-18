@@ -80,13 +80,13 @@ function RecipeList() {
             <Search onClick={handleSearch} />
           </S.RecipeListSearch>
         </S.RecipeListPage>
-        <section className="content">
+        <S.RecipeListContent>
           <div className="content-list">
             {isLoading && '로딩 중..'}
             {error && error.message}
             {recipeList}
           </div>
-        </section>
+        </S.RecipeListContent>
         <RoundButton page="add" onClick={handleAddRecipe} />
         <Modal
           isOpen={isOpen}
