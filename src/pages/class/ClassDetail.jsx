@@ -39,7 +39,7 @@ function ClassDetail() {
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
   const mainImage = item?.mainImages[0].name;
-  const detailImages = item?.detailImages.map((image) => (
+  const detailImages = item?.detailImages?.map((image) => (
     <swiper-slide key={image.name}>
       <img src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${image.name}`} />
       {expired && <ClassDetailImgCover />}
