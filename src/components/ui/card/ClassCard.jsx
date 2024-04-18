@@ -146,11 +146,11 @@ function ClassCard({ item }) {
   let textColor;
   let quantityColor;
 
-  if (item?.classAt < today || item?.endAt < today) {
+  if (item?.extra?.classAt < today || item?.extra?.endAt < today) {
     badgeType = 'inactive';
     quantityColor = 'gray06';
     textColor = 'gray06';
-  } else if (item?.startAt > today) {
+  } else if (item?.extra?.startAt > today) {
     badgeType = 'queue';
     quantityColor = 'gray07';
     textColor = 'black';
@@ -173,7 +173,7 @@ function ClassCard({ item }) {
       <ClassCardNavigation onClick={() => navigate(`/class/${item._id}`)}>
         <ClassCardImgLayout>
           <ClassCardImg src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${mainImage}`} alt="클래스 대표 이미지" />
-          {(item?.classAt < today || item?.endAt < today) && <ClassCardImgCover />}
+          {(item?.extra?.classAt < today || item?.extra?.endAt < today) && <ClassCardImgCover />}
           <ClassCardBadge>
             <Badge type={badgeType}></Badge>
           </ClassCardBadge>
@@ -197,7 +197,7 @@ function ClassCard({ item }) {
           <ClassCardInfo>
             <ClassCardActive>
               <Text typography="bold_m" color={textColor}>
-                {item.classAt}
+                {item.extra.classAt}
               </Text>
               <Text typography="black_s" color={quantityColor}>
                 {item.buyQuantity}/{item.quantity}명
@@ -206,7 +206,7 @@ function ClassCard({ item }) {
 
             <ClassCardStatic>
               <Text typography="extrabold_s" color={textColor}>
-                {item.address}
+                {item.extra.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
                 {item.seller_id}

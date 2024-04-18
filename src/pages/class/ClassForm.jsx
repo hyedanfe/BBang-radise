@@ -32,15 +32,17 @@ function ClassForm() {
   } = useForm({
     defaultValues: {
       mainImages: '',
-      detailImages: [],
       name: '',
-      classAt: '',
-      startAt: '',
-      endAt: '',
-      address: '',
       quantity: '',
       price: '',
       content: '',
+      extra: {
+        detailImages: [],
+        classAt: '',
+        startAt: '',
+        endAt: '',
+        address: '',
+      },
     },
     mode: 'onChange',
   });
@@ -57,15 +59,17 @@ function ClassForm() {
     if (classInfo) {
       reset({
         mainImages: '',
-        detailImages: [],
         name: classInfo.name,
-        classAt: classInfo.classAt,
-        startAt: classInfo.startAt,
-        endAt: classInfo.endAt,
-        address: classInfo.address,
         quantity: classInfo.quantity,
         price: classInfo.price,
         content: classInfo.content,
+        extra: {
+          detailImages: [],
+          classAt: classInfo.extra.classAt,
+          startAt: classInfo.extra.startAt,
+          endAt: classInfo.extra.endAt,
+          address: classInfo.extra.address,
+        },
       });
     }
   }, [classInfo, reset]);
@@ -77,14 +81,14 @@ function ClassForm() {
   }, [classInfo]);
 
   useEffect(() => {
-    if (classInfo && classInfo.detailImages.length > 0) {
-      const imageURLs = classInfo.detailImages.map((image) => `${import.meta.env.VITE_API_SERVER}/${image.path}`);
+    if (classInfo && classInfo.extra.detailImages.length > 0) {
+      const imageURLs = classInfo.extra.detailImages.map((image) => `${import.meta.env.VITE_API_SERVER}/${image.path}`);
       setDetailImagesPreview(imageURLs);
     }
   }, [classInfo]);
 
   const mainImages = watch('mainImages');
-  const detailImages = watch('detailImages');
+  const detailImages = watch('extra.detailImages');
 
   useEffect(() => {
     if (mainImages && mainImages.length > 0) {
@@ -129,13 +133,13 @@ function ClassForm() {
         delete formData.mainImages;
       }
 
-      if (formData.detailImages.length > 0) {
-        const fileRes = await postMultipleFiles(formData.detailImages);
+      if (formData.extra.detailImages.length > 0) {
+        const fileRes = await postMultipleFiles(formData.extra.detailImages);
         console.log(detailImages);
         console.log(fileRes);
-        formData.detailImages = fileRes.data.item.map((item) => item);
+        formData.extra.detailImages = fileRes.data.item.map((item) => item);
       } else {
-        delete formData.detailImages;
+        delete formData.extra.detailImages;
       }
 
       if (!_id) {
@@ -162,7 +166,20 @@ function ClassForm() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <Input type="file" accept="image/*" id="mainImages" label="대표 이미지 (1개)" placeholder="이미지를 선택하세요" {...register('mainImages')} />
+            {_id ? (
+              <Input type="file" accept="image/*" id="mainImages" label="대표 이미지 (1개)" placeholder="이미지를 선택하세요" {...register('mainImages')} />
+            ) : (
+              <Input
+                type="file"
+                accept="image/*"
+                id="mainImages"
+                label="대표 이미지 (1개)"
+                placeholder="이미지를 선택하세요"
+                {...register('mainImages', {
+                  required: '대표 이미지를 등록해주세요.',
+                })}
+              />
+            )}
           </div>
           <div>
             <S.FileInputBoxStyle>
@@ -183,7 +200,7 @@ function ClassForm() {
             </S.FileInputBoxStyle>
           </div>
           <div>
-            <Input type="file" multiple accept="image/*" id="detailImages" label="상세 이미지 (최대 10개)" placeholder="이미지를 선택하세요" {...register('detailImages')} />
+            <Input type="file" multiple accept="image/*" id="detailImages" label="상세 이미지 (최대 10개)" placeholder="이미지를 선택하세요" {...register('extra.detailImages')} />
           </div>
           <S.FileInputBoxStyle>
             {detailImagesPreview && detailImagesPreview.length > 0
@@ -212,7 +229,7 @@ function ClassForm() {
               label="제목 (30자 이내)"
               height="40px"
               placeholder="제목을 입력하세요"
-              error={errors.name && errors.name.message}
+              error={errors.name?.message}
               {...register('name', {
                 required: '제목을 입력하세요.',
                 minLength: {
@@ -232,8 +249,8 @@ function ClassForm() {
               id="classAt"
               label="클래스 일자"
               placeholder="연/월/일"
-              error={errors.classAt && errors.classAt.message}
-              {...register('classAt', {
+              error={errors.extra?.classAt?.message}
+              {...register('extra.classAt', {
                 required: '클래스 일자를 입력하세요.',
               })}
             />
@@ -242,8 +259,8 @@ function ClassForm() {
               id="startAt"
               label="모집 시작일"
               placeholder="연/월/일"
-              error={errors.startAt && errors.startAt.message}
-              {...register('startAt', {
+              error={errors.extra?.startAt?.message}
+              {...register('extra.startAt', {
                 required: '모집 시작일을 입력하세요.',
               })}
             />
@@ -252,8 +269,8 @@ function ClassForm() {
               id="endAt"
               label="모집 종료일"
               placeholder="연/월/일"
-              error={errors.endAt && errors.endAt.message}
-              {...register('endAt', {
+              error={errors.extra?.endAt?.message}
+              {...register('extra.endAt', {
                 required: '모집 종료일을 입력하세요.',
               })}
             />
@@ -263,8 +280,8 @@ function ClassForm() {
               label="클래스 장소"
               height="40px"
               placeholder="클래스 장소를 입력하세요"
-              error={errors.address && errors.address.message}
-              {...register('address', {
+              error={errors.extra?.address?.message}
+              {...register('extra.address', {
                 required: '클래스 장소를 입력하세요.',
                 minLength: {
                   value: 2,
@@ -278,7 +295,7 @@ function ClassForm() {
               height="40px"
               placeholder="인원을 선택해주세요"
               optionData={optionData}
-              error={errors.quantity && errors.quantity.message}
+              error={errors.quantity?.message}
               {...register('quantity', {
                 required: '인원을 선택해주세요.',
               })}
@@ -291,7 +308,7 @@ function ClassForm() {
             label="클래스 참여 비용"
             height="40px"
             placeholder="참여 비용을 입력하세요"
-            error={errors.price && errors.price.message}
+            error={errors.price?.message}
             {...register('price', {
               required: '참여 비용을 입력하세요.',
             })}
