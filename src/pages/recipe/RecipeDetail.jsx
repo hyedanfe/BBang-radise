@@ -1,5 +1,5 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import * as S from '@styles/recipe/recipedetail.style';
@@ -64,6 +64,7 @@ function RecipeDetail() {
           </div>
         )}
         {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}
+        <Outlet context={item} />
       </S.RecipeDetailWrapper>
     </Section>
   );
