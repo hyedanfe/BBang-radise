@@ -164,7 +164,7 @@ function ClassCard({ item }) {
           <ClassCardInfo>
             <ClassCardActive>
               <Text typography="bold_m" color={textColor}>
-                {item.classAt}
+                {item.extra.classAt}
               </Text>
               <Text typography="black_s" color={quantityColor}>
                 {item.buyQuantity}/{item.quantity}명
@@ -173,7 +173,7 @@ function ClassCard({ item }) {
 
             <ClassCardStatic>
               <Text typography="extrabold_s" color={textColor}>
-                {item.address}
+                {item.extra.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
                 {item.seller?.name}
