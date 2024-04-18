@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ClassListWrapper = styled.div`
   width: 100%;
   position: reltaive;
-  padding-top: 110px;
+  padding-top: 100px;
   display: flex;
 
   flex-direction: column;
@@ -68,8 +68,8 @@ export const ClassListContent = styled.div`
 
   @media all and (min-width: 768px) {
     flex-grow: 1;
-    column-gap: 50px;
-    row-gap: 56px;
+    column-gap: 30px;
+    row-gap: 50px;
     padding-top: 13px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
