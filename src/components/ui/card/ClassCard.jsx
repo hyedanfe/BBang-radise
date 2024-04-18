@@ -176,7 +176,7 @@ function ClassCard({ item }) {
                 {item.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
-                {item.seller.name}
+                {item.seller?.name}
               </Text>
             </ClassCardStatic>
           </ClassCardInfo>

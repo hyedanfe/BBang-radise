@@ -24,7 +24,7 @@ import {
   SwiperWrapper,
 } from '@styles/class/classDetail.style';
 import useMemberStore from '@zustand/memberStore.mjs';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { register } from 'swiper/element/bundle';
 register();
@@ -32,6 +32,7 @@ register();
 function ClassDetail() {
   const { _id } = useParams();
   const { data } = useGetClassDetail(_id);
+  const navigate = useNavigate();
 
   const item = data?.item;
 
@@ -52,12 +53,12 @@ function ClassDetail() {
     if (!user) {
       handleModalToggle();
     } else {
-      navigate(`/class/add`);
+      navigate(`/class`);
     }
   };
 
   const priceData = item?.price;
-  const price = priceData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const price = priceData?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <Section>
@@ -85,32 +86,32 @@ function ClassDetail() {
         <ClassDetailInfo>
           <ClassDetailInfoTop>
             <Text typography="black_xl" color={textColor} display="block">
-              {item.name}
+              {item?.name}
             </Text>
 
             <ClassDetailInfoMiddle>
               <ClassDetailInfoDate>
                 <Text typography="bold_l" color={textColor} display="block">
-                  {item.classAt}
+                  {item?.classAt}
                 </Text>
                 <Text typography="semibold_l" color={textColor} display="block" className="class-date">
-                  {item.startAt} ~ {item.endAt}
+                  {item?.startAt} ~ {item?.endAt}
                 </Text>
               </ClassDetailInfoDate>
 
               <ClassDetailInfoUser>
                 <Text typography="extrabold_l" color={textColor} display="block">
-                  {item.address}
+                  {item?.address}
                 </Text>
                 <Text typography="extrabold_l" color={textColor} display="block">
-                  {item.seller.name}
+                  {item?.seller?.name}
                 </Text>
               </ClassDetailInfoUser>
             </ClassDetailInfoMiddle>
 
             <ClassDetailInfoBottom>
               <Text typography="display_xl" color={quantityColor} display="block">
-                {item.buyQuantity}/{item.quantity}명
+                {item?.buyQuantity}/{item?.quantity}명
               </Text>
               <Text typography="black_xl" color={textColor} display="block">
                 {price}원
@@ -139,7 +140,7 @@ function ClassDetail() {
 
           <ClassDetailContent>
             <Text typography="regular_m" color={textColor} display="block">
-              {item.content}
+              {item?.content}
             </Text>
           </ClassDetailContent>
         </ClassDetailInfo>

@@ -172,7 +172,7 @@ export const ClassDetailContent = styled.div`
     margin: 0 -7px;
     margin-top: unset;
     padding: 30px 30px;
-    overflow: scroll;
+    overflow-y: auto;
     flex-basis: 0;
     flex-grow: 1;
   }
@@ -182,7 +182,7 @@ export const ClassDetailContent = styled.div`
     padding: 20px 35px;
     flex-basis: 0;
     flex-grow: 1;
-    overflow: scroll;
+    overflow-y: auto;
   }
 `;
 

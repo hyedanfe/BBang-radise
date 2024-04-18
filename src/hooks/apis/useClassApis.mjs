@@ -4,7 +4,7 @@ const useClassApis = () => {
   const axios = useCustomAxios();
 
   // 클래스 목록 가져오기 (품절 포함)
-  const classList = () => {
+  const getClassList = () => {
     return axios.get('/products?showSoldOut=true');
   };
 
@@ -20,7 +20,7 @@ const useClassApis = () => {
     return axios.patch(`seller/products/${_id}`, formData);
   };
 
-  return { postClass, getClassDetail, patchClass, classList };
+  return { postClass, getClassDetail, patchClass, getClassList };
 };
 
 export default useClassApis;
