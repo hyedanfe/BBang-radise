@@ -39,7 +39,7 @@ function ClassDetail() {
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
   const mainImage = item?.mainImages[0].name;
-  const detailImages = item?.detailImages?.map((image) => (
+  const detailImages = item?.extra?.detailImages?.map((image) => (
     <swiper-slide key={image.name}>
       <img src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${image.name}`} />
       {expired && <ClassDetailImgCover />}
@@ -92,16 +92,16 @@ function ClassDetail() {
             <ClassDetailInfoMiddle>
               <ClassDetailInfoDate>
                 <Text typography="bold_l" color={textColor} display="block">
-                  {item?.classAt}
+                  {item?.extra?.classAt}
                 </Text>
                 <Text typography="semibold_l" color={textColor} display="block" className="class-date">
-                  {item?.startAt} ~ {item?.endAt}
+                  {item?.extra?.startAt} ~ {item?.extra?.endAt}
                 </Text>
               </ClassDetailInfoDate>
 
               <ClassDetailInfoUser>
                 <Text typography="extrabold_l" color={textColor} display="block">
-                  {item?.address}
+                  {item?.extra?.address}
                 </Text>
                 <Text typography="extrabold_l" color={textColor} display="block">
                   {item?.seller?.name}
