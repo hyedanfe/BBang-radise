@@ -4,11 +4,15 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import * as S from '@styles/recipe/recipedetail.style';
 import Section from '@components/ui/Section';
+import useMemberStore from '@zustand/memberStore.mjs';
+import RoundButton from '@components/ui/button/RoundButton';
+import Text from '@components/ui/Text';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = useMemberStore().user;
 
   let firstRender = useRef(true);
 
@@ -27,10 +31,8 @@ function RecipeDetail() {
   });
 
   // 삭제
-  const handleDelete = async () => {
-    await axios.delete(`/posts/${id}`);
-    alert('삭제되었습니다.');
-    navigate('/recipe');
+  const handleEdit = async () => {
+    navigate(`recipe/${id}/edit`);
   };
 
   const item = data?.item;
@@ -40,18 +42,28 @@ function RecipeDetail() {
       <S.RecipeDetailWrapper>
         {item && (
           <div className="main">
-            <section className="card">
-              <img style={{ width: '300px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
-              <h1>글제목: {item.title}</h1>
-              <p>작성자: {item.user.name}</p>
-              <p>작성일자: {item.updatedAt}</p>
-            </section>
+            <S.RecipeDetailCard>
+              <S.RecipeDetailCardImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
+              <S.RecipeDetailCardContent>
+                <Text color="black" typography="black_xl">
+                  {item.title}
+                </Text>
+                <Text color="black" typography="extrabold_l">
+                  {item.user.name}
+                </Text>
+                <Text color="black" typography="semibold_s">
+                  {item.updatedAt}
+                </Text>
+              </S.RecipeDetailCardContent>
+            </S.RecipeDetailCard>
 
-            <section className="content">
-              <p>내용: {item.content}</p>
-            </section>
+            <S.RecipeDetailContent>
+              <p>내용: </p>
+              <div dangerouslySetInnerHTML={{ __html: item.content }} />
+            </S.RecipeDetailContent>
           </div>
         )}
+        {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}
       </S.RecipeDetailWrapper>
     </Section>
   );
