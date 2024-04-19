@@ -2,6 +2,8 @@ import Text from '@components/ui/Text';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from '@components/ui/button/Button';
+import Submit from '@components/ui/button/Submit';
+import useModalStore from '@zustand/modalStore.mjs';
 
 const ModalOpen = keyframes`
 from{
@@ -67,13 +69,17 @@ const ButtonContainer = styled.div`
 Modal.propTypes = {
   isOpen: PropTypes.bool,
   handleModalToggle: PropTypes.func,
-  handleConfirmClick: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleConfirm: PropTypes.func,
   contentText: PropTypes.string,
-  confirmText: PropTypes.string,
+  submitText: PropTypes.string,
   closeText: PropTypes.string,
+  confirmText: PropTypes.string,
 };
 
-function Modal({ isOpen, handleModalToggle, contentText, handleConfirmClick, confirmText, closeText }) {
+function Modal({ contentText, handleSubmit, handleConfirm, submitText, closeText, confirmText }) {
+  const isOpen = useModalStore((state) => state.isOpen);
+  const toggleModal = useModalStore((state) => state.toggleModal);
   if (!isOpen) {
     document.body.style.overflow = 'auto';
     return null;
@@ -88,12 +94,17 @@ function Modal({ isOpen, handleModalToggle, contentText, handleConfirmClick, con
           <Text typography="bold_l">{contentText}</Text>
           <ButtonContainer>
             {closeText && (
-              <Button color="var(--gray-07)" onClick={handleModalToggle}>
+              <Button color="var(--gray-07)" onClick={toggleModal}>
                 {closeText}
               </Button>
             )}
+            {submitText && (
+              <Submit color="var(--primary-01)" onClick={handleSubmit}>
+                {submitText}
+              </Submit>
+            )}
             {confirmText && (
-              <Button color="var(--primary-01)" onClick={handleConfirmClick}>
+              <Button color="var(--primary-01)" onClick={handleConfirm}>
                 {confirmText}
               </Button>
             )}

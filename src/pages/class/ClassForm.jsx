@@ -19,7 +19,7 @@ function ClassForm() {
   const navigate = useNavigate();
   const { _id } = useParams();
   const { postSingleFile, postMultipleFiles } = useFileApis();
-  const { postClass, patchClass } = useClassApis();
+  const { postClass, patchClass, deleteClass } = useClassApis();
   const { data } = useGetClassDetail(_id);
 
   const {
@@ -81,7 +81,7 @@ function ClassForm() {
   }, [classInfo]);
 
   useEffect(() => {
-    if (classInfo && classInfo.extra.detailImages.length > 0) {
+    if (classInfo && classInfo.extra?.detailImages?.length > 0) {
       const imageURLs = classInfo.extra.detailImages.map((image) => `${import.meta.env.VITE_API_SERVER}/${image.path}`);
       setDetailImagesPreview(imageURLs);
     }
@@ -107,6 +107,10 @@ function ClassForm() {
 
   const renderImageArray = [...detailImagesPreview, ...Array(10 - detailImagesPreview.length).fill(DefaultImagePreview)];
 
+  const handleClassDelete = async () => {
+    await deleteClass(_id);
+    navigate(`/class`);
+  };
   // 이미지 삭제
   // const deleteMainImage = () => {
   //   setValue('mainImages', { mainImage: {} });
@@ -328,18 +332,40 @@ function ClassForm() {
               })}
             />
           </div>
-          <div>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              취소하기
-            </Button>
-          </div>
 
           <div>
-            <Submit>{_id ? '수정하기' : '개설하기'}</Submit>
+            {_id ? (
+              <>
+                <Button color="var(--gray-06)" onClick={handleClassDelete}>
+                  삭제하기
+                </Button>
+                <div>
+                  <Button
+                    color="var(--primary-02)"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    수정 취소
+                  </Button>
+                </div>
+                <Submit>수정 완료</Submit>
+              </>
+            ) : (
+              <>
+                <div>
+                  <Button
+                    color="var(--gray-06)"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    취소하기
+                  </Button>
+                </div>
+                <Submit>개설하기</Submit>
+              </>
+            )}
           </div>
         </form>
       </S.ClassAddWrapper>
