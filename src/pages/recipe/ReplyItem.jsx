@@ -6,6 +6,7 @@ import useMemberStore from '@zustand/memberStore.mjs';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import * as S from '@styles/recipe/replyitem.style';
+import Text from '@components/ui/Text';
 
 ReplyItem.propTypes = {
   item: PropTypes.object.isRequired,
@@ -28,21 +29,21 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
   return (
     <div className="CommentWrapper">
       <div className="CommentHeader">
-        {item.user.profile ? (
-          <img style={{ width: '50px' }} className="UserProfileImage" src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" />
-        ) : (
-          <DefaultProfile />
-        )}
-        <a href="">{item.user.name}</a>
-        {postUserId === item.user._id && <span>작성자</span>}
-        <time dateTime={item.updatedAt}>{item.updatedAt}</time>
+        {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
+        <a href="">
+          <Text typography="semibold_s">{item.user.name}</Text>
+        </a>
+        {postUserId === item.user._id && <Text typography="semibold_s">작성자</Text>}
+        <time dateTime={item.updatedAt}>
+          <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
+        </time>
       </div>
       <div>
         {editMode ? (
           <ReplyEdit content={item.content} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />
         ) : (
           <>
-            <pre>{item.content}</pre>
+            <Text typography="semibold_s">{item.content}</Text>
             {user?._id === item.user._id && (
               <S.ReplyItemButtonContainer>
                 <CommentEditButton width="12px" onClick={() => setEditMode(true)}>

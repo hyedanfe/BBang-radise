@@ -1,7 +1,7 @@
 import useFileApis from '@hooks/apis/useFileApis.mjs';
 import { useMemo, useRef } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill, { Quill } from 'react-quill';
+import '@styles/recipe/quillstyle.css';
 
 const formats = ['font', 'header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'align', 'color', 'background', 'size', 'h1', 'image', 'video'];
 
@@ -36,7 +36,7 @@ function QuillEditor({ values, setValues }) {
   const modules = useMemo(() => {
     return {
       toolbar: {
-        container: [[{ align: [] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image', 'video']],
+        container: [[{ align: [] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'bullet' }], ['link', 'image', 'video'], ['clean']],
         handlers: { image: imageHandler },
       },
     };

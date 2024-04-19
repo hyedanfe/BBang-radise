@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const RecipeListItemWrapper = styled.div`
   background-color: var(--gray-02);
   display: flex;
-  height: 8vh;
+  height: 7vh;
   align-items: center;
   padding: 2px 6px;
   justify-content: space-between;
@@ -13,7 +13,7 @@ export const RecipeListItemWrapper = styled.div`
 
 export const RecipeListItemImage = styled.img`
   vertical-align: top;
-  height: 80%;
+  height: 95%;
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 25%;

@@ -20,14 +20,13 @@ export const RecipeDetailWrapper = styled.div`
     overflow-y: scroll;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    gap: 10px;
+    gap: 50px;
   }
 `;
 
 export const RecipeDetailCard = styled.div`
-  width: 327px;
+  width: 22%;
   height: 521px;
-  box-shadow: inset 0 0 15px red;
 `;
 
 export const RecipeDetailCardImage = styled.img`
@@ -45,6 +44,16 @@ export const RecipeDetailCardContent = styled.div`
 `;
 
 export const RecipeDetailContent = styled.section`
-  width: 36%;
-  box-shadow: inset 0 0 15px red;
+  width: 50%;
+  font-family: pretendard, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.55rem;
+  line-height: 1.7;
+  color: black;
+  padding: 0 15px;
+`;
+
+export const RecipeDetailReply = styled.div`
+  width: 28%;
 `;
