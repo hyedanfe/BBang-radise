@@ -5,11 +5,11 @@ const CommentDeleteButtonStyle = styled.button`
   width: 100%;
 `;
 
-function CommentDeleteButton() {
+function CommentDeleteButton({ type = 'button', width, onClick }) {
   return (
     <>
-      <CommentDeleteButtonStyle>
-        <DeleteIcon stroke="var(--gray-06)" strokeWidth="4.4px"></DeleteIcon>
+      <CommentDeleteButtonStyle type={type} onClick={onClick}>
+        <DeleteIcon stroke="var(--gray-06)" width={width}></DeleteIcon>
       </CommentDeleteButtonStyle>
     </>
   );
