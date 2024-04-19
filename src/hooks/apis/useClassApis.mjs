@@ -20,7 +20,11 @@ const useClassApis = () => {
     return axios.patch(`seller/products/${_id}`, formData);
   };
 
-  return { postClass, getClassDetail, patchClass, getClassList };
+  const deleteClass = (_id) => {
+    return axios.delete(`seller/products/${_id}`);
+  };
+
+  return { postClass, getClassDetail, patchClass, getClassList, deleteClass };
 };
 
 export default useClassApis;
