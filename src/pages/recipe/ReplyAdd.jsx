@@ -41,7 +41,7 @@ function ReplyAdd() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <TextArea
-            {...register('comment', {
+            {...register('content', {
               required: '내용을 입력하세요',
               minLength: {
                 value: 2,
@@ -52,7 +52,7 @@ function ReplyAdd() {
             placeholder="내용을 입력하세요."
           />
 
-          {errors.comment && <p>{errors.comment.message}</p>}
+          {errors.content && <p>{errors.content.message}</p>}
         </div>
         <Submit>댓글 등록</Submit>
       </form>

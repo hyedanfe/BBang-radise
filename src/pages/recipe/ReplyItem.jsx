@@ -5,6 +5,7 @@ import ReplyEdit from '@pages/recipe/ReplyEdit';
 import useMemberStore from '@zustand/memberStore.mjs';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import * as S from '@styles/recipe/replyitem.style';
 
 ReplyItem.propTypes = {
   item: PropTypes.object.isRequired,
@@ -27,26 +28,30 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
   return (
     <div className="CommentWrapper">
       <div className="CommentHeader">
-        {item.user.profile ? <img className="UserProfileImage  " src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
-        <a href="">
-          {item._id} {item.user.name}
-        </a>
-        {postUserId === item.user._id && <span className="text-sm ml-2 font-semibold text-gray-400">작성자</span>}
-        <time className="ml-auto text-gray-500 dark:text-gray-400" dateTime={item.updatedAt}>
-          {item.updatedAt}
-        </time>
+        {item.user.profile ? (
+          <img style={{ width: '50px' }} className="UserProfileImage" src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" />
+        ) : (
+          <DefaultProfile />
+        )}
+        <a href="">{item.user.name}</a>
+        {postUserId === item.user._id && <span>작성자</span>}
+        <time dateTime={item.updatedAt}>{item.updatedAt}</time>
       </div>
-      <div className="flex items-center">
+      <div>
         {editMode ? (
-          <ReplyEdit comment={item.comment} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />
+          <ReplyEdit content={item.content} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />
         ) : (
           <>
-            <pre className="font-custom whitespace-pre-wrap">{item.comment}</pre>
+            <pre>{item.content}</pre>
             {user?._id === item.user._id && (
-              <div className="ml-auto flex whitespace-nowrap">
-                <CommentEditButton onClick={() => setEditMode(true)}>수정</CommentEditButton>
-                <CommentDeleteButton onClick={() => handleDelete(item._id)}>삭제</CommentDeleteButton>
-              </div>
+              <S.ReplyItemButtonContainer>
+                <CommentEditButton width="12px" onClick={() => setEditMode(true)}>
+                  수정
+                </CommentEditButton>
+                <CommentDeleteButton width="12px" onClick={() => handleDelete(item._id)}>
+                  삭제
+                </CommentDeleteButton>
+              </S.ReplyItemButtonContainer>
             )}
           </>
         )}

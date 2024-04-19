@@ -82,7 +82,7 @@ function ReplyList() {
           draft.forEach((page) => {
             const target = _.find(page.data.item, (item) => item._id === reply_id);
             if (target) {
-              (target.comment = newItem.comment), (target.updatedAt = newItem.updatedAt);
+              (target.content = newItem.content), (target.updatedAt = newItem.updatedAt);
             }
           }),
         ) || [];

@@ -5,25 +5,25 @@ import Submit from '@components/ui/button/Submit';
 import Button from '@components/ui/button/Button';
 
 ReplyEdit.propTypes = {
-  comment: PropTypes.string,
+  content: PropTypes.string,
   setEditMode: PropTypes.func,
   handleUpdate: PropTypes.func,
 };
 
-function ReplyEdit({ comment, setEditMode, handleUpdate }) {
+function ReplyEdit({ content, setEditMode, handleUpdate }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    values: { comment },
+    values: { content },
   });
 
   return (
     <form onSubmit={handleSubmit(handleUpdate)}>
       <div>
         <TextArea
-          {...register('comment', {
+          {...register('content', {
             required: '내용을 입력하세요',
             minLength: {
               value: 2,
@@ -34,9 +34,9 @@ function ReplyEdit({ comment, setEditMode, handleUpdate }) {
           placeholder="내용을 입력하세요."
         />
 
-        {errors.comment && <p>{errors.comment.message}</p>}
+        {errors.content && <p>{errors.content.message}</p>}
       </div>
-      <div className="ml-auto flex whitespace-nowrap">
+      <div>
         <Submit>수정</Submit>
         <Button onClick={() => setEditMode(false)}>취소</Button>
       </div>
