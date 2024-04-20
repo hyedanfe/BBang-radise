@@ -8,13 +8,25 @@ import useUserApis from '@hooks/apis/useUserApis.mjs';
 import Section from '@components/ui/Section';
 import * as S from '@styles/login/login.style';
 import Text from '@components/ui/Text';
+import Modal from '@components/ui/Modal';
+import useModalStore from '@zustand/modalStore.mjs';
+import Toast from '@components/ui/Toast';
+import { useState } from 'react';
 
 function Login() {
   const location = useLocation();
   const navigate = useNavigate();
   const { postLogin } = useUserApis();
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
+
   // zustand setter 반환
   const setUserData = useMemberStore((state) => state.setUser);
+  const toggleModal = useModalStore((state) => state.toggleModal);
+
   const {
     register,
     handleSubmit,
@@ -26,6 +38,10 @@ function Login() {
       password: '11111111',
     },
   });
+
+  // const showErrorToast = (error) => {
+  //   setToast({ show: true, message: error.msg, type: 'error' });
+  // };
 
   const onSubmit = async (formData) => {
     console.log(formData);
@@ -40,8 +56,11 @@ function Login() {
         profile: res.data.item.profileImage,
         token: res.data.item.token,
       });
-      alert(res.data.item.name + '님 로그인 되었습니다.');
-      navigate(location.state?.from ? location.state?.from : '/'); // 메인페이지로 이동
+      toggleModal();
+      setToast({ show: true, message: `${res.data.item.name}님 로그인 되었습니다.` });
+      setTimeout(() => {
+        navigate(location.state?.from ? location.state?.from : '/');
+      }, 1000);
     } catch (err) {
       console.log(err);
       // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
@@ -49,7 +68,8 @@ function Login() {
         // API 서버가 응답한 에러
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
-        alert(err.response?.data.message);
+        toggleModal();
+        setToast({ show: true, message: err.response?.data.message });
       }
     }
   };
@@ -58,6 +78,7 @@ function Login() {
     <Section>
       <S.LoginWrapper>
         <Text typography="display_l">로그인</Text>
+        {toast.show && <Toast setToast={setToast} text={toast.message} />}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Input
@@ -88,7 +109,8 @@ function Login() {
             />
           </div>
           <div>
-            <Submit>로그인</Submit>
+            <Button onClick={toggleModal}>로그인</Button>
+            <Modal handleSubmit={handleSubmit} contentText="로그인하시겠습니까?" submitText="예" closeText="아니오" />
             <Button
               type="button"
               onClick={() => {

@@ -10,7 +10,7 @@ const ToastWrapper = styled.div`
   padding: 0 16px;
   position: fixed;
   width: 100%;
-  bottom: 0px;
+  /* bottom: 0px; */
 
   background: linear-gradient(0deg, rgba(255, 235, 168, 0.4), rgba(255, 255, 255, 0));
 
@@ -62,7 +62,7 @@ function Toast({ setToast, text }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setToast(false);
-    }, 3000);
+    }, 2000);
     return () => {
       clearTimeout(timer);
     };
