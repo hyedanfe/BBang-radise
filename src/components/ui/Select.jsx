@@ -33,9 +33,14 @@ const SelectStyle = styled.select`
     outline: var(--primary-01) solid 2px;
     border: none;
   }
+
+  &::placeholder {
+    color: var(--gray-05);
+    font-weight: 400;
+  }
 `;
 
-const Select = forwardRef(({ id, onChange, onBlur, name, label, optionData, ...rest }, ref) => {
+const Select = forwardRef(({ id, onChange, onBlur, name, label, placeholder, optionData, ...rest }, ref) => {
   return (
     <SelectContainerStyle>
       <LabelStyle htmlFor={id}>
@@ -43,7 +48,10 @@ const Select = forwardRef(({ id, onChange, onBlur, name, label, optionData, ...r
           {label}
         </Text>
       </LabelStyle>
-      <SelectStyle id={id} name={name} aria-label={label} ref={ref} onChange={onChange} onBlur={onBlur} {...rest}>
+      <SelectStyle id={id} name={name} aria-label={label} defaultValue="" ref={ref} onChange={onChange} onBlur={onBlur} placeholder={placeholder} {...rest}>
+        <option value="" disabled hidden>
+          {placeholder}
+        </option>
         {optionData?.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -60,6 +68,7 @@ Select.propTypes = {
   onBlur: PropTypes.func,
   name: PropTypes.string,
   label: PropTypes.string,
+  placeholder: PropTypes.string,
   optionData: PropTypes.arrayOf(PropTypes.object),
 };
 

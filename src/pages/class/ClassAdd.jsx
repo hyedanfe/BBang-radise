@@ -1,5 +1,7 @@
+import ClassForm from '@pages/class/ClassForm';
+
 function ClassAdd() {
-  return <div>ClassAdd</div>;
+  return <ClassForm />;
 }
 
 export default ClassAdd;

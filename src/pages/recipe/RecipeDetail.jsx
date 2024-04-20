@@ -1,12 +1,19 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
+import * as S from '@styles/recipe/recipedetail.style';
+import Section from '@components/ui/Section';
+import useMemberStore from '@zustand/memberStore.mjs';
+import RoundButton from '@components/ui/button/RoundButton';
+import Text from '@components/ui/Text';
+import GlobalRecipeContentStyle from '@styles/recipe/GlobalRecipeContentStyle';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { _id } = useParams();
+  const user = useMemberStore().user;
 
   let firstRender = useRef(true);
 
@@ -15,9 +22,9 @@ function RecipeDetail() {
   }, []);
 
   const { data } = useQuery({
-    queryKey: ['posts', id],
+    queryKey: ['posts', _id],
     queryFn: () =>
-      axios.get(`/posts/${id}`, {
+      axios.get(`/posts/${_id}`, {
         params: { incrementView: firstRender.current },
       }),
     select: (response) => response.data,
@@ -25,33 +32,42 @@ function RecipeDetail() {
   });
 
   // 삭제
-  const handleDelete = async () => {
-    await axios.delete(`/posts/${id}`);
-    alert('삭제되었습니다.');
-    navigate('/recipe');
+  const handleEdit = async () => {
+    navigate(`recipe/${_id}/edit`);
   };
 
   const item = data?.item;
 
   return (
-    <>
-      <div>RecipeDetail</div>
-
+    <Section>
       {item && (
-        <div className="main">
-          <section className="card">
-            <img style={{ width: '300px' }} src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
-            <h1>글제목: {item.title}</h1>
-            <p>작성자: {item.user.name}</p>
-            <p>작성일자: {item.updatedAt}</p>
-          </section>
+        <S.RecipeDetailWrapper>
+          <S.RecipeDetailCard>
+            <S.RecipeDetailCardImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
+            <S.RecipeDetailCardContent>
+              <Text color="black" typography="black_xl">
+                {item.title}
+              </Text>
+              <Text color="black" typography="extrabold_l">
+                {item.user.name}
+              </Text>
+              <Text color="black" typography="semibold_s">
+                {item.updatedAt}
+              </Text>
+            </S.RecipeDetailCardContent>
+          </S.RecipeDetailCard>
 
-          <section className="content">
-            <p>내용: {item.content}</p>
-          </section>
-        </div>
+          <S.RecipeDetailContent>
+            <GlobalRecipeContentStyle />
+            <div dangerouslySetInnerHTML={{ __html: item.content }} />
+          </S.RecipeDetailContent>
+          <S.RecipeDetailReply>
+            <Outlet context={item} />
+          </S.RecipeDetailReply>
+        </S.RecipeDetailWrapper>
       )}
-    </>
+      {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}
+    </Section>
   );
 }
 

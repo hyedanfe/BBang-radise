@@ -49,7 +49,7 @@ export const typographyMap = {
     font-family: pretendard, sans-serif;
     font-weight: 900;
     font-style: normal;
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     line-height: 1.5;
   `,
 
@@ -164,8 +164,8 @@ export const typographyMap = {
     font-family: pretendard, sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.64rem;
-    line-height: 1.64;
+    font-size: 1.55rem;
+    line-height: 1.7;
   `,
 
   light_l: css`
