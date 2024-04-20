@@ -37,7 +37,6 @@ function ReplyAdd() {
 
   return (
     <div>
-      <h4>새로운 댓글을 추가하세요.</h4>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <TextArea

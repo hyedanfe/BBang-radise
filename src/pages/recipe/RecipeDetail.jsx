@@ -7,6 +7,7 @@ import Section from '@components/ui/Section';
 import useMemberStore from '@zustand/memberStore.mjs';
 import RoundButton from '@components/ui/button/RoundButton';
 import Text from '@components/ui/Text';
+import GlobalRecipeContentStyle from '@styles/recipe/GlobalRecipeContentStyle';
 
 function RecipeDetail() {
   const axios = useCustomAxios();
@@ -57,10 +58,12 @@ function RecipeDetail() {
           </S.RecipeDetailCard>
 
           <S.RecipeDetailContent>
-            <p>내용: </p>
+            <GlobalRecipeContentStyle />
             <div dangerouslySetInnerHTML={{ __html: item.content }} />
           </S.RecipeDetailContent>
-          <Outlet context={item} />
+          <S.RecipeDetailReply>
+            <Outlet context={item} />
+          </S.RecipeDetailReply>
         </S.RecipeDetailWrapper>
       )}
       {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}
