@@ -12,12 +12,10 @@ to {
 
 const MainPageCoverImg = styled.img`
   width: ${(props) => props.width};
-  top: 40%;
   margin-top: ${(props) => props.margintop};
   margin-left: ${(props) => props.marginleft};
-  top: ${(props) => props.top};
   z-index: -1;
-  animation: ${popup} 2s ease-in-out;
+  animation: ${popup} 1s ease-in-out;
 `;
 
 MainPageCover.propTypes = {

@@ -1,22 +1,40 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const popup = keyframes`
+  0% {
+    opacity: 0;
+  } 
+
+
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const MainPageCoverWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: 100%;
-  padding-top: 14vh;
-  height: 150%;
+
+  & img:first-of-type {
+    margin-top: -280px;
+  }
+
   & img:last-child {
     margin-bottom: 400px;
   }
 
   @media all and (min-width: 768px) {
-    padding-top: 12vh;
-
     & img:last-child {
       margin-bottom: 400px;
+    }
+
+    & img:first-of-type {
+      margin-top: -200px;
     }
   }
 `;
@@ -60,6 +78,15 @@ export const MainPageContent = styled.div`
   position: sticky;
   top: 28vh;
   padding-top: 50px;
+  animation: ${popup} 4s ease-in-out;
+`;
+
+export const MainPageArrow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  transform: rotate(90deg);
 `;
 
 export const H1 = styled.h1`
@@ -73,6 +100,7 @@ export const H1 = styled.h1`
   margin: 0 auto;
   margin-top: 10px;
   padding: 0 20px;
+  animation: ${popup} 3s ease-in-out;
 
   @media all and (min-width: 768px) {
     max-width: 540px;
