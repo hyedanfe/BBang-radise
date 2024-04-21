@@ -109,10 +109,13 @@ function Login() {
             />
           </div>
           <div>
-            <Button onClick={toggleModal}>로그인</Button>
+            <Button color="var(--gray-07)" onClick={toggleModal}>
+              로그인
+            </Button>
             <Modal handleSubmit={handleSubmit} contentText="로그인하시겠습니까?" submitText="예" closeText="아니오" />
             <Button
               type="button"
+              color="var(--primary-01)"
               onClick={() => {
                 navigate('/signup');
               }}

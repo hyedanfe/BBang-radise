@@ -11,6 +11,7 @@ import useModal from '@hooks/useModal';
 import Modal from '@components/ui/Modal';
 import RoundButton from '@components/ui/button/RoundButton';
 import * as S from '@styles/recipe/recipelist.style';
+import useModalStore from '@zustand/modalStore.mjs';
 
 function RecipeList() {
   const axios = useCustomAxios();
@@ -48,16 +49,21 @@ function RecipeList() {
   const user = useMemberStore().user;
   console.log(user);
   const navigate = useNavigate();
-  const { isOpen, handleModalToggle } = useModal();
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const handleAddRecipe = () => {
     if (!user) {
       // const gotoLogin = confirm('로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?');
       // gotoLogin && navigate('/login');
-      handleModalToggle();
+      toggleModal();
     } else {
       navigate(`/recipe/add`);
     }
+  };
+
+  const handleConfirm = () => {
+    toggleModal();
+    navigate(`/login`);
   };
 
   const recipeList = data?.item.map((item) => <RecipeListItem key={item._id} item={item} />);
@@ -88,14 +94,7 @@ function RecipeList() {
           </div>
         </S.RecipeListContent>
         <RoundButton page="add" onClick={handleAddRecipe} />
-        <Modal
-          isOpen={isOpen}
-          handleModalToggle={handleModalToggle}
-          handleConfirmClick={() => navigate(`/login`)}
-          contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?"
-          confirmText="예"
-          closeText="아니오"
-        />
+        <Modal handleConfirm={handleConfirm} contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?" confirmText="예" closeText="아니오" />
       </S.RecipeListWrapper>
     </Section>
   );
