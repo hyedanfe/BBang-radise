@@ -1,0 +1,166 @@
+import styled from 'styled-components';
+
+export const MainPageCoverWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  padding-top: 14vh;
+  height: 150%;
+  & img:last-child {
+    margin-bottom: 400px;
+  }
+
+  @media all and (min-width: 768px) {
+    padding-top: 12vh;
+
+    & img:last-child {
+      margin-bottom: 400px;
+    }
+  }
+`;
+
+export const MainPageClassWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  padding-top: 100px;
+  @media all and (min-width: 768px) {
+    padding-top: 140px;
+  }
+`;
+
+export const MainPageRecipeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 240px 0;
+
+  @media all and (min-width: 768px) {
+    padding: 340px 0;
+  }
+`;
+
+export const MainPageBottomWrapper = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @media all and (min-width: 768px) {
+    margin: 0 -70px;
+    height: 150vh;
+    padding-top: 200px;
+  }
+`;
+
+export const MainPageContent = styled.div`
+  position: sticky;
+  top: 28vh;
+  padding-top: 50px;
+`;
+
+export const H1 = styled.h1`
+  font-family: dunkel-sans-variable, sans-serif;
+  font-variation-settings: 'GLAT' 1000, 'wdth' 850;
+  font-size: 5rem;
+  line-height: 1.3;
+  color: var(--black);
+  word-break: keep-all;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 0 20px;
+
+  @media all and (min-width: 768px) {
+    max-width: 540px;
+  }
+`;
+
+export const H2 = styled.h2`
+  font-family: dunkel-sans-variable, sans-serif;
+  font-variation-settings: 'GLAT' 1000, 'wdth' 850;
+  font-size: 2.5rem;
+  line-height: 1.5;
+  color: var(--black);
+  word-break: keep-all;
+  text-align: center;
+  padding: 0 20px;
+  margin: 0 auto;
+
+  & span {
+    color: var(--primary-01);
+  }
+
+  @media all and (min-width: 768px) {
+    max-width: 440px;
+    padding: unset;
+  }
+`;
+
+export const MainPageButton = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media all and (min-width: 768px) {
+    max-width: 400px;
+  }
+`;
+
+export const MainPageClassSwiper = styled.div`
+  margin: 0 -14px;
+  margin-top: 20px;
+
+  & swiper-slide {
+    width: 78%;
+    overflow: visible;
+  }
+
+  & .swiper-slide-active {
+    & .card-contents {
+      background-color: var(--primary-02);
+    }
+
+    & .card-txt {
+      color: var(--white);
+    }
+  }
+
+  @media all and (min-width: 768px) {
+    margin: 0 -70px;
+    margin-top: 50px;
+    & swiper-slide {
+      width: 340px;
+    }
+  }
+`;
+
+export const MainPageRecipeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 0 auto;
+  margin-top: 40px;
+`;
+
+export const MainPageBottomImg = styled.img`
+  margin: 0 -14px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: calc(100% + 28px);
+  z-index: -1;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+
+  @media all and (min-width: 768px) {
+    margin: 0 -70px;
+    width: calc(100% + 140px);
+  }
+`;

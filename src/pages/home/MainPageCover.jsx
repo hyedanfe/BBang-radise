@@ -1,10 +1,9 @@
 import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const popup = keyframes`
 from{
   opacity:0;
-
-  top:0;
 }
 to {
   opacity:1;
@@ -12,20 +11,24 @@ to {
 `;
 
 const MainPageCoverImg = styled.img`
-  position: sticky;
   width: ${(props) => props.width};
-  transform: translateY(-50%);
-  margin-top: ${(props) => props.margin};
+  top: 40%;
+  margin-top: ${(props) => props.margintop};
+  margin-left: ${(props) => props.marginleft};
   top: ${(props) => props.top};
-  bottom: ${(props) => props.bottom};
-  left: ${(props) => props.left};
-  right: ${(props) => props.right};
   z-index: -1;
   animation: ${popup} 2s ease-in-out;
 `;
 
-function MainPageCover({ src, top, bottom, left, right, width, margin }) {
-  return <MainPageCoverImg src={src} top={top} bottom={bottom} left={left} right={right} width={width} margin={margin} />;
+MainPageCover.propTypes = {
+  src: PropTypes.string,
+  width: PropTypes.string,
+  margintop: PropTypes.string,
+  marginleft: PropTypes.string,
+};
+
+function MainPageCover({ src, width, margintop, marginleft }) {
+  return <MainPageCoverImg src={src} width={width} marginTop={margintop} marginLeft={marginleft} />;
 }
 
 export default MainPageCover;
