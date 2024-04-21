@@ -8,8 +8,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import RoundButton from '@components/ui/button/RoundButton';
 import Modal from '@components/ui/Modal';
 import useMemberStore from '@zustand/memberStore.mjs';
-import useModal from '@hooks/useModal';
 import { ClassListContent, ClassListPage, ClassListSearch, ClassListSub, ClassListText, ClassListWrapper } from '@styles/class/classList.style';
+import useModalStore from '@zustand/modalStore.mjs';
 
 function ClassList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,14 +29,19 @@ function ClassList() {
 
   const user = useMemberStore().user;
   const navigate = useNavigate();
-  const { isOpen, handleModalToggle } = useModal();
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const handleAddClass = () => {
     if (!user) {
-      handleModalToggle();
+      toggleModal();
     } else {
       navigate(`/class/add`);
     }
+  };
+
+  const handleConfirm = () => {
+    toggleModal();
+    navigate(`/login`);
   };
 
   const classList = data?.item.map((item) => <ClassCard key={item._id} item={item} />);
@@ -74,14 +79,7 @@ function ClassList() {
         </ClassListContent>
       </ClassListWrapper>
       <RoundButton page="add" onClick={handleAddClass} />
-      <Modal
-        isOpen={isOpen}
-        handleModalToggle={handleModalToggle}
-        handleConfirmClick={() => navigate(`/login`)}
-        contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
-        confirmText="로그인"
-        closeText="돌아가기"
-      />
+      <Modal handleConfirm={handleConfirm} contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!" confirmText="로그인" closeText="돌아가기" />
     </Section>
   );
 }
