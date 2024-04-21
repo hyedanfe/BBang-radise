@@ -19,7 +19,6 @@ function MyPageEdit() {
   const navigate = useNavigate();
   const { data } = useGetUserInfo(_id);
   const { patchMyInfo } = useUserApis();
-  // const { isOpen, handleModalToggle } = useModal();
   const [showToast, setShowToast] = useState(false);
   const toggleModal = useModalStore((state) => state.toggleModal);
 
