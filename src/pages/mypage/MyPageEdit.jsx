@@ -9,17 +9,19 @@ import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import { useGetUserInfo } from '@hooks/queries/user';
 import * as S from '@styles/mypage/mypage.style';
-import useModal from '@hooks/useModal';
 import Modal from '@components/ui/Modal';
 import Toast from '@components/ui/Toast';
+import useModalStore from '@zustand/modalStore.mjs';
+import DefaultProfile from '@assets/DefaultProfile';
 
 function MyPageEdit() {
   const { _id } = useParams();
   const navigate = useNavigate();
   const { data } = useGetUserInfo(_id);
   const { patchMyInfo } = useUserApis();
-  const { isOpen, handleModalToggle } = useModal();
+  // const { isOpen, handleModalToggle } = useModal();
   const [showToast, setShowToast] = useState(false);
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const {
     register,
@@ -47,12 +49,12 @@ function MyPageEdit() {
         introduction: user.introduction,
       });
     }
-  }, [user, reset]);
+  }, [user]);
 
   const onSubmit = async (formData) => {
     try {
       await patchMyInfo(_id, formData);
-      handleModalToggle();
+      toggleModal();
       setShowToast(true);
     } catch (err) {
       console.log(err);
@@ -60,7 +62,7 @@ function MyPageEdit() {
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
         alert(err.response?.data.message);
-        handleModalToggle();
+        toggleModal();
       }
     }
   };
@@ -96,7 +98,11 @@ function MyPageEdit() {
             <div>
               <Text typography="semibold_m">프로필 이미지</Text>
             </div>
-            <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
+            {user.profileImage && user.profileImage.length > 0 ? (
+              <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
+            ) : (
+              <DefaultProfile width={71} height={71} stroke="gray" />
+            )}
             <div>
               <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
             </div>
@@ -111,10 +117,10 @@ function MyPageEdit() {
               </Button>
             </div>
             <div>
-              <Button color="var(--primary-01)" onClick={handleModalToggle}>
+              <Button color="var(--primary-01)" onClick={toggleModal}>
                 수정 완료
               </Button>
-              <Modal isOpen={isOpen} handleModalToggle={handleModalToggle} handleConfirmClick={handleSubmit} contentText="정말 수정하시겠습니까?" confirmText="예" closeText="아니오" />
+              <Modal handleSubmit={handleSubmit} contentText="정말 수정하시겠습니까?" submitText="예" closeText="아니오" />
             </div>
           </form>
         )}
