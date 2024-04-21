@@ -1,12 +1,268 @@
 import Section from '@components/ui/Section';
-import Text from '@components/ui/Text';
+import Button from '@components/ui/button/Button';
+import styled from 'styled-components';
+import MainPageClass from '@pages/home/MainPageClass';
+import { register } from 'swiper/element/bundle';
+import MainPageRecipe from '@pages/home/MainPageRecipe';
+import MainPageCover from '@pages/home/MainPageCover';
+register();
+
+const MainPageSwiper = styled.div`
+  margin: 0 -70px;
+`;
+
+const MainPageCoverWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  margin: 0 -70px;
+`;
+
+const MainPageCoverContent = styled.div`
+  position: sticky;
+  transform: translateY(-50%);
+  top: 45vh;
+`;
+
+const MainPageClassWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100vh;
+  justify-content: center;
+`;
+
+const MainPageRecipeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100vh;
+  padding-top: 160px;
+`;
+
+const MainPageBottomWrapper = styled.div``;
+
+const H1 = styled.h1`
+  max-width: 540px;
+  font-family: dunkel-sans-variable, sans-serif;
+  font-variation-settings: 'GLAT' 1000, 'wdth' 850;
+  font-size: 6rem;
+  line-height: 1.4;
+  color: var(--black);
+  word-break: keep-all;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+`;
+
+const H2 = styled.h2`
+  max-width: 550px;
+  font-family: dunkel-sans-variable, sans-serif;
+  font-variation-settings: 'GLAT' 1000, 'wdth' 850;
+  font-size: 3.4rem;
+  line-height: 1.5;
+  color: var(--black);
+  word-break: keep-all;
+  text-align: center;
+  margin: 0 auto;
+
+  & span {
+    color: var(--primary-01);
+  }
+`;
+
+const MainPageButton = styled.div`
+  width: 350px;
+  margin: 0 auto;
+`;
+
+const MainPageClassSwiper = styled.div`
+  margin: 0 -70px;
+  margin-top: 40px;
+
+  & swiper-slide {
+    width: 340px;
+    overflow: visible;
+  }
+
+  & .swiper-slide-active {
+    & .card-contents {
+      background-color: var(--primary-02);
+    }
+
+    & .card-txt {
+      color: var(--white);
+    }
+  }
+`;
+
+const MainPageRecipeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40px;
+`;
 
 const MainPage = () => {
   return (
     <Section>
-      <Text typography="display_l" color="black">
-        메인 페이지
-      </Text>
+      <MainPageSwiper>
+        <MainPageCoverWrapper>
+          <MainPageCoverContent>
+            <H2>빵이 가득한 파라다이스,</H2>
+            <H1>빵라다이스에 오신 여러분을 환영합니다!</H1>
+          </MainPageCoverContent>
+          <MainPageCover src="/homeSample/main06.png" top="53vh" width="90%" />
+          <MainPageCover src="/homeSample/main03.png" top="61vh" width="95%" />
+          <MainPageCover src="/homeSample/main07.png" top="50vh" width="90%" />
+          <MainPageCover src="/homeSample/main05.png" top="52vh" width="96%" />
+          <MainPageCover src="/homeSample/main04.png" top="50vh" width="96%" />
+        </MainPageCoverWrapper>
+
+        <MainPageClassWrapper>
+          <H2>
+            빵라다이스에서는 베이킹 마스터들의 다양한 <span>베이킹 클래스</span>가 열리고 있습니다{' '}
+          </H2>
+          <MainPageButton>
+            <Button color="var(--primary-01)">베이킹 클래스 신청하기</Button>
+          </MainPageButton>
+          <MainPageClassSwiper>
+            <swiper-container
+              slides-per-view="auto"
+              effect="coverflow"
+              coverflow-effect-depth="20"
+              coverflow-effect-rotate="8"
+              coverflow-effect-scale="0.9"
+              coverflow-effect-slide-shadows="false"
+              centered-slides="true"
+              space-between="40"
+              autoplay-delay="2600"
+              loop="true"
+              speed="1500"
+            >
+              <swiper-slide>
+                <MainPageClass
+                  img="/homeSample/class01.jpeg"
+                  title="속은 촉촉, 겉은 바삭! 브리오슈 만들기"
+                  text="브리오슈를 집에서 쉽고 맛있게 만들어보세요! 이 강의에서는 촉촉하고 부드러운 내용물과 바삭한 겉을 가진 프랑스 빵의 비법을 배우게 됩니다. 전문적인 레시피와 기술을 통해 집에서도 프랑스 베이커리의 풍미를 경험할 수 있습니다. 집에..."
+                  toggle="true"
+                  adress="서울 마포구"
+                  quantity="11/14"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  img="/homeSample/class02.png"
+                  title="화이트 초콜릿과 크랜베리 스콘 베이킹 모집"
+                  text="초보자부터 숙련자까지 모두 화이트 초콜릿과 크랜베리의 풍부한 맛을 느낄 수 있는 시그니처 레시피와 함께, 스콘의 기본 기술과 레시피 변형법을 배웁니다. 아침 식사나 오후의 티타임에 어울리는 이 특별한 스콘을 만들어서 가족과 친구들에게 자랑해보세요!"
+                  adress="성남시 분당구"
+                  quantity="15/20"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  img="/homeSample/class03.jpg"
+                  title="담백하고 고소한 호밀빵 클래스 오픈!"
+                  text="이번에는 담백하고 고소한 호밀빵을 만들어보는 클래스를 열어요!호밀빵의 기본적인 레시피와 베이킹 요령부터 시작해서, 집에서도 호텔 베이커리 수준의 맛과 향을 내는 비법을 배울 거예요. 언제나 즐겨 먹을 수 있는 담백하고 고소한 호밀빵을 직접 만들어보세요!"
+                  adress="부산시 해운대구"
+                  quantity="3/8"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  type="active"
+                  toggle="true"
+                  img="/homeSample/class04.jpg"
+                  title="레몬 번트 케이크: 집에서 프로의 솜씨로!"
+                  text="레몬 번트 케이크 베이킹 모집! 달콤한 향과 부드러운 식감의 번트 케이크를 만들어보세요. 모든 재료와 도구를 제공하며, 초보자도 쉽게 참여할 수 있습니다. 케이크를 만들며 즐거운 시간을 보내고, 더 나은 베이킹 기술을 습득하세요. 빠른 신청 서두르세요!"
+                  adress="대구시 수성구"
+                  quantity="9/10"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  toggle="true"
+                  img="/homeSample/class05.png"
+                  title="비밀 레시피로 배우는 애플 크럼블 파이!"
+                  text="🍏애플 크럼블 파이 클래스 모집합니다🥧 집에서 따뜻한 파이 향기를 즐기며 새로운 요리 기술을 배울 수 있는 기회! 신선한 사과와 바삭한 크럼블을 조합하여 완벽한 맛을 낼 수 있는 레시피를 배워보세요. 재료는 준비되어 있으니, 여유로운 분위기 속에서 친구들과 함께 즐거운 파이 만들기를 시작해봐요! "
+                  adress="서울시 종로구"
+                  quantity="4/10"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  type="active"
+                  img="/homeSample/class06.jpg"
+                  title="남부의 맛을 집에서 즐기는 법 ~ 피칸파이"
+                  text="달콤한 피칸과 부드러운 크림이 어우러진 맛있는 파이를 함께 만들어보세요. 특별한 레시피와 실전 팁을 전해드립니다. 처음이신 분도 환영! 재료는 모두 제공되며, 베이킹의 재미를 경험해보세요. 피칸 파이의 풍부한 맛과 향기로운 시간을 보내고 싶은 분들을 모십니다. 함께하는 모임에서 새로운 친구들과 소중한 추억을 만들어보세요. 지금 바로 신청해보세요!"
+                  adress="광주시 서구"
+                  quantity="9/10"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  toggle="true"
+                  img="/homeSample/class07.jpg"
+                  title="간편한 블루베리 머핀 만들기 모집합니다"
+                  text="특별한 블루베리 머핀 베이킹 클래스 오픈! 상큼한 블루베리의 달콤한 맛이 가득한 머핀을 함께 만들어보세요. 베이킹 전문가의 가이드와 함께하는 실전 레슨으로, 누구나 쉽게 따라할 수 있어요. 재료와 도구는 모두 준비되어 있으니, 당신의 열정만 가져오세요! 새로운 친구들과 함께하는 베이킹 클래스로 달콤한 블루베리 머핀을 만들며 즐거운 추억을 만들어봐요. 놓치지 마세요!"
+                  adress="강원도 춘천시"
+                  quantity="5/6"
+                />
+              </swiper-slide>
+
+              <swiper-slide>
+                <MainPageClass
+                  img="/homeSample/class08.jpg"
+                  title="상큼한 여름 디저트 클래스"
+                  text="상큼한 여름 디저트 클래스 참가자를 모집합니다! 신선한 과일과 상큼한 시트러스 향이 어우러진 레시피로 여름을 더욱 즐겁게 보낼 준비가 되어 있습니다. 시원한 머스크멜론 샐러드, 상큼한 레몬 파운드 케이크, 혹은 상쾌한 베리 타르트 등 다양한 디저트를 만들어보면서 여름의 매력을 느껴보세요. 특별한 여름 추억을 함께 만들 준비가 되어 있으니, 지금 바로 신청하세요!"
+                  adress="울산시 남구"
+                  quantity="4/8"
+                />
+              </swiper-slide>
+            </swiper-container>
+          </MainPageClassSwiper>
+        </MainPageClassWrapper>
+
+        <MainPageRecipeWrapper>
+          <H2>
+            빵라다이스의 주민들은 서로가 가진 다양한 <span>베이킹 레시피</span>를 공유합니다
+          </H2>
+          <MainPageButton>
+            <Button color="var(--primary-01)">베이킹 레시피 찾기 </Button>
+          </MainPageButton>
+          <MainPageRecipeContainer>
+            <MainPageRecipe img="/homeSample/recipe01.jpg" title="우리나라 전통 약과도 사랑해주기를 바라는 마음에 만들어봄!" />
+            <MainPageRecipe img="/homeSample/recipe02.jpeg" title="커피대신 커피번 먹고 정신 차리기" />
+            <MainPageRecipe img="/homeSample/recipe03.jpg" title="지옥에서 온 츄러스..." />
+            <MainPageRecipe img="/homeSample/recipe04.png" title="베이킹 시작하고 금손 소리 듣는 중인 내가 사실 똥손인 것에 대하여" />
+            <MainPageRecipe img="/homeSample/recipe05.jpg" title="딸기가 제철이라 만들어본 🍓딸기 타르트🍓" />
+            <MainPageRecipe img="/homeSample/recipe06.jpg" title="여행가서 먹은 에그타르트 재현해봤는데..." />
+            <MainPageRecipe img="/homeSample/recipe07.jpg" title="집에서 만드는 컵케이크 레시피 공유 🧁" />
+            <MainPageRecipe img="/homeSample/recipe08.jpeg" title="오븐 없이 에어프라이어로 베이킹 기록 (진짜 핵초보 주의)" />
+            <MainPageRecipe img="/homeSample/recipe09.jpg" title="당 걱정돼서 베이킹할 때 설탕 안 넣으면 이렇게 됨.jpg" />
+            <MainPageRecipe img="/homeSample/recipe10.jpg" title="홈 베이킹 초보~ 식빵 구웠다~" />
+            <MainPageRecipe img="/homeSample/recipe11.jpg" title="베이킹 고수들아 나 좀 도와줘 (어디서 부터 잘못된 걸까..)" />
+            <MainPageRecipe img="/homeSample/recipe12.jpeg" title="슈가파우더 대신 황설탕 쓴 후기 공유" />
+            <MainPageRecipe img="/homeSample/recipe13.jpg" title="베이킹이 취미인 사람 베이킹 기록 보고가~!" />
+          </MainPageRecipeContainer>
+        </MainPageRecipeWrapper>
+
+        <MainPageBottomWrapper>
+          <img src="/homeSample/bottom.jpg" width="100%" />
+        </MainPageBottomWrapper>
+      </MainPageSwiper>
     </Section>
   );
 };
