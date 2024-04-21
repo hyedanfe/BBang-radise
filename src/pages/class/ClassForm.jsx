@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useGetClassDetail } from '@hooks/queries/class';
 import useClassApis from '@hooks/apis/useClassApis.mjs';
 import Modal from '@components/ui/Modal';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import Toast from '@components/ui/Toast';
 
 // TODO: 파일 미리보기 공동 컴포넌트

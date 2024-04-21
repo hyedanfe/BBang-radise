@@ -11,7 +11,7 @@ import { useGetUserInfo } from '@hooks/queries/user';
 import * as S from '@styles/mypage/mypage.style';
 import Modal from '@components/ui/Modal';
 import Toast from '@components/ui/Toast';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import DefaultProfile from '@assets/DefaultProfile';
 
 function MyPageEdit() {
