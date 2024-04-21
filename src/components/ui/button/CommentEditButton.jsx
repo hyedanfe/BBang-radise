@@ -5,11 +5,11 @@ const CommentEditButtonStyle = styled.button`
   width: 100%;
 `;
 
-function CommentEditButton() {
+function CommentEditButton({ type = 'button', onClick, width }) {
   return (
     <>
-      <CommentEditButtonStyle>
-        <EditIcon stroke="var(--primary-01)" strokeWidth="4.4px"></EditIcon>
+      <CommentEditButtonStyle type={type} onClick={onClick}>
+        <EditIcon stroke="var(--primary-01)" strokeWidth="4.4px" width={width}></EditIcon>
       </CommentEditButtonStyle>
     </>
   );

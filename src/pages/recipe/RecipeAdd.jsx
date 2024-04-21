@@ -59,46 +59,53 @@ function RecipeAdd() {
 
   return (
     <Section>
-      <S.RecipeAddWrapper>
-        <Text color="black" display="block" typography="display_l">
-          베이킹 레시피 등록하기
-        </Text>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="input-title">
-            <Input
-              id="title"
-              type="text"
-              label="제목 (30자 이내)"
-              placeholder="제목을 입력하세요"
-              error={errors.title && errors.title.message}
-              {...register('title', {
-                required: '제목을 입력해주세요',
-                maxLength: {
-                  value: 30,
-                  message: '제목은 30자 이내로 입력 가능합니다',
-                },
-              })}
-            />
-          </div>
-          <div className="select-category">
-            <Select id="category" label="카테고리" placeholder="레시피 카테고리를 선택해주세요" />
-          </div>
-          <div className="upload-mainimage">
-            <Input type="file" accept="image/*" id="extra" label="대표 이미지" {...register('extra')} />
-          </div>
-          <div className="input-content">
-            <Text typography="semibold_s" display="block" color="gray08">
-              레시피 내용
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <S.RecipeAddWrapper>
+          <S.RecipeAddSideBar>
+            <Text color="black" display="block" typography="display_l">
+              베이킹 레시피 등록하기
             </Text>
-            <QuillEditor id="content" name="content" values={quillValue} setValues={setquillValue} />
-            {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
-          </div>
-          <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
-            취소하기
-          </Button>
-          <Submit>등록하기</Submit>
-        </form>
-      </S.RecipeAddWrapper>
+            <div>
+              <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
+                취소하기
+              </Button>
+              <Submit>등록하기</Submit>
+            </div>
+          </S.RecipeAddSideBar>
+
+          <S.RecipeAddForm>
+            <div className="input-title">
+              <Input
+                id="title"
+                type="text"
+                label="제목 (30자 이내)"
+                placeholder="제목을 입력하세요"
+                error={errors.title && errors.title.message}
+                {...register('title', {
+                  required: '제목을 입력해주세요',
+                  maxLength: {
+                    value: 30,
+                    message: '제목은 30자 이내로 입력 가능합니다',
+                  },
+                })}
+              />
+            </div>
+            <div className="select-category">
+              <Select id="category" label="카테고리" placeholder="레시피 카테고리를 선택해주세요" />
+            </div>
+            <div className="upload-mainimage">
+              <Input type="file" accept="image/*" id="extra" label="대표 이미지" {...register('extra')} />
+            </div>
+            <div className="input-content">
+              <Text typography="semibold_s" display="block" color="gray08">
+                레시피 내용
+              </Text>
+              <QuillEditor id="content" name="content" values={quillValue} setValues={setquillValue} />
+              {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
+            </div>
+          </S.RecipeAddForm>
+        </S.RecipeAddWrapper>
+      </form>
     </Section>
   );
 }

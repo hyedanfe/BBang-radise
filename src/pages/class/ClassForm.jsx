@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import Submit from '@components/ui/button/Submit';
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
@@ -13,13 +12,16 @@ import DefaultImagePreview from '@assets/DefaultImagePreview.png';
 import { useEffect, useState } from 'react';
 import { useGetClassDetail } from '@hooks/queries/class';
 import useClassApis from '@hooks/apis/useClassApis.mjs';
+import Modal from '@components/ui/Modal';
+import useModalStore from '@zustand/modalStore.mjs';
+import Toast from '@components/ui/Toast';
 
 // TODO: 파일 미리보기 공동 컴포넌트
 function ClassForm() {
   const navigate = useNavigate();
   const { _id } = useParams();
   const { postSingleFile, postMultipleFiles } = useFileApis();
-  const { postClass, patchClass } = useClassApis();
+  const { postClass, patchClass, deleteClass } = useClassApis();
   const { data } = useGetClassDetail(_id);
 
   const {
@@ -49,6 +51,13 @@ function ClassForm() {
 
   const [mainImagesPreview, setMainImagesPreview] = useState('');
   const [detailImagesPreview, setDetailImagesPreview] = useState([]);
+  const toggleModal = useModalStore((state) => state.toggleModal);
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
+
   const optionData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((number) => ({
     value: number,
     label: number,
@@ -72,7 +81,7 @@ function ClassForm() {
         },
       });
     }
-  }, [classInfo, reset]);
+  }, [classInfo]);
 
   useEffect(() => {
     if (classInfo && classInfo.mainImages.length > 0) {
@@ -81,7 +90,7 @@ function ClassForm() {
   }, [classInfo]);
 
   useEffect(() => {
-    if (classInfo && classInfo.extra.detailImages.length > 0) {
+    if (classInfo && classInfo.extra?.detailImages?.length > 0) {
       const imageURLs = classInfo.extra.detailImages.map((image) => `${import.meta.env.VITE_API_SERVER}/${image.path}`);
       setDetailImagesPreview(imageURLs);
     }
@@ -107,6 +116,10 @@ function ClassForm() {
 
   const renderImageArray = [...detailImagesPreview, ...Array(10 - detailImagesPreview.length).fill(DefaultImagePreview)];
 
+  const handleClassDelete = async () => {
+    deleteClass(_id);
+    navigate(`/class`);
+  };
   // 이미지 삭제
   // const deleteMainImage = () => {
   //   setValue('mainImages', { mainImage: {} });
@@ -144,9 +157,11 @@ function ClassForm() {
 
       if (!_id) {
         const res = await postClass(formData);
+        toggleModal();
         navigate(`/class/${res?.data.item._id}`);
       } else {
         await patchClass(_id, formData);
+        toggleModal();
         navigate(`/class/${_id}`);
       }
     } catch (err) {
@@ -154,7 +169,7 @@ function ClassForm() {
       if (err.response?.data.errors) {
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
-        alert(err.response?.data.message);
+        setToast({ show: true, message: err.response?.data.message });
       }
     }
   };
@@ -163,7 +178,7 @@ function ClassForm() {
     <Section>
       <S.ClassAddWrapper>
         <Text typography="display_l"> {_id ? '게시물 수정' : '게시물 등록'}</Text>
-
+        {toast.show && <Toast setToast={setToast} text={toast.message} />}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             {_id ? (
@@ -328,18 +343,46 @@ function ClassForm() {
               })}
             />
           </div>
-          <div>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              취소하기
-            </Button>
-          </div>
 
           <div>
-            <Submit>{_id ? '수정하기' : '개설하기'}</Submit>
+            {_id ? (
+              <>
+                <Modal handleSubmit={handleSubmit} contentText="수정하시겠습니까?" submitText="예" closeText="아니오" />
+                <Button color="var(--gray-06)" onClick={handleClassDelete}>
+                  삭제하기
+                </Button>
+                <div>
+                  <Button
+                    color="var(--primary-02)"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    수정 취소
+                  </Button>
+                </div>
+                <Button color="var(--primary-01)" onClick={toggleModal}>
+                  수정 완료
+                </Button>
+              </>
+            ) : (
+              <>
+                <Modal handleSubmit={handleSubmit} contentText="개설하시겠습니까?" submitText="예" closeText="아니오" />
+                <div>
+                  <Button
+                    color="var(--gray-06)"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    취소하기
+                  </Button>
+                </div>
+                <Button color="var(--primary-01)" onClick={toggleModal}>
+                  개설하기
+                </Button>
+              </>
+            )}
           </div>
         </form>
       </S.ClassAddWrapper>
