@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   H1,
   H2,
+  MainPageArrow,
   MainPageBottomImg,
   MainPageBottomWrapper,
   MainPageButton,
@@ -18,6 +19,7 @@ import {
   MainPageRecipeContainer,
   MainPageRecipeWrapper,
 } from '@styles/mainpage/mainpage.style';
+import ArrowIcon from '@assets/ArrowIcon';
 register();
 
 const MainPage = () => {
@@ -26,12 +28,17 @@ const MainPage = () => {
   return (
     <Section>
       <MainPageCoverWrapper>
-        <MainPageCover src="/homeSample/main03.png" width="94%" />
-        <MainPageCover src="/homeSample/main06.png" width="90%" />
         <MainPageContent>
           <H2>빵이 가득한 파라다이스,</H2>
           <H1>빵라다이스에 오신 여러분을 환영합니다!</H1>
+          <MainPageArrow>
+            <ArrowIcon width="23px" stroke="var(--primary-01)" />
+          </MainPageArrow>
         </MainPageContent>
+
+        <MainPageCover src="/homeSample/main03.png" width="94%" />
+        <MainPageCover src="/homeSample/main06.png" width="90%" />
+
         <MainPageCover src="/homeSample/main07.png" width="95%" />
         <MainPageCover src="/homeSample/main05.png" width="95%" marginTop="70px" />
         <MainPageCover src="/homeSample/main04.png" width="100%" marginTop="30px" marginLeft="20px" />
