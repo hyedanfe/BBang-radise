@@ -16,7 +16,6 @@ const ClassOrderWrapper = styled.div`
   @media all and (min-width: 768px) {
     justify-content: space-between;
     width: 100%;
-    padding-bottom: 90px;
     position: relative;
     padding-top: 120px;
     max-width: 500px;
@@ -29,6 +28,7 @@ const ClassOrderText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 100px;
 `;
 
 const ClassOrderButton = styled.div`
