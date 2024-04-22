@@ -11,19 +11,20 @@ const FooterWrapper = styled.footer`
 
   @media all and (min-width: 768px) {
     padding: 50px;
+    padding-top: 270px;
   }
 `;
 
 const FooterContent = styled.div`
   font-family: pretendard, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: normal;
   font-size: 1.3rem;
   line-height: 1.7;
   color: var(--gray-08);
 
   & span {
-    font-weight: 400;
+    font-weight: 600;
   }
 
   & a {
@@ -38,23 +39,23 @@ function Footer() {
         <span>ⓒ 2024. BBangradise All rights reserved </span>
         <br />
         <br />
-        이 홈페이지는 멋쟁이 사자처럼 프론트엔드 스쿨 9기 수료 과정을 시작으로 개발되었습니다.
+        지금 보시는 웹사이트는 멋쟁이 사자처럼 프론트엔드 스쿨 9기 수료 과정을 시작으로 개발되었습니다.
         <br />
         <br />
-        빵라다이스는 &nbsp;
+        빵라다이스는&nbsp;
         <a href="https://github.com/dohehehe" target="_blank">
-          곽도희
+          곽도희,
         </a>
         &nbsp;
         <a href="https://github.com/C5D2" target="_blank">
-          김나라
+          김나라,
         </a>
         &nbsp;
         <a href="https://github.com/hyedanfe" target="_blank">
           서혜단
         </a>
         이 기획부터 디자인, 개발 그리고 배포를 진행한 프로젝트입니다. <br />
-        프로젝트 &nbsp;
+        프로젝트&nbsp;
         <a href="https://github.com/FRONTENDSCHOOL9/BBang-radise" target="_blank">
           깃허브 페이지
         </a>
