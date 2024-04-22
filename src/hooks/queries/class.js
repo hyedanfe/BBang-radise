@@ -28,5 +28,6 @@ export const useGetClassDetail = (_id) => {
     queryFn: () => getClassDetail(_id),
     select: (response) => response.data,
     enabled: !!_id,
+    suspense: true,
   });
 };
