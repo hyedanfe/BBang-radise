@@ -14,17 +14,23 @@ function RecipeListItem({ item }) {
   return (
     <S.RecipeListItemWrapper onClick={() => navigate(`/recipe/${item._id}`)}>
       <S.RecipeListItemImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
-      <Text color="gray08" typography="semibold_l">
-        {item.title}
-      </Text>
-      <S.RecipeListDate>
-        <Text color="gray07" typography="semibold_s">
-          {item.updatedAt.substr(0, 10)}
-        </Text>
-      </S.RecipeListDate>
-      <Text color="gray07" typography="semibold_s">
-        {item.user.name}
-      </Text>
+      <S.RecipeListItemContent>
+        <S.RecipeListItemTitle>
+          <Text color="gray08" typography="semibold_l" display="block">
+            {item.title}
+          </Text>
+        </S.RecipeListItemTitle>
+        <S.RecipeListItemInfo>
+          <S.RecipeListDate>
+            <Text color="gray07" typography="semibold_s">
+              {item.updatedAt.substr(0, 10)}
+            </Text>
+          </S.RecipeListDate>
+          <Text color="gray07" typography="semibold_s">
+            {item.user.name}
+          </Text>
+        </S.RecipeListItemInfo>
+      </S.RecipeListItemContent>
       <BookmarkButton />
     </S.RecipeListItemWrapper>
   );
