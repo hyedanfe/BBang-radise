@@ -62,7 +62,7 @@ export const MainPageRecipeWrapper = styled.div`
 `;
 
 export const MainPageBottomWrapper = styled.div`
-  height: 80vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -78,7 +78,7 @@ export const MainPageContent = styled.div`
   position: sticky;
   top: 28vh;
   padding-top: 50px;
-  animation: ${popup} 4s ease-in-out;
+  animation: ${popup} 2s ease-in-out;
 `;
 
 export const MainPageArrow = styled.div`
@@ -185,7 +185,7 @@ export const MainPageBottomImg = styled.img`
   left: 0px;
   width: calc(100% + 28px);
   z-index: -1;
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 
   @media all and (min-width: 768px) {
     margin: 0 -70px;
