@@ -9,6 +9,7 @@ export const RecipeListItemWrapper = styled.div`
   justify-content: space-between;
   border-radius: 8px;
   margin-bottom: 10px;
+  gap: 10px;
 `;
 
 export const RecipeListItemImage = styled.img`
@@ -17,6 +18,32 @@ export const RecipeListItemImage = styled.img`
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 25%;
+`;
+
+export const RecipeListItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+
+  @media all and (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
+export const RecipeListItemTitle = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+`;
+
+export const RecipeListItemInfo = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-right: 5px;
 `;
 
 export const RecipeListDate = styled.div`
