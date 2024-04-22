@@ -7,10 +7,9 @@ import useUserApis from '@hooks/apis/useUserApis.mjs';
 import Section from '@components/ui/Section';
 import * as S from '@styles/login/login.style';
 import Text from '@components/ui/Text';
-import Modal from '@components/ui/Modal';
-import { useModalStore } from '@zustand/modalStore.mjs';
 import Toast from '@components/ui/Toast';
 import { useState } from 'react';
+import Submit from '@components/ui/button/Submit';
 
 function Login() {
   const location = useLocation();
@@ -24,7 +23,6 @@ function Login() {
 
   // zustand setter 반환
   const setUserData = useMemberStore((state) => state.setUser);
-  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const {
     register,
@@ -55,7 +53,6 @@ function Login() {
         profile: res.data.item.profileImage,
         token: res.data.item.token,
       });
-      toggleModal();
       setToast({ show: true, message: `${res.data.item.name}님 로그인 되었습니다.` });
       setTimeout(() => {
         navigate(location.state?.from ? location.state?.from : '/');
@@ -67,7 +64,6 @@ function Login() {
         // API 서버가 응답한 에러
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
-        toggleModal();
         setToast({ show: true, message: err.response?.data.message });
       }
     }
@@ -114,13 +110,10 @@ function Login() {
             </S.LoginInputWrapper>
 
             <S.LoginButton>
-              <Button color="var(--primary-02)" onClick={toggleModal}>
-                로그인
-              </Button>
-              <Modal handleSubmit={handleSubmit} contentText="로그인하시겠습니까?" submitText="예" closeText="아니오" />
+              <Submit>로그인</Submit>
               <Button
                 type="button"
-                color="var(--primary-01)"
+                color="var(--primary-02)"
                 onClick={() => {
                   navigate('/signup');
                 }}
