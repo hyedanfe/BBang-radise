@@ -9,7 +9,7 @@ import RoundButton from '@components/ui/button/RoundButton';
 import Modal from '@components/ui/Modal';
 import useMemberStore from '@zustand/memberStore.mjs';
 import { ClassListContent, ClassListPage, ClassListSearch, ClassListSub, ClassListText, ClassListWrapper } from '@styles/class/classList.style';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 
 function ClassList() {
   const [searchParams, setSearchParams] = useSearchParams();

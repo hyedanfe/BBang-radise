@@ -7,6 +7,7 @@ import { MyPage, MyPageEdit } from '@pages/mypage';
 import { RecipeAdd, RecipeDetail, RecipeEdit, RecipeList } from '@pages/recipe';
 import ReplyList from '@pages/recipe/ReplyList';
 import { SignUp, SignUpWelcome } from '@pages/signup';
+import { PrivateRoute } from '@routes/PrivateRoute';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -29,11 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: 'class/add',
-        element: <ClassAdd />,
+        element: (
+          <PrivateRoute>
+            <ClassAdd />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'class/:_id/edit',
-        element: <ClassEdit />,
+        element: (
+          <PrivateRoute>
+            <ClassEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'class/qna',
@@ -55,19 +64,35 @@ const router = createBrowserRouter([
       },
       {
         path: 'recipe/add',
-        element: <RecipeAdd />,
+        element: (
+          <PrivateRoute>
+            <RecipeAdd />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'recipe/:_id/edit',
-        element: <RecipeEdit />,
+        element: (
+          <PrivateRoute>
+            <RecipeEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/:_id',
-        element: <MyPage />,
+        element: (
+          <PrivateRoute>
+            <MyPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/:_id/edit',
-        element: <MyPageEdit />,
+        element: (
+          <PrivateRoute>
+            <MyPageEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'login',
