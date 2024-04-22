@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // import { ErrorBoundary } from 'react-error-boundary';
 // import { FallbackComponent } from '@components/error';
 import router from '@routes/routes';
+import Loading from '@components/ui/Loading';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,7 @@ function App() {
     // <ErrorBoundary FallbackComponent={FallbackComponent}>
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      <Suspense fallback="...Loading">
+      <Suspense fallback={<Loading />}>
         <RouterProvider router={router} />
       </Suspense>
       <ReactQueryDevtools initialIsOpen={false} />
