@@ -43,7 +43,7 @@ const InputStyle = styled.input`
 
 const ErrorMessageStyle = styled.div`
   position: absolute;
-  bottom: -23px;
+  bottom: -27px;
   left: 2px;
 `;
 
