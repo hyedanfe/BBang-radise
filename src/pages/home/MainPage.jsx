@@ -63,7 +63,7 @@ const MainPage = () => {
             coverflow-effect-slide-shadows="false"
             centered-slides="true"
             space-between="40"
-            autoplay-delay="2600"
+            autoplay-delay="1700"
             loop="true"
             speed="1500"
           >

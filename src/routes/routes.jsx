@@ -1,4 +1,5 @@
 import Layout from '@components/layout';
+import ErrorPage from '@pages/ErrorPage';
 import { ClassAdd, ClassDetail, ClassEdit, ClassList, ClassQnAList } from '@pages/class';
 import MainPage from '@pages/home/MainPage';
 import Login from '@pages/login/Login';
@@ -12,6 +13,7 @@ import { createBrowserRouter } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: '/',
+    errorElement: <ErrorPage />,
     element: <Layout />,
     children: [
       {
