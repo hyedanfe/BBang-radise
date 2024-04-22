@@ -6,7 +6,7 @@ export const LoginWrapper = styled.div`
   padding-top: 100px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 
   @media all and (min-width: 768px) {
     position: relative;
@@ -29,7 +29,7 @@ export const LoginInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 `;
 
 export const LoginButton = styled.div`

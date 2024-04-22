@@ -6,7 +6,7 @@ export const SignUpWrapper = styled.div`
   padding-top: 100px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 
   @media all and (min-width: 768px) {
     position: relative;
@@ -28,7 +28,7 @@ export const SignUpForm = styled.form`
 export const SignUpInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
   margin-bottom: 40px;
 `;
 

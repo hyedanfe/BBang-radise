@@ -19,7 +19,7 @@ const ClassOrderWrapper = styled.div`
     position: relative;
     padding-top: 120px;
     max-width: 500px;
-    gap: 120px;
+    gap: 70px;
   }
 `;
 
@@ -28,7 +28,6 @@ const ClassOrderText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 100px;
 `;
 
 const ClassOrderButton = styled.div`
