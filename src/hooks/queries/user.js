@@ -48,12 +48,23 @@ export const useGetMyRecipeList = () => {
   });
 };
 
-export const useGetMyBookmarkList = () => {
-  const { getMyBookmarkList } = useUserApis();
+export const useGetMyRecipeBookmarkList = () => {
+  const { getMyRecipeBookmarkList } = useUserApis();
 
   return useQuery({
-    queryKey: ['posts', { type: 'recipe' }],
-    queryFn: () => getMyBookmarkList(),
+    queryKey: ['bookmarks', { type: 'post' }],
+    queryFn: () => getMyRecipeBookmarkList(),
+    select: (response) => response.data,
+    suspense: true,
+  });
+};
+
+export const useGetMyClassBookmarkList = () => {
+  const { getMyClassBookmarkList } = useUserApis();
+
+  return useQuery({
+    queryKey: ['bookmarks', { type: 'product' }],
+    queryFn: () => getMyClassBookmarkList(),
     select: (response) => response.data,
     suspense: true,
   });

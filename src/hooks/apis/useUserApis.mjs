@@ -36,8 +36,12 @@ const useUserApis = () => {
     return axios.get(`/seller/products`);
   };
 
-  const getMyBookmarkList = () => {
+  const getMyClassBookmarkList = () => {
     return axios.get(`bookmarks/product`);
+  };
+
+  const getMyRecipeBookmarkList = () => {
+    return axios.get(`bookmarks/post`);
   };
 
   const getMyJoinList = () => {
@@ -55,7 +59,8 @@ const useUserApis = () => {
     getMyInfo,
     getMyRecipeList,
     getMyClassList,
-    getMyBookmarkList,
+    getMyClassBookmarkList,
+    getMyRecipeBookmarkList,
     getMyJoinList,
     patchMyInfo,
   };

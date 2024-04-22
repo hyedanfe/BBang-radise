@@ -8,7 +8,7 @@ const BookmarkButtonStyle = styled.button`
 `;
 
 BookmarkButton.propTypes = {
-  toggle: PropTypes.bool,
+  toggle: PropTypes.string,
 };
 
 function BookmarkButton({ toggle = false }) {
