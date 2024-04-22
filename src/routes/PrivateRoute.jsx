@@ -1,4 +1,4 @@
-import { useAuthenticate } from '@hooks/\buseAuthenticate';
+import { useAuthenticate } from '@hooks/useAuthenticate';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
