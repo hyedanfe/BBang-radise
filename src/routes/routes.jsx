@@ -1,6 +1,7 @@
 import Layout from '@components/layout';
 import ErrorPage from '@pages/ErrorPage';
 import { ClassAdd, ClassDetail, ClassEdit, ClassList, ClassQnAList } from '@pages/class';
+import ClassOrder from '@pages/class/ClassOrder';
 import MainPage from '@pages/home/MainPage';
 import Login from '@pages/login/Login';
 import { MyPage, MyPageEdit } from '@pages/mypage';
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ClassEdit />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'class/:_id/order',
+        element: (
+          <PrivateRoute>
+            <ClassOrder />
           </PrivateRoute>
         ),
       },

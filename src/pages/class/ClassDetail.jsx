@@ -5,7 +5,6 @@ import Text from '@components/ui/Text';
 import BookmarkButton from '@components/ui/button/BookmarkButton';
 import Button from '@components/ui/button/Button';
 import { useGetClassDetail } from '@hooks/queries/class';
-import useModal from '@hooks/useModal';
 import useBadge from '@hooks/utils/useBadge';
 import {
   ClassDetailBadge,
@@ -24,6 +23,7 @@ import {
   SwiperWrapper,
 } from '@styles/class/classDetail.style';
 import useMemberStore from '@zustand/memberStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { register } from 'swiper/element/bundle';
@@ -46,15 +46,21 @@ function ClassDetail() {
     </swiper-slide>
   ));
 
-  const { isOpen, handleModalToggle } = useModal();
   const user = useMemberStore().user;
 
-  const handleBuyClass = () => {
+  const toggleModal = useModalStore((state) => state.toggleModal);
+
+  const handleOrderClass = () => {
     if (!user) {
-      handleModalToggle();
+      toggleModal();
     } else {
       navigate(`/class`);
     }
+  };
+
+  const handleConfirm = () => {
+    toggleModal();
+    navigate(`/login`);
   };
 
   const priceData = item?.price;
@@ -123,18 +129,11 @@ function ClassDetail() {
               {badgeType == 'closed' ? <Button color="var(--primary-02)">모집이 마감된 클래스입니다</Button> : null}
               {badgeType == 'queue' ? <Button color="var(--secondary-03)">클래스 오픈을 기다려주세요!</Button> : null}
               {badgeType == 'active' ? (
-                <Button color="var(--primary-01)" onClick={handleBuyClass}>
+                <Button color="var(--primary-01)" onClick={handleOrderClass}>
                   클래스 신청하기
                 </Button>
               ) : null}
-              <Modal
-                isOpen={isOpen}
-                handleModalToggle={handleModalToggle}
-                handleConfirmClick={() => navigate(`/login`)}
-                contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
-                confirmText="로그인"
-                closeText="돌아가기"
-              />
+              <Modal handleConfirm={handleConfirm} contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!" confirmText="로그인" closeText="돌아가기" />
             </ClassDetailButton>
           </ClassDetailInfoTop>
 
