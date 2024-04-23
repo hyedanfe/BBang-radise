@@ -93,7 +93,7 @@ export const ClassFormButton = styled.div`
   flex-direction: column;
   gap: 10px;
   position: absolute;
-  bottom: -120px;
+  bottom: -160px;
   width: 100%;
 
   @media all and (min-width: 768px) {

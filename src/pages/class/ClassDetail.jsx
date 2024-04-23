@@ -4,6 +4,7 @@ import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import BookmarkButton from '@components/ui/button/BookmarkButton';
 import Button from '@components/ui/button/Button';
+import RoundButton from '@components/ui/button/RoundButton';
 import { useGetClassDetail } from '@hooks/queries/class';
 import useBadge from '@hooks/utils/useBadge';
 import {
@@ -70,6 +71,8 @@ function ClassDetail() {
     <Section>
       <ClassDetailWrapper>
         <ClassDetailCover>
+          {item?.seller?._id == user?._id ? <RoundButton page="edit" onClick={() => navigate(`/class/${_id}/edit`)} /> : null}
+
           <SwiperWrapper>
             <swiper-container slides-per-view="auto" centered-slides="true" space-between="10" autoplay-delay="3500" autoplay-pause-on-mouse-enter="true" speed="1200">
               <swiper-slide>
@@ -124,17 +127,24 @@ function ClassDetail() {
               </Text>
             </ClassDetailInfoBottom>
 
-            <ClassDetailButton>
-              {badgeType == 'inactive' ? <Button disabled>모집이 종료된 클래스입니다</Button> : null}
-              {badgeType == 'closed' ? <Button color="var(--primary-02)">모집이 마감된 클래스입니다</Button> : null}
-              {badgeType == 'queue' ? <Button color="var(--secondary-03)">클래스 오픈을 기다려주세요!</Button> : null}
-              {badgeType == 'active' ? (
-                <Button color="var(--primary-01)" onClick={handleOrderClass}>
-                  클래스 신청하기
-                </Button>
-              ) : null}
-              <Modal handleConfirm={handleConfirm} contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!" confirmText="로그인" closeText="돌아가기" />
-            </ClassDetailButton>
+            {item?.seller?._id == user?._id ? null : (
+              <ClassDetailButton>
+                {badgeType == 'inactive' ? <Button disabled>모집이 종료된 클래스입니다</Button> : null}
+                {badgeType == 'closed' ? <Button color="var(--primary-02)">모집이 마감된 클래스입니다</Button> : null}
+                {badgeType == 'queue' ? <Button color="var(--secondary-03)">클래스 오픈을 기다려주세요!</Button> : null}
+                {badgeType == 'active' ? (
+                  <Button color="var(--primary-01)" onClick={handleOrderClass}>
+                    클래스 신청하기
+                  </Button>
+                ) : null}
+                <Modal
+                  handleConfirm={handleConfirm}
+                  contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
+                  confirmText="로그인"
+                  closeText="돌아가기"
+                />
+              </ClassDetailButton>
+            )}
           </ClassDetailInfoTop>
 
           <ClassDetailContent>
