@@ -1,16 +1,20 @@
 import Layout from '@components/layout';
+import ErrorPage from '@pages/ErrorPage';
 import { ClassAdd, ClassDetail, ClassEdit, ClassList, ClassQnAList } from '@pages/class';
+import ClassOrder from '@pages/class/ClassOrder';
 import MainPage from '@pages/home/MainPage';
 import Login from '@pages/login/Login';
 import { MyPage, MyPageEdit } from '@pages/mypage';
 import { RecipeAdd, RecipeDetail, RecipeEdit, RecipeList } from '@pages/recipe';
 import ReplyList from '@pages/recipe/ReplyList';
 import { SignUp, SignUpWelcome } from '@pages/signup';
+import { PrivateRoute } from '@routes/PrivateRoute';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    errorElement: <ErrorPage />,
     element: <Layout />,
     children: [
       {
@@ -27,11 +31,27 @@ const router = createBrowserRouter([
       },
       {
         path: 'class/add',
-        element: <ClassAdd />,
+        element: (
+          <PrivateRoute>
+            <ClassAdd />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'class/:_id/edit',
-        element: <ClassEdit />,
+        element: (
+          <PrivateRoute>
+            <ClassEdit />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'class/:_id/order',
+        element: (
+          <PrivateRoute>
+            <ClassOrder />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'class/qna',
@@ -53,19 +73,35 @@ const router = createBrowserRouter([
       },
       {
         path: 'recipe/add',
-        element: <RecipeAdd />,
+        element: (
+          <PrivateRoute>
+            <RecipeAdd />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'recipe/:_id/edit',
-        element: <RecipeEdit />,
+        element: (
+          <PrivateRoute>
+            <RecipeEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/:_id',
-        element: <MyPage />,
+        element: (
+          <PrivateRoute>
+            <MyPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/:_id/edit',
-        element: <MyPageEdit />,
+        element: (
+          <PrivateRoute>
+            <MyPageEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'login',

@@ -42,7 +42,7 @@ function RecipeDetail() {
     <Section>
       {item && (
         <S.RecipeDetailWrapper>
-          <S.RecipeDetailCard>
+          <S.RecipeDetailCard className="card">
             <S.RecipeDetailCardImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
             <S.RecipeDetailCardContent>
               <Text color="black" typography="black_xl">
@@ -57,13 +57,15 @@ function RecipeDetail() {
             </S.RecipeDetailCardContent>
           </S.RecipeDetailCard>
 
-          <S.RecipeDetailContent>
-            <GlobalRecipeContentStyle />
-            <div dangerouslySetInnerHTML={{ __html: item.content }} />
-          </S.RecipeDetailContent>
-          <S.RecipeDetailReply>
-            <Outlet context={item} />
-          </S.RecipeDetailReply>
+          <S.RecipeDetailMain>
+            <S.RecipeDetailContent>
+              <GlobalRecipeContentStyle />
+              <div dangerouslySetInnerHTML={{ __html: item.content }} />
+            </S.RecipeDetailContent>
+            <S.RecipeDetailReply>
+              <Outlet context={item} />
+            </S.RecipeDetailReply>
+          </S.RecipeDetailMain>
         </S.RecipeDetailWrapper>
       )}
       {user?._id === item.user._id && <RoundButton page="edit" onClick={handleEdit} />}

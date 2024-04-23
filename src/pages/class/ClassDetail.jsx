@@ -2,10 +2,12 @@ import Badge from '@components/ui/Badge';
 import Modal from '@components/ui/Modal';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
+import Toast from '@components/ui/Toast';
 import BookmarkButton from '@components/ui/button/BookmarkButton';
 import Button from '@components/ui/button/Button';
+import RoundButton from '@components/ui/button/RoundButton';
 import { useGetClassDetail } from '@hooks/queries/class';
-import useModal from '@hooks/useModal';
+import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import useBadge from '@hooks/utils/useBadge';
 import {
   ClassDetailBadge,
@@ -24,6 +26,8 @@ import {
   SwiperWrapper,
 } from '@styles/class/classDetail.style';
 import useMemberStore from '@zustand/memberStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { register } from 'swiper/element/bundle';
@@ -33,8 +37,23 @@ function ClassDetail() {
   const { _id } = useParams();
   const { data } = useGetClassDetail(_id);
   const navigate = useNavigate();
+  const axios = useCustomAxios();
 
   const item = data?.item;
+  console.log(item);
+  const [products, setProducts] = useState([{ _id: '', name: '', quantity: 1 }]);
+
+  useEffect(() => {
+    if (item) {
+      setProducts({
+        _id: item._id,
+        name: item.name,
+        quantity: 1,
+      });
+    }
+  }, [item]);
+
+  console.log(products);
 
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
@@ -46,24 +65,58 @@ function ClassDetail() {
     </swiper-slide>
   ));
 
-  const { isOpen, handleModalToggle } = useModal();
   const user = useMemberStore().user;
 
-  const handleBuyClass = () => {
+  const toggleModal = useModalStore((state) => state.toggleModal);
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
+
+  const handleOrderClass = () => {
     if (!user) {
-      handleModalToggle();
+      setToast({ show: true, message: '로그인 후 이용해주시기 바랍니다.' });
+      setTimeout(() => {
+        navigate(`/class/login`);
+      }, 1000);
     } else {
-      navigate(`/class`);
+      toggleModal();
     }
   };
+
+  const handleSubmitOrder = async () => {
+    try {
+      const res = await axios.post(`orders`, {
+        products: [{ _id: products._id, name: products.name, quantity: products.quantity }],
+      });
+      console.log(res);
+      toggleModal();
+      navigate(`/class/${res?.data.item._id}/order`, {
+        state: {
+          name: res?.data.item.products[0].name,
+        },
+      });
+    } catch (err) {
+      setToast({ show: true, message: err.response?.data.message });
+    }
+  };
+
+  // const handleConfirm = () => {
+  //   toggleModal();
+  //   navigate(`/login`);
+  // };
 
   const priceData = item?.price;
   const price = priceData?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <Section>
+      {toast.show && <Toast setToast={setToast} text={toast.message} />}
       <ClassDetailWrapper>
         <ClassDetailCover>
+          {item?.seller?._id == user?._id ? <RoundButton page="edit" onClick={() => navigate(`/class/${_id}/edit`)} /> : null}
+
           <SwiperWrapper>
             <swiper-container slides-per-view="auto" centered-slides="true" space-between="10" autoplay-delay="3500" autoplay-pause-on-mouse-enter="true" speed="1200">
               <swiper-slide>
@@ -118,24 +171,19 @@ function ClassDetail() {
               </Text>
             </ClassDetailInfoBottom>
 
-            <ClassDetailButton>
-              {badgeType == 'inactive' ? <Button disabled>모집이 종료된 클래스입니다</Button> : null}
-              {badgeType == 'closed' ? <Button color="var(--primary-02)">모집이 마감된 클래스입니다</Button> : null}
-              {badgeType == 'queue' ? <Button color="var(--secondary-03)">클래스 오픈을 기다려주세요!</Button> : null}
-              {badgeType == 'active' ? (
-                <Button color="var(--primary-01)" onClick={handleBuyClass}>
-                  클래스 신청하기
-                </Button>
-              ) : null}
-              <Modal
-                isOpen={isOpen}
-                handleModalToggle={handleModalToggle}
-                handleConfirmClick={() => navigate(`/login`)}
-                contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
-                confirmText="로그인"
-                closeText="돌아가기"
-              />
-            </ClassDetailButton>
+            {item?.seller?._id == user?._id ? null : (
+              <ClassDetailButton>
+                {badgeType == 'inactive' ? <Button disabled>모집이 종료된 클래스입니다</Button> : null}
+                {badgeType == 'closed' ? <Button color="var(--primary-02)">모집이 마감된 클래스입니다</Button> : null}
+                {badgeType == 'queue' ? <Button color="var(--secondary-03)">클래스 오픈을 기다려주세요!</Button> : null}
+                {badgeType == 'active' ? (
+                  <Button color="var(--primary-01)" onClick={handleOrderClass}>
+                    클래스 신청하기
+                  </Button>
+                ) : null}
+                <Modal handleSubmit={handleSubmitOrder} contentText="이 클래스를 신청하시겠습니까?" submitText="신청" closeText="취소" />
+              </ClassDetailButton>
+            )}
           </ClassDetailInfoTop>
 
           <ClassDetailContent>

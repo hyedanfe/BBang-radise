@@ -24,12 +24,8 @@ const useUserApis = () => {
     return axios.get(`/users/${_id}`);
   };
 
-  const getMyRecipeList = (recipe) => {
-    return axios.get(`/posts`, {
-      params: {
-        type: recipe,
-      },
-    });
+  const getMyRecipeList = (_id) => {
+    return axios.get(`/posts/users/${_id}?type=recipe`);
   };
 
   const getMyClassList = () => {

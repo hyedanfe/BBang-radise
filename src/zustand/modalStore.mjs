@@ -1,8 +1,22 @@
 import { create } from 'zustand';
 
-const useModalStore = create((set) => ({
+export const useModalStore = create((set) => ({
   isOpen: false,
+  title: '',
+  content: '',
+  buttons: {
+    submitText: '',
+    closeText: '',
+    confirmText: '',
+  },
   toggleModal: () => set((state) => ({ isOpen: !state.isOpen })),
+  setButtons: (buttons) => set({ buttons }),
 }));
 
-export default useModalStore;
+export const setModalContent = (content, buttons) => {
+  useModalStore.setState({
+    isOpen: true,
+    content: content,
+    buttons: buttons,
+  });
+};

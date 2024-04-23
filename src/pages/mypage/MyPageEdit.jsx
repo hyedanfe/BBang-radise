@@ -8,10 +8,10 @@ import TextArea from '@components/ui/TextArea';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import { useGetUserInfo } from '@hooks/queries/user';
-import * as S from '@styles/mypage/mypage.style';
+import * as S from '@styles/mypage/mypageEdit.style';
 import Modal from '@components/ui/Modal';
 import Toast from '@components/ui/Toast';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import DefaultProfile from '@assets/DefaultProfile';
 
 function MyPageEdit() {
@@ -71,8 +71,34 @@ function MyPageEdit() {
     <Section>
       <S.MyPageWrapper>
         {showToast && <Toast setToast={setShowToast} text="회원 정보가 수정되었습니다." />}
+        <S.MyPageContent>
+          <Text color="black" display="block" typography="display_l">
+            내정보 수정하기
+          </Text>
+          <Text typography="light_l" color="black" display="block">
+            빵라다이스에 공유하고 싶은 레시피나 베이킹 이야기를 자유롭게 공유해주세요.
+          </Text>
+          <S.MyPageButton>
+            <div>
+              <Button color="var(--primary-01)" onClick={toggleModal}>
+                수정 완료
+              </Button>
+              <Modal handleSubmit={handleSubmit} contentText="정말 수정하시겠습니까?" submitText="예" closeText="아니오" />
+            </div>
+            <div>
+              <Button
+                color="var(--gray-07)"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                수정 취소
+              </Button>
+            </div>
+          </S.MyPageButton>
+        </S.MyPageContent>
         {user && (
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <S.MyPageForm onSubmit={handleSubmit(onSubmit)}>
             <div>
               <Input
                 type="text"
@@ -94,34 +120,21 @@ function MyPageEdit() {
             <div>
               <Input type="email" id="email" label="이메일" placeholder="이메일을 입력하세요" error={errors.email && errors.email.message} {...register('email')} disabled />
             </div>
+            <S.MyPageProfilWrapper>
+              <Text typography="semibold_s" display="block">
+                프로필 이미지
+              </Text>
+
+              {user.profileImage && user.profileImage.length > 0 ? (
+                <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
+              ) : (
+                <DefaultProfile width={71} height={71} stroke="gray" />
+              )}
+            </S.MyPageProfilWrapper>
             <div>
-              <Text typography="semibold_m">프로필 이미지</Text>
+              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" rows="5" {...register('introduction')} />
             </div>
-            {user.profileImage && user.profileImage.length > 0 ? (
-              <S.EditProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
-            ) : (
-              <DefaultProfile width={71} height={71} stroke="gray" />
-            )}
-            <div>
-              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
-            </div>
-            <div>
-              <Button
-                color="var(--gray-07)"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                수정 취소
-              </Button>
-            </div>
-            <div>
-              <Button color="var(--primary-01)" onClick={toggleModal}>
-                수정 완료
-              </Button>
-              <Modal handleSubmit={handleSubmit} contentText="정말 수정하시겠습니까?" submitText="예" closeText="아니오" />
-            </div>
-          </form>
+          </S.MyPageForm>
         )}
       </S.MyPageWrapper>
     </Section>

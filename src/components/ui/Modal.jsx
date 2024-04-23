@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from '@components/ui/button/Button';
 import Submit from '@components/ui/button/Submit';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 
 const ModalOpen = keyframes`
 from{

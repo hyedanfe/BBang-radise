@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useGetClassDetail } from '@hooks/queries/class';
 import useClassApis from '@hooks/apis/useClassApis.mjs';
 import Modal from '@components/ui/Modal';
-import useModalStore from '@zustand/modalStore.mjs';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import Toast from '@components/ui/Toast';
 
 // TODO: 파일 미리보기 공동 컴포넌트
@@ -177,174 +177,16 @@ function ClassForm() {
   return (
     <Section>
       <S.ClassAddWrapper>
-        <Text typography="display_l"> {_id ? '게시물 수정' : '게시물 등록'}</Text>
-        {toast.show && <Toast setToast={setToast} text={toast.message} />}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            {_id ? (
-              <Input type="file" accept="image/*" id="mainImages" label="대표 이미지 (1개)" placeholder="이미지를 선택하세요" {...register('mainImages')} />
-            ) : (
-              <Input
-                type="file"
-                accept="image/*"
-                id="mainImages"
-                label="대표 이미지 (1개)"
-                placeholder="이미지를 선택하세요"
-                {...register('mainImages', {
-                  required: '대표 이미지를 등록해주세요.',
-                })}
-              />
-            )}
-          </div>
-          <div>
-            <S.FileInputBoxStyle>
-              {mainImagesPreview && mainImagesPreview.length > 0 ? (
-                <S.PreviewImageWrapper>
-                  <S.PreviewImageStyle src={mainImagesPreview} className="hidden" width="160" height="160" alt="main_image" />
-                  {/* <S.DeleteButtonWrapper>
-                    <S.DeleteButtonStyle type="button" onClick={deleteMainImage}>
-                      x
-                    </S.DeleteButtonStyle>
-                  </S.DeleteButtonWrapper> */}
-                </S.PreviewImageWrapper>
-              ) : (
-                <S.PreviewImageWrapper>
-                  <S.PreviewImageStyle src={DefaultImagePreview} alt="기본이미지" />
-                </S.PreviewImageWrapper>
-              )}
-            </S.FileInputBoxStyle>
-          </div>
-          <div>
-            <Input type="file" multiple accept="image/*" id="detailImages" label="상세 이미지 (최대 10개)" placeholder="이미지를 선택하세요" {...register('extra.detailImages')} />
-          </div>
-          <S.FileInputBoxStyle>
-            {detailImagesPreview && detailImagesPreview.length > 0
-              ? renderImageArray.slice(0, 10).map((url, i) => (
-                  <S.PreviewImageWrapper key={i}>
-                    <S.PreviewImageStyle src={url} className="hidden" width="160" height="160" alt={`image${i}`} />
-                    {/* {url !== DefaultImagePreview && (
-                      <S.DeleteButtonWrapper>
-                        <S.DeleteButtonStyle type="button" onClick={() => deleteDetailImage(i)}>
-                          x
-                        </S.DeleteButtonStyle>
-                      </S.DeleteButtonWrapper>
-                    )} */}
-                  </S.PreviewImageWrapper>
-                ))
-              : [...Array(10)].map((_, i) => (
-                  <S.PreviewImageWrapper key={i}>
-                    <S.PreviewImageStyle src={DefaultImagePreview} alt="기본이미지" />
-                  </S.PreviewImageWrapper>
-                ))}
-          </S.FileInputBoxStyle>
-          <div>
-            <Input
-              type="text"
-              id="name"
-              label="제목 (30자 이내)"
-              height="40px"
-              placeholder="제목을 입력하세요"
-              error={errors.name?.message}
-              {...register('name', {
-                required: '제목을 입력하세요.',
-                minLength: {
-                  value: 2,
-                  message: '제목을 2자 이상 입력하세요.',
-                },
-                maxLength: {
-                  value: 30,
-                  message: '제목을 30자 이내 입력하세요.',
-                },
-              })}
-            />
-          </div>
-          <div>
-            <Input
-              type="date"
-              id="classAt"
-              label="클래스 일자"
-              placeholder="연/월/일"
-              error={errors.extra?.classAt?.message}
-              {...register('extra.classAt', {
-                required: '클래스 일자를 입력하세요.',
-              })}
-            />
-            <Input
-              type="date"
-              id="startAt"
-              label="모집 시작일"
-              placeholder="연/월/일"
-              error={errors.extra?.startAt?.message}
-              {...register('extra.startAt', {
-                required: '모집 시작일을 입력하세요.',
-              })}
-            />
-            <Input
-              type="date"
-              id="endAt"
-              label="모집 종료일"
-              placeholder="연/월/일"
-              error={errors.extra?.endAt?.message}
-              {...register('extra.endAt', {
-                required: '모집 종료일을 입력하세요.',
-              })}
-            />
-            <Input
-              type="text"
-              id="address"
-              label="클래스 장소"
-              height="40px"
-              placeholder="클래스 장소를 입력하세요"
-              error={errors.extra?.address?.message}
-              {...register('extra.address', {
-                required: '클래스 장소를 입력하세요.',
-                minLength: {
-                  value: 2,
-                  message: '클래스 장소를 2자 이상 입력하세요.',
-                },
-              })}
-            />
-            <Select
-              id="quantity"
-              label="클래스 참여 인원"
-              height="40px"
-              placeholder="인원을 선택해주세요"
-              optionData={optionData}
-              error={errors.quantity?.message}
-              {...register('quantity', {
-                required: '인원을 선택해주세요.',
-              })}
-            />
-          </div>
-          <Input
-            type="number"
-            id="price"
-            min="0"
-            label="클래스 참여 비용"
-            height="40px"
-            placeholder="참여 비용을 입력하세요"
-            error={errors.price?.message}
-            {...register('price', {
-              required: '참여 비용을 입력하세요.',
-            })}
-          />
-          <div>
-            <TextArea
-              label="클래스 세부 내용"
-              type="txt"
-              id="content"
-              placeholder="텍스트를 입력해주세요"
-              {...register('content', {
-                required: '클래스 세부 내용을 입력하세요.',
-                minLength: {
-                  value: 10,
-                  message: '클래스 세부 내용을 10자 이상 입력하세요.',
-                },
-              })}
-            />
-          </div>
+        <S.ClassFormText>
+          <Text typography="display_l"> {_id ? '베이킹 클래스 수정하기' : '베이킹 클래스 등록하기'}</Text>
+          {toast.show && <Toast setToast={setToast} text={toast.message} />}
+          <Text typography="light_l" color="black" display="block">
+            {_id
+              ? '마스터님의 베이킹 클래스를 기다리고 있는 주민들이 있습니다. 모집 중인 베이킹 클래스를 수정하시거나 삭제하실 때에는 신중해 주세요.'
+              : '마스터님의 베이킹 클래스를 기다리고 있는 주민들이 있습니다. 모집 중인 베이킹 클래스를 수정하시거나 삭제하실 때에는 신중해 주세요.'}
+          </Text>
 
-          <div>
+          <S.ClassFormButton>
             {_id ? (
               <>
                 <Modal handleSubmit={handleSubmit} contentText="수정하시겠습니까?" submitText="예" closeText="아니오" />
@@ -368,6 +210,9 @@ function ClassForm() {
             ) : (
               <>
                 <Modal handleSubmit={handleSubmit} contentText="개설하시겠습니까?" submitText="예" closeText="아니오" />
+                <Button color="var(--primary-01)" onClick={toggleModal}>
+                  개설하기
+                </Button>
                 <div>
                   <Button
                     color="var(--gray-06)"
@@ -378,13 +223,176 @@ function ClassForm() {
                     취소하기
                   </Button>
                 </div>
-                <Button color="var(--primary-01)" onClick={toggleModal}>
-                  개설하기
-                </Button>
               </>
             )}
+          </S.ClassFormButton>
+        </S.ClassFormText>
+        <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {_id ? (
+              <Input type="file" accept="image/*" id="mainImages" label="대표 이미지 (1개)" placeholder="이미지를 선택하세요" {...register('mainImages')} />
+            ) : (
+              <Input
+                type="file"
+                accept="image/*"
+                id="mainImages"
+                label="대표 이미지 (1개)"
+                placeholder="이미지를 선택하세요"
+                {...register('mainImages', {
+                  required: '대표 이미지를 등록해주세요.',
+                })}
+              />
+            )}
+
+            <S.FileInputBoxStyle>
+              {mainImagesPreview && mainImagesPreview.length > 0 ? (
+                <S.PreviewImageWrapper>
+                  <S.PreviewImageStyle src={mainImagesPreview} className="hidden" width="160" height="160" alt="main_image" />
+                  {/* <S.DeleteButtonWrapper>
+                    <S.DeleteButtonStyle type="button" onClick={deleteMainImage}>
+                      x
+                    </S.DeleteButtonStyle>
+                  </S.DeleteButtonWrapper> */}
+                </S.PreviewImageWrapper>
+              ) : (
+                <S.PreviewImageWrapper>
+                  <S.PreviewImageStyle src={DefaultImagePreview} alt="기본이미지" />
+                </S.PreviewImageWrapper>
+              )}
+            </S.FileInputBoxStyle>
           </div>
-        </form>
+
+          <div>
+            <Input type="file" multiple accept="image/*" id="detailImages" label="상세 이미지 (최대 10개)" placeholder="이미지를 선택하세요" {...register('extra.detailImages')} />
+            <S.FileInputBoxStyle>
+              {detailImagesPreview && detailImagesPreview.length > 0
+                ? renderImageArray.slice(0, 10).map((url, i) => (
+                    <S.PreviewImageWrapper key={i}>
+                      <S.PreviewImageStyle src={url} className="hidden" alt={`image${i}`} />
+                      {/* {url !== DefaultImagePreview && (
+                      <S.DeleteButtonWrapper>
+                        <S.DeleteButtonStyle type="button" onClick={() => deleteDetailImage(i)}>
+                          x
+                        </S.DeleteButtonStyle>
+                      </S.DeleteButtonWrapper>
+                    )} */}
+                    </S.PreviewImageWrapper>
+                  ))
+                : [...Array(10)].map((_, i) => (
+                    <S.PreviewImageWrapper key={i}>
+                      <S.PreviewImageStyle src={DefaultImagePreview} alt="기본이미지" />
+                    </S.PreviewImageWrapper>
+                  ))}
+            </S.FileInputBoxStyle>
+          </div>
+
+          <div>
+            <Input
+              type="text"
+              id="name"
+              label="제목 (30자 이내)"
+              height="40px"
+              placeholder="제목을 입력하세요"
+              error={errors.name?.message}
+              {...register('name', {
+                required: '제목을 입력하세요.',
+                minLength: {
+                  value: 2,
+                  message: '제목을 2자 이상 입력하세요.',
+                },
+                maxLength: {
+                  value: 30,
+                  message: '제목을 30자 이내 입력하세요.',
+                },
+              })}
+            />
+          </div>
+
+          <Input
+            type="date"
+            id="classAt"
+            label="클래스 일자"
+            placeholder="연/월/일"
+            error={errors.extra?.classAt?.message}
+            {...register('extra.classAt', {
+              required: '클래스 일자를 입력하세요.',
+            })}
+          />
+          <Input
+            type="date"
+            id="startAt"
+            label="모집 시작일"
+            placeholder="연/월/일"
+            error={errors.extra?.startAt?.message}
+            {...register('extra.startAt', {
+              required: '모집 시작일을 입력하세요.',
+            })}
+          />
+          <Input
+            type="date"
+            id="endAt"
+            label="모집 종료일"
+            placeholder="연/월/일"
+            error={errors.extra?.endAt?.message}
+            {...register('extra.endAt', {
+              required: '모집 종료일을 입력하세요.',
+            })}
+          />
+          <Input
+            type="text"
+            id="address"
+            label="클래스 장소"
+            height="40px"
+            placeholder="클래스 장소를 입력하세요"
+            error={errors.extra?.address?.message}
+            {...register('extra.address', {
+              required: '클래스 장소를 입력하세요.',
+              minLength: {
+                value: 2,
+                message: '클래스 장소를 2자 이상 입력하세요.',
+              },
+            })}
+          />
+          <Select
+            id="quantity"
+            label="클래스 참여 인원"
+            placeholder="인원을 선택해주세요"
+            optionData={optionData}
+            error={errors.quantity?.message}
+            {...register('quantity', {
+              required: '인원을 선택해주세요.',
+            })}
+          />
+
+          <Input
+            type="number"
+            id="price"
+            min="0"
+            label="클래스 참여 비용"
+            height="40px"
+            placeholder="참여 비용을 입력하세요"
+            error={errors.price?.message}
+            {...register('price', {
+              required: '참여 비용을 입력하세요.',
+            })}
+          />
+          <div>
+            <TextArea
+              label="클래스 세부 내용"
+              type="txt"
+              id="content"
+              placeholder="텍스트를 입력해주세요"
+              rows="13"
+              {...register('content', {
+                required: '클래스 세부 내용을 입력하세요.',
+                minLength: {
+                  value: 10,
+                  message: '클래스 세부 내용을 10자 이상 입력하세요.',
+                },
+              })}
+            />
+          </div>
+        </S.ClassFormWrapper>
       </S.ClassAddWrapper>
     </Section>
   );

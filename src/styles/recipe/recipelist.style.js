@@ -3,21 +3,18 @@ import styled from 'styled-components';
 export const RecipeListWrapper = styled.div`
   width: 100%;
   position: reltaive;
-  padding-top: 110px;
+  padding-top: 100px;
   display: flex;
-
   flex-direction: column;
   gap: 40px;
-  margin-bottom: 100px;
 
   @media all and (min-width: 768px) {
-    height: 100vh;
     width: 100%;
-    position: absolute;
+    position: relative;
     padding-top: 120px;
     padding-right: 10px;
     flex-direction: row;
-    overflow-y: scroll;
+
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
     gap: 10px;
@@ -31,9 +28,9 @@ export const RecipeListPage = styled.div`
 
   @media all and (min-width: 768px) {
     max-width: 500px;
+    height: 100vh;
     position: sticky;
-
-    top: 0px;
+    top: 120px;
   }
 `;
 
@@ -53,4 +50,9 @@ export const RecipeListSearch = styled.div`
 
 export const RecipeListContent = styled.section`
   width: 100%;
+  padding-right: 12px;
+
+  > div:last-of-type {
+    padding-bottom: 120px;
+  }
 `;

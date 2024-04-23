@@ -7,8 +7,8 @@ function MyPage() {
     <>
       <Section>
         <MyPageMyInfo />
-        <MyPageList />
       </Section>
+      <MyPageList />
     </>
   );
 }

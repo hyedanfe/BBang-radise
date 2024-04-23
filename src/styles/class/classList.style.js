@@ -5,19 +5,16 @@ export const ClassListWrapper = styled.div`
   position: reltaive;
   padding-top: 100px;
   display: flex;
-
   flex-direction: column;
   gap: 40px;
-  margin-bottom: 100px;
 
   @media all and (min-width: 768px) {
-    height: 100vh;
     width: 100%;
-    position: absolute;
+    position: relative;
     padding-top: 120px;
     padding-right: 10px;
     flex-direction: row;
-    overflow-y: scroll;
+
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
     gap: 10px;
@@ -31,9 +28,9 @@ export const ClassListPage = styled.div`
 
   @media all and (min-width: 768px) {
     max-width: 500px;
+    height: 100vh;
     position: sticky;
-
-    top: 0px;
+    top: 120px;
   }
 `;
 
@@ -52,7 +49,7 @@ export const ClassListSub = styled.div`
 export const ClassListSearch = styled.div`
   @media all and (min-width: 768px) {
     width: 86%;
-    padding-left: 3px;
+    padding: 0 10px 0 3px;
   }
 `;
 

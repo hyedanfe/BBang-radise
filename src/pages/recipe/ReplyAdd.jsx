@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TextArea from '@components/ui/TextArea';
 import Submit from '@components/ui/button/Submit';
+import * as S from '@styles/recipe/replyadd.style';
 
 function ReplyAdd() {
   const { _id } = useParams();
@@ -38,7 +39,7 @@ function ReplyAdd() {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <S.ReplyInput>
           <TextArea
             {...register('content', {
               required: '내용을 입력하세요',
@@ -52,7 +53,7 @@ function ReplyAdd() {
           />
 
           {errors.content && <p>{errors.content.message}</p>}
-        </div>
+        </S.ReplyInput>
         <Submit>댓글 등록</Submit>
       </form>
     </div>

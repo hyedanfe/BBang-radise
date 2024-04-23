@@ -78,7 +78,7 @@ export const ClassDetailImgCover = styled.div`
 export const ClassDetailBadge = styled.div`
   position: absolute;
   top: 12px;
-  left: 14px;
+  left: 5%;
   z-index: 1;
 
   @media all and (min-width: 768px) {
