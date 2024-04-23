@@ -2,9 +2,11 @@ import Badge from '@components/ui/Badge';
 import Modal from '@components/ui/Modal';
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
+import Toast from '@components/ui/Toast';
 import BookmarkButton from '@components/ui/button/BookmarkButton';
 import Button from '@components/ui/button/Button';
 import { useGetClassDetail } from '@hooks/queries/class';
+import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import useBadge from '@hooks/utils/useBadge';
 import {
   ClassDetailBadge,
@@ -24,6 +26,7 @@ import {
 } from '@styles/class/classDetail.style';
 import useMemberStore from '@zustand/memberStore.mjs';
 import { useModalStore } from '@zustand/modalStore.mjs';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { register } from 'swiper/element/bundle';
@@ -33,8 +36,23 @@ function ClassDetail() {
   const { _id } = useParams();
   const { data } = useGetClassDetail(_id);
   const navigate = useNavigate();
+  const axios = useCustomAxios();
 
   const item = data?.item;
+  console.log(item);
+  const [products, setProducts] = useState([{ _id: '', name: '', quantity: 1 }]);
+
+  useEffect(() => {
+    if (item) {
+      setProducts({
+        _id: item._id,
+        name: item.name,
+        quantity: 1,
+      });
+    }
+  }, [item]);
+
+  console.log(products);
 
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
@@ -49,25 +67,49 @@ function ClassDetail() {
   const user = useMemberStore().user;
 
   const toggleModal = useModalStore((state) => state.toggleModal);
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
 
   const handleOrderClass = () => {
     if (!user) {
-      toggleModal();
+      // toggleModal();
+      navigate(`/class/login`);
     } else {
-      navigate(`/class`);
+      toggleModal();
     }
   };
 
-  const handleConfirm = () => {
-    toggleModal();
-    navigate(`/login`);
+  const handleSubmitOrder = async () => {
+    try {
+      const res = await axios.post(`orders`, {
+        products: [{ _id: products._id, name: products.name, quantity: products.quantity }],
+      });
+      console.log(res);
+      toggleModal();
+      navigate(`/class/${res?.data.item._id}/order`, {
+        state: {
+          name: res?.data.item.products[0].name,
+        },
+      });
+    } catch (err) {
+      setToast({ show: true, message: err.response?.data.message });
+    }
   };
+
+  // const handleConfirm = () => {
+  //   toggleModal();
+  //   navigate(`/login`);
+  // };
 
   const priceData = item?.price;
   const price = priceData?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <Section>
+      {toast.show && <Toast setToast={setToast} text={toast.message} />}
       <ClassDetailWrapper>
         <ClassDetailCover>
           <SwiperWrapper>
@@ -133,7 +175,7 @@ function ClassDetail() {
                   클래스 신청하기
                 </Button>
               ) : null}
-              <Modal handleConfirm={handleConfirm} contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!" confirmText="로그인" closeText="돌아가기" />
+              <Modal handleSubmit={handleSubmitOrder} contentText="이 베이킹 클래스를 신청하시겠습니까?" submitText="신청" closeText="취소" />
             </ClassDetailButton>
           </ClassDetailInfoTop>
 
