@@ -35,9 +35,7 @@ function RecipeListItem({ item }) {
           </Text>
         </S.RecipeListItemInfo>
       </S.RecipeListItemContent>
-      <S.RecipeListBookmark>
-        <BookmarkButton style={{ flexShrink: '0' }} />
-      </S.RecipeListBookmark>
+      <BookmarkButton />
     </S.RecipeListItemContainer>
   );
 }

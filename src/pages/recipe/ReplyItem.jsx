@@ -28,16 +28,22 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
 
   return (
     <div className="CommentWrapper">
-      <div className="CommentHeader">
-        {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
-        <a href="">
-          <Text typography="semibold_s">{item.user.name}</Text>
-        </a>
-        {postUserId === item.user._id && <Text typography="semibold_s">작성자</Text>}
-        <time dateTime={item.updatedAt}>
-          <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
-        </time>
-      </div>
+      <S.ReplyItemHeader>
+        <S.ReplyItemHeaderleft>
+          {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
+          <S.ReplyItemUserName href="">
+            <Text typography="semibold_s">{item.user.name}</Text>
+          </S.ReplyItemUserName>
+          {postUserId === item.user._id && <S.ReplyItemWriterBadge>작성자</S.ReplyItemWriterBadge>}
+        </S.ReplyItemHeaderleft>
+        <div className="replyitem-header-left">
+          <S.ReplyItemDate>
+            <time dateTime={item.updatedAt}>
+              <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
+            </time>
+          </S.ReplyItemDate>
+        </div>
+      </S.ReplyItemHeader>
       <div>
         {editMode ? (
           <ReplyEdit content={item.content} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />

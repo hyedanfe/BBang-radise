@@ -108,9 +108,11 @@ function ReplyList() {
         </Text>
       </S.ReplyListTitle>
       <ReplyAdd />
-      <InfiniteScroll pageStart={1} loadMore={fetchNextPage} hasMore={!isFetching && hasNext} loader="로딩 중..">
-        {list}
-      </InfiniteScroll>
+      <S.ReplyListContent>
+        <InfiniteScroll pageStart={1} loadMore={fetchNextPage} hasMore={!isFetching && hasNext} loader="로딩 중..">
+          {list}
+        </InfiniteScroll>
+      </S.ReplyListContent>
     </section>
   );
 }
