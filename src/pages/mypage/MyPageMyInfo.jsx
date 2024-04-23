@@ -36,31 +36,30 @@ function MyPageMyInfo() {
           ) : (
             <DefaultProfile width={71} height={71} stroke="gray" />
           )}
-          <div>
-            <Text typography="extrabold_l">{user.name}</Text>
-          </div>
-          <div>
-            <Text typography="medium_xs">{user.email}</Text>
-          </div>
-          <Badge type="beginner" />
-          <div>
-            <Text typography="light_s">
-              이곳은 베이킹 클래스 페이지 입니다. 빵라다이스의 거주민들은 서로 빵라다이스에 모여 빵을 만듭니다. 베이킹 마스터가 진행하는 베이킹 클래스를 들어보며 빵라다이스 거주민이 되어보세요.
+          <S.MyPageInfoUser>
+            <Text typography="extrabold_l" display="block">
+              {user.name}
             </Text>
-          </div>
-          <div>
+            <Text typography="medium_s">{user.email}</Text>
+          </S.MyPageInfoUser>
+          <Badge type="beginner" />
+
+          <Text typography="light_s">{user.introduction ? user.introduction : null}</Text>
+
+          <S.MyPageInfoButtonWrapper>
             <SimpleButton>베이킹 마스터로 승급하기</SimpleButton>
-          </div>
-          <div>
-            <SimpleButton
-              onClick={() => {
-                navigate(`/mypage/${_id}/edit`);
-              }}
-            >
-              내 정보 수정
-            </SimpleButton>
-            <SimpleButton onClick={handleLogout}>로그아웃</SimpleButton>
-          </div>
+
+            <S.MyPageInfoButtonBottom>
+              <SimpleButton
+                onClick={() => {
+                  navigate(`/mypage/${_id}/edit`);
+                }}
+              >
+                내 정보 수정
+              </SimpleButton>
+              <SimpleButton onClick={handleLogout}>로그아웃</SimpleButton>
+            </S.MyPageInfoButtonBottom>
+          </S.MyPageInfoButtonWrapper>
         </S.MyPageInfo>
       )}
     </S.MyPageWrapper>

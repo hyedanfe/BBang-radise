@@ -20,30 +20,33 @@ function MyPageList() {
       <ul>
         <li>
           <S.Tab>
-            <S.ButtonWrapper>
+            <S.ButtonWrapper tab={tab == 0 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(0)}>
-                <Text color="var(gray--07)" typography="regular_m">
+                <Text color="gray07" typography="semibold_s">
                   클래스
                 </Text>
               </S.TabButton>
             </S.ButtonWrapper>
-            <S.ButtonWrapper>
+
+            <S.ButtonWrapper tab={tab == 1 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(1)}>
-                <Text color="var(gray--07)" typography="regular_m">
+                <Text color="gray07" typography="semibold_s">
                   레시피
                 </Text>
               </S.TabButton>
             </S.ButtonWrapper>
-            <S.ButtonWrapper>
+
+            <S.ButtonWrapper tab={tab == 2 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(2)} disabled>
-                <Text color="var(gray--07)" typography="regular_m">
+                <Text color="gray07" typography="semibold_s">
                   북마크
                 </Text>
               </S.TabButton>
             </S.ButtonWrapper>
-            <S.ButtonWrapper>
+
+            <S.ButtonWrapper tab={tab == 3 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(3)}>
-                <Text color="var(gray--07)" typography="regular_m">
+                <Text color="gray07" typography="semibold_s">
                   신청 목록
                 </Text>
               </S.TabButton>
