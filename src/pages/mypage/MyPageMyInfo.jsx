@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetUserInfo } from '@hooks/queries/user';
 import { useState } from 'react';
 import useMemberStore from '@zustand/memberStore.mjs';
-import Section from '@components/ui/Section';
 import SimpleButton from '@pages/mypage/SimpleButton';
 import * as S from '@styles/mypage/mypage.style';
 import Text from '@components/ui/Text';
@@ -24,10 +23,6 @@ function MyPageMyInfo() {
     setUserData(null);
     clearUserDataStorage();
     setShowToast(true);
-
-    setTimeout(() => {
-      navigate('/');
-    }, 2000);
   };
 
   //TODO: 토스트 이동 후에 안 뜸
@@ -35,7 +30,7 @@ function MyPageMyInfo() {
     <S.MyPageWrapper>
       {showToast && <Toast setToast={setShowToast} text="로그아웃되었습니다." />}
       {user && (
-        <>
+        <S.MyPageInfo>
           {user.profileImage && user.profileImage.length > 0 ? (
             <S.MyPageProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
           ) : (
@@ -66,7 +61,7 @@ function MyPageMyInfo() {
             </SimpleButton>
             <SimpleButton onClick={handleLogout}>로그아웃</SimpleButton>
           </div>
-        </>
+        </S.MyPageInfo>
       )}
     </S.MyPageWrapper>
   );
