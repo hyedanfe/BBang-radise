@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ReplyItem from '@pages/recipe/ReplyItem';
 import ReplyAdd from '@pages/recipe/ReplyAdd';
 import Text from '@components/ui/Text';
+import * as S from '@styles/recipe/replylist.style';
 
 function ReplyList() {
   const post = useOutletContext();
@@ -100,10 +101,12 @@ function ReplyList() {
   }
 
   return (
-    <section className="mb-8">
-      <Text typography="display_m" color="black">
-        댓글 ({data?.pages.at(-1).data.pagination.total || 0})
-      </Text>
+    <section>
+      <S.ReplyListTitle>
+        <Text className="replylist-title" typography="display_m" color="black">
+          댓글 ({data?.pages.at(-1).data.pagination.total || 0})
+        </Text>
+      </S.ReplyListTitle>
       <ReplyAdd />
       <InfiniteScroll pageStart={1} loadMore={fetchNextPage} hasMore={!isFetching && hasNext} loader="로딩 중..">
         {list}
