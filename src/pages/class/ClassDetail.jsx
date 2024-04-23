@@ -76,8 +76,10 @@ function ClassDetail() {
 
   const handleOrderClass = () => {
     if (!user) {
-      // toggleModal();
-      navigate(`/class/login`);
+      setToast({ show: true, message: '로그인 후 이용해주시기 바랍니다.' });
+      setTimeout(() => {
+        navigate(`/class/login`);
+      }, 1000);
     } else {
       toggleModal();
     }
@@ -179,12 +181,7 @@ function ClassDetail() {
                     클래스 신청하기
                   </Button>
                 ) : null}
-                <Modal
-                  handleConfirm={handleConfirm}
-                  contentText="베이킹 클래스는 빵라다이스의 주민들을 위한 활동입니다. 로그인 후 빵라다이스를 즐겨주세요!"
-                  confirmText="로그인"
-                  closeText="돌아가기"
-                />
+                <Modal handleSubmit={handleSubmitOrder} contentText="이 클래스를 신청하시겠습니까?" submitText="신청" closeText="취소" />
               </ClassDetailButton>
             )}
           </ClassDetailInfoTop>
