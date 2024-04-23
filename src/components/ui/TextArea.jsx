@@ -6,7 +6,6 @@ import Text from '@components/ui/Text';
 const TextareaContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
   position: relative;
 `;
 
@@ -16,7 +15,7 @@ const LabelStyle = styled.label`
 `;
 
 const TextareaStyle = styled.textarea`
-  width: 100%;
+  width: calc(100% - 2px);
   border-radius: 6px;
   padding: 10px 12px 9px 12px;
   margin-left: 1px;
@@ -52,7 +51,7 @@ const TextArea = forwardRef(({ id, label, name, value, placeholder, isValid, val
     <TextareaContainerStyle>
       {label && (
         <LabelStyle htmlFor={id}>
-          <Text typography="semibold_m" display="block" color="gray08">
+          <Text typography="semibold_s" display="block" color="gray08">
             {label}
           </Text>
         </LabelStyle>

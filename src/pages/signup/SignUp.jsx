@@ -66,72 +66,77 @@ function SignUp() {
     <Section>
       <S.SignUpWrapper>
         <Text typography="display_l">회원가입</Text>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Input
-              type="text"
-              id="name"
-              label="이름"
-              height="40px"
-              placeholder="이름을 입력하세요"
-              error={errors.name && errors.name.message}
-              {...register('name', {
-                required: '이름을 입력하세요.',
-                minLength: {
-                  value: 2,
-                  message: '이름을 2글자 이상 입력하세요.',
-                },
-              })}
-            />
-          </div>
-          <div>
-            <Input
-              type="email"
-              id="email"
-              label="이메일"
-              placeholder="이메일을 입력하세요"
-              error={errors.email && errors.email.message}
-              {...register('email', {
-                required: '이메일을 입력하세요.',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: '이메일 형식이 아닙니다.',
-                },
-              })}
-            />
-          </div>
-          <div>
-            {emailMsg && (
-              <Text typography="bold_s" color="primary02">
-                {emailMsg}
-              </Text>
-            )}
-            <ValidationButton disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
-              중복 확인
-            </ValidationButton>
-          </div>
-          <div>
-            <Input
-              type="password"
-              id="password"
-              label="비밀번호"
-              placeholder="비밀번호를 입력하세요"
-              error={errors.password && errors.password.message}
-              {...register('password', {
-                required: '비밀번호를 입력하세요.',
-              })}
-            />
-          </div>
-          <div>
-            <Input type="file" accept="image/*" id="profileImage" label="프로필 이미지" placeholder="이미지를 선택하세요" {...register('profileImage')} />
-          </div>
-          <div>
-            <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
-          </div>
+        <S.SignUpForm onSubmit={handleSubmit(onSubmit)}>
+          <S.SignUpInputWrapper>
+            <div>
+              <Input
+                type="text"
+                id="name"
+                label="이름"
+                height="40px"
+                placeholder="이름을 입력하세요"
+                error={errors.name && errors.name.message}
+                {...register('name', {
+                  required: '이름을 입력하세요.',
+                  minLength: {
+                    value: 2,
+                    message: '이름을 2글자 이상 입력하세요.',
+                  },
+                })}
+              />
+            </div>
+
+            <S.SignUpEmailWrapper>
+              <div>
+                <Input
+                  type="email"
+                  id="email"
+                  label="이메일"
+                  placeholder="이메일을 입력하세요"
+                  error={errors.email && errors.email.message}
+                  {...register('email', {
+                    required: '이메일을 입력하세요.',
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: '이메일 형식이 아닙니다.',
+                    },
+                  })}
+                />
+              </div>
+              <S.SignUpValidation>
+                {emailMsg && (
+                  <Text typography="bold_s" color="primary02">
+                    {emailMsg}
+                  </Text>
+                )}
+                <ValidationButton disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
+                  중복 확인
+                </ValidationButton>
+              </S.SignUpValidation>
+            </S.SignUpEmailWrapper>
+            <div>
+              <Input
+                type="password"
+                id="password"
+                label="비밀번호"
+                placeholder="비밀번호를 입력하세요"
+                error={errors.password && errors.password.message}
+                {...register('password', {
+                  required: '비밀번호를 입력하세요.',
+                })}
+              />
+            </div>
+            <div>
+              <Input type="file" accept="image/*" id="profileImage" label="프로필 이미지" placeholder="이미지를 선택하세요" {...register('profileImage')} />
+            </div>
+            <div>
+              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" rows="5" {...register('introduction')} />
+            </div>
+          </S.SignUpInputWrapper>
           <div>
             <Submit>회원가입</Submit>
           </div>
-        </form>
+        </S.SignUpForm>
       </S.SignUpWrapper>
     </Section>
   );

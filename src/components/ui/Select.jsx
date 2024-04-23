@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const SelectContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  position: relative;
 `;
 
 const LabelStyle = styled.label`
@@ -15,9 +15,9 @@ const LabelStyle = styled.label`
 `;
 
 const SelectStyle = styled.select`
-  width: 100%;
+  width: calc(100% - 2px);
   border-radius: 6px;
-  padding: 10px 12px 9px 12px;
+  padding: 10.5px 12px 10px 12px;
   margin-left: 1px;
   font-family: pretendard, sans-serif;
   font-weight: 500;
@@ -44,7 +44,7 @@ const Select = forwardRef(({ id, onChange, onBlur, name, label, placeholder, opt
   return (
     <SelectContainerStyle>
       <LabelStyle htmlFor={id}>
-        <Text typography="semibold_m" display="block" color="gray08">
+        <Text typography="semibold_s" display="block" color="gray08">
           {label}
         </Text>
       </LabelStyle>

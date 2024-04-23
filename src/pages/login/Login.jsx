@@ -73,48 +73,55 @@ function Login() {
     <Section>
       <S.LoginWrapper>
         <Text typography="display_l">로그인</Text>
+
         {toast.show && <Toast setToast={setToast} text={toast.message} />}
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Input
-              type="email"
-              id="email"
-              label="이메일"
-              placeholder="이메일을 입력하세요"
-              error={errors.email && errors.email.message}
-              {...register('email', {
-                required: '이메일을 입력하세요.',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: '이메일 형식이 아닙니다.',
-                },
-              })}
-            />
-          </div>
-          <div>
-            <Input
-              type="password"
-              id="password"
-              label="비밀번호"
-              placeholder="비밀번호를 입력하세요"
-              error={errors.password && errors.password.message}
-              {...register('password', {
-                required: '비밀번호를 입력하세요.',
-              })}
-            />
-          </div>
-          <div>
-            <Submit color="var(--gray-07)">로그인</Submit>
-            <Button
-              type="button"
-              color="var(--primary-01)"
-              onClick={() => {
-                navigate('/signup');
-              }}
-            >
-              회원가입
-            </Button>
-          </div>
+          <S.LoginFormWrapper>
+            <S.LoginInputWrapper>
+              <div>
+                <Input
+                  type="email"
+                  id="email"
+                  label="이메일"
+                  placeholder="이메일을 입력하세요"
+                  error={errors.email && errors.email.message}
+                  {...register('email', {
+                    required: '이메일을 입력하세요.',
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: '이메일 형식이 아닙니다.',
+                    },
+                  })}
+                />
+              </div>
+              <div>
+                <Input
+                  type="password"
+                  id="password"
+                  label="비밀번호"
+                  placeholder="비밀번호를 입력하세요"
+                  error={errors.password && errors.password.message}
+                  {...register('password', {
+                    required: '비밀번호를 입력하세요.',
+                  })}
+                />
+              </div>
+            </S.LoginInputWrapper>
+
+            <S.LoginButton>
+              <Submit>로그인</Submit>
+              <Button
+                type="button"
+                color="var(--primary-02)"
+                onClick={() => {
+                  navigate('/signup');
+                }}
+              >
+                회원가입
+              </Button>
+            </S.LoginButton>
+          </S.LoginFormWrapper>
         </form>
       </S.LoginWrapper>
     </Section>

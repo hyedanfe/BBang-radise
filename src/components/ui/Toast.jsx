@@ -6,13 +6,14 @@ import styled, { keyframes } from 'styled-components';
 const ToastWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: 
   margin: 0 -14px;
   padding: 0 16px;
   position: fixed;
   width: 100%;
-  /* bottom: 0px; */
-
-  background: linear-gradient(0deg, rgba(255, 235, 168, 0.4), rgba(255, 255, 255, 0));
+  height: 10vh;
+  bottom: 0px;
+  left: 0px;
 
   z-index: 999;
   @media all and (min-width: 768px) {
@@ -33,13 +34,13 @@ const gradient = keyframes`
 const ToastStyle = styled.div`
   display: flex;
   z-index: 1;
-  margin-top: 30px;
+  margin-top: auto;
   padding: 12px 26px;
   box-sizing: border-box;
   position: relative;
   backdrop-filter: blur(1px);
 
-  bottom: 18px;
+  bottom: 24px;
   border-radius: 32px;
   background: linear-gradient(320deg, #fff5e1, #ffeba8, #ffb500);
   background-size: 400% 400%;
