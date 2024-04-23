@@ -65,12 +65,15 @@ function RecipeAdd() {
             <Text color="black" display="block" typography="display_l">
               베이킹 레시피 등록하기
             </Text>
-            <div>
+            <Text typography="light_l" color="black" display="block">
+              빵라다이스에 공유하고 싶은 레시피나 베이킹 이야기를 자유롭게 공유해주세요.
+            </Text>
+            <S.RecipeAddButton>
+              <Submit>등록하기</Submit>
               <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
                 취소하기
               </Button>
-              <Submit>등록하기</Submit>
-            </div>
+            </S.RecipeAddButton>
           </S.RecipeAddSideBar>
 
           <S.RecipeAddForm>
@@ -100,7 +103,7 @@ function RecipeAdd() {
               <Text typography="semibold_s" display="block" color="gray08">
                 레시피 내용
               </Text>
-              <QuillEditor id="content" name="content" values={quillValue} setValues={setquillValue} />
+              <QuillEditor id="content" name="content" values={quillValue} setValues={setquillValue} className="quillWrapper" />
               {/* <Input type="text" id="content" label="레시피 내용" {...register('content', { required: '내용을 입력해주세요' })} /> */}
             </div>
           </S.RecipeAddForm>

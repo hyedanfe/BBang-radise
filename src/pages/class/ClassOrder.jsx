@@ -16,11 +16,10 @@ const ClassOrderWrapper = styled.div`
   @media all and (min-width: 768px) {
     justify-content: space-between;
     width: 100%;
-    padding-bottom: 90px;
     position: relative;
     padding-top: 120px;
     max-width: 500px;
-    gap: 120px;
+    gap: 70px;
   }
 `;
 
