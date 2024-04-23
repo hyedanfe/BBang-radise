@@ -16,9 +16,9 @@ const LabelStyle = styled.label`
 `;
 
 const InputStyle = styled.input`
-  width: 100%;
+  width: calc(100% - 2px);
   border-radius: 6px;
-  padding: 10px 12px 9px 12px;
+  padding: ${(props) => (props.type == 'date' ? '7.5px 12px 8px 12px' : '10px 12px 9px 12px')};
   margin-left: 1px;
   font-family: pretendard, sans-serif;
   font-weight: 500;

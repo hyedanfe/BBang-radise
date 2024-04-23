@@ -130,7 +130,7 @@ function SignUp() {
               <Input type="file" accept="image/*" id="profileImage" label="프로필 이미지" placeholder="이미지를 선택하세요" {...register('profileImage')} />
             </div>
             <div>
-              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" {...register('introduction')} />
+              <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" rows="5" {...register('introduction')} />
             </div>
           </S.SignUpInputWrapper>
           <div>
