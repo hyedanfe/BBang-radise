@@ -1,5 +1,5 @@
 import useUserApis from '@hooks/apis/useUserApis.mjs';
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const useGetUserInfo = (_id) => {
   const { getMyInfo } = useUserApis();
@@ -37,14 +37,15 @@ export const useGetMyClassList = () => {
   });
 };
 
-export const useGetMyRecipeList = () => {
+export const useGetMyRecipeList = (_id, recipe) => {
   const { getMyRecipeList } = useUserApis();
 
   return useQuery({
-    queryKey: ['posts', { type: 'recipe' }],
-    queryFn: () => getMyRecipeList(),
+    queryKey: ['posts', 'users', _id, { type: recipe }],
+    queryFn: () => getMyRecipeList(_id, recipe),
     select: (response) => response.data,
     suspense: true,
+    enabled: !!_id,
   });
 };
 

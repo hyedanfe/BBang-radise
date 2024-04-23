@@ -2,7 +2,7 @@ import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import Button from '@components/ui/button/Button';
 import useMemberStore from '@zustand/memberStore.mjs';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ClassOrderWrapper = styled.div`
@@ -45,6 +45,8 @@ function ClassOrder() {
   const user = useMemberStore().user;
   const id = user?._id;
   const navigate = useNavigate();
+  const location = useLocation();
+  const { name } = location.state;
 
   return (
     <Section>
@@ -54,7 +56,7 @@ function ClassOrder() {
             베이킹 클래스 신청 완료
           </Text>
           <Text typography="light_l" color="black" display="block">
-            베이킹클래스이름을 신청해주셔서 감사합니다! 신청 클래스는 내정보의 신청 목록에서 확인하실 수 있습니다.
+            {name}을(를) 신청해주셔서 감사합니다! 신청 클래스는 내정보의 신청 목록에서 확인하실 수 있습니다.
           </Text>
         </ClassOrderText>
 
