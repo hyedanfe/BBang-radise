@@ -33,7 +33,7 @@ function RecipeDetail() {
 
   // 삭제
   const handleEdit = async () => {
-    navigate(`recipe/${_id}/edit`);
+    navigate(`/recipe/${_id}/edit`);
   };
 
   const item = data?.item;
