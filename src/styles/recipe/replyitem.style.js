@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 
+export const ReplyItemContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
 export const ReplyItemHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const ReplyItemHeaderleft = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const ReplyItemProfileImage = styled.img`
-  width: 10%;
+  width: 55px;
   border-radius: 50%;
-  border: 1px solid black;
 `;
 
 export const ReplyItemUserName = styled.a`
@@ -24,7 +29,7 @@ export const ReplyItemWriterBadge = styled.div`
   font-family: pretendard, sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.5;
   background-color: var(--primary-01);
   color: var(--white);
@@ -32,11 +37,12 @@ export const ReplyItemWriterBadge = styled.div`
   letter-spacing: 0.06em;
 `;
 
-export const ReplyItemDate = styled.div`
-  width: 72%;
-  text-align: end;
+export const ReplyItemContent = styled.div`
+  padding: 15px 0 0 45px;
 `;
 
 export const ReplyItemButtonContainer = styled.div`
   display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 `;

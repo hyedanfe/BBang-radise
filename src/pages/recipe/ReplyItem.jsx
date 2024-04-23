@@ -27,7 +27,7 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
   };
 
   return (
-    <div className="CommentWrapper">
+    <S.ReplyItemContainer>
       <S.ReplyItemHeader>
         <S.ReplyItemHeaderleft>
           {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
@@ -36,12 +36,11 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
           </S.ReplyItemUserName>
           {postUserId === item.user._id && <S.ReplyItemWriterBadge>작성자</S.ReplyItemWriterBadge>}
         </S.ReplyItemHeaderleft>
-        <div className="replyitem-header-left">
-          <S.ReplyItemDate>
-            <time dateTime={item.updatedAt}>
-              <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
-            </time>
-          </S.ReplyItemDate>
+
+        <div className="replyitem-date">
+          <time dateTime={item.updatedAt}>
+            <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
+          </time>
         </div>
       </S.ReplyItemHeader>
       <div>
@@ -49,10 +48,12 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
           <ReplyEdit content={item.content} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />
         ) : (
           <>
-            <Text typography="semibold_s">{item.content}</Text>
+            <S.ReplyItemContent>
+              <Text typography="semibold_s">{item.content}</Text>
+            </S.ReplyItemContent>
             {user?._id === item.user._id && (
               <S.ReplyItemButtonContainer>
-                <CommentEditButton width="12px" onClick={() => setEditMode(true)}>
+                <CommentEditButton width="14px" onClick={() => setEditMode(true)}>
                   수정
                 </CommentEditButton>
                 <CommentDeleteButton width="12px" onClick={() => handleDelete(item._id)}>
@@ -63,7 +64,7 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
           </>
         )}
       </div>
-    </div>
+    </S.ReplyItemContainer>
   );
 }
 

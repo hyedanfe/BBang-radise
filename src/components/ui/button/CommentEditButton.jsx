@@ -2,7 +2,7 @@ import EditIcon from '@assets/EditIcon';
 import styled from 'styled-components';
 
 const CommentEditButtonStyle = styled.button`
-  width: 100%;
+  padding: 7px;
 `;
 
 function CommentEditButton({ type = 'button', onClick, width }) {
