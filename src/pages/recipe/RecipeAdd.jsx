@@ -11,6 +11,7 @@ import Submit from '@components/ui/button/Submit';
 import Button from '@components/ui/button/Button';
 import useFileApis from '@hooks/apis/useFileApis.mjs';
 import { useEffect, useState } from 'react';
+import DefaultImagePreview from '@assets/DefaultImagePreview.png';
 
 function RecipeAdd() {
   const [quillValue, setquillValue] = useState();
@@ -18,12 +19,22 @@ function RecipeAdd() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     setError,
   } = useForm();
+  const [mainImagesPreview, setMainImagesPreview] = useState('');
 
   const axios = useCustomAxios();
   const navigate = useNavigate();
+  const mainImages = watch('extra');
+
+  useEffect(() => {
+    if (mainImages && mainImages.length > 0) {
+      const file = mainImages[0];
+      setMainImagesPreview(URL.createObjectURL(file));
+    }
+  }, [mainImages]);
 
   const onSubmit = async (formData) => {
     try {
@@ -56,6 +67,15 @@ function RecipeAdd() {
   useEffect(() => {
     console.log('퀼:' + quillValue);
   }, [quillValue]);
+
+  const optionData = [
+    { value: '빵', label: '빵' },
+    { value: '케이크&컵케이크&머핀', label: '케이크&컵케이크&머핀' },
+    { value: '타르트&파이', label: '타르트&파이' },
+    { value: '쿠키&구움과자', label: '쿠키&구움과자' },
+    { value: '초콜릿', label: '초콜릿' },
+    { value: '떡&젤리&기타', label: '떡&젤리&기타' },
+  ];
 
   return (
     <Section>
@@ -94,10 +114,35 @@ function RecipeAdd() {
               />
             </div>
             <div className="select-category">
-              <Select id="category" label="카테고리" placeholder="레시피 카테고리를 선택해주세요" />
+              <Select id="category" label="카테고리" placeholder="레시피 카테고리를 선택해주세요" optionData={optionData} />
             </div>
             <div className="upload-mainimage">
-              <Input type="file" accept="image/*" id="extra" label="대표 이미지" {...register('extra')} />
+              <Input
+                type="file"
+                accept="image/*"
+                id="extra"
+                label="대표 이미지 (1개)"
+                placeholder="이미지를 선택하세요"
+                {...register('extra', {
+                  required: '대표 이미지를 등록해주세요.',
+                })}
+              />
+              <S.FileInputBoxStyle>
+                {mainImagesPreview && mainImagesPreview.length > 0 ? (
+                  <S.PreviewImageWrapper>
+                    <S.PreviewImageStyle src={mainImagesPreview} className="hidden" width="160" height="160" alt="main_image" />
+                    {/* <S.DeleteButtonWrapper>
+                    <S.DeleteButtonStyle type="button" onClick={deleteMainImage}>
+                      x
+                    </S.DeleteButtonStyle>
+                  </S.DeleteButtonWrapper> */}
+                  </S.PreviewImageWrapper>
+                ) : (
+                  <S.PreviewImageWrapper>
+                    <S.PreviewImageStyle src={DefaultImagePreview} alt="기본이미지" />
+                  </S.PreviewImageWrapper>
+                )}
+              </S.FileInputBoxStyle>
             </div>
             <div className="input-content">
               <Text typography="semibold_s" display="block" color="gray08">

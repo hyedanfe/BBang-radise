@@ -31,7 +31,7 @@ function RecipeDetail() {
     suspense: true,
   });
 
-  // 삭제
+  // 수정
   const handleEdit = async () => {
     navigate(`/recipe/${_id}/edit`);
   };

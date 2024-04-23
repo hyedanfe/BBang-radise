@@ -30,7 +30,11 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
     <S.ReplyItemContainer>
       <S.ReplyItemHeader>
         <S.ReplyItemHeaderleft>
-          {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
+          {item.user.profile ? (
+            <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" />
+          ) : (
+            <DefaultProfile stroke="var(--gray-06)" width="50px" />
+          )}
           <S.ReplyItemUserName href="">
             <Text typography="semibold_s">{item.user.name}</Text>
           </S.ReplyItemUserName>
