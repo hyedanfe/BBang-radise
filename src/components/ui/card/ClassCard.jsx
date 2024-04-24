@@ -128,13 +128,13 @@ ClassCard.propTypes = {
 function ClassCard({ item }) {
   const navigate = useNavigate();
 
-  const mainImage = item?.mainImages[0].name;
+  const mainImage = item.mainImages ? item?.mainImages[0]?.name : item?.image.name;
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
   return (
     <ClassCardContainer>
       <ClassCardBookmark>
-        <BookmarkButton toggle />
+        <BookmarkButton toggle="true" />
       </ClassCardBookmark>
 
       <ClassCardNavigation onClick={() => navigate(`/class/${item._id}`)}>
