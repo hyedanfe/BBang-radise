@@ -80,6 +80,7 @@ function ClassDetail() {
       setTimeout(() => {
         navigate(`/class/login`);
       }, 1000);
+      toggleModal();
     } else {
       toggleModal();
     }
