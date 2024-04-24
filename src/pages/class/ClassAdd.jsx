@@ -15,7 +15,6 @@ import Modal from '@components/ui/Modal';
 import { useModalStore } from '@zustand/modalStore.mjs';
 import Toast from '@components/ui/Toast';
 
-// TODO: 파일 미리보기 공동 컴포넌트
 function ClassAdd() {
   const navigate = useNavigate();
   const { postSingleFile, postMultipleFiles } = useFileApis();
@@ -293,7 +292,8 @@ function ClassAdd() {
               label="클래스 세부 내용"
               type="txt"
               id="content"
-              placeholder="텍스트를 입력해주세요"
+              placeholder="클래스 세부 내용을 10자 이상 입력해주세요"
+              error={errors.content?.message}
               {...register('content', {
                 required: '클래스 세부 내용을 입력하세요.',
                 minLength: {

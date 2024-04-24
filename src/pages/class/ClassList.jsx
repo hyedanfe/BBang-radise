@@ -42,6 +42,7 @@ function ClassList() {
   const handleConfirm = () => {
     toggleModal();
     navigate(`/login`);
+    toggleModal();
   };
 
   const classList = data?.item.map((item) => <ClassCard key={item._id} item={item} />);
