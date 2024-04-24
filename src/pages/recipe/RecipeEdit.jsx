@@ -1,4 +1,5 @@
 import Input from '@components/ui/Input';
+import Modal from '@components/ui/Modal';
 import QuillEditor from '@components/ui/QuillEditor/QuillEditor';
 import Section from '@components/ui/Section';
 import Select from '@components/ui/Select';
@@ -9,6 +10,7 @@ import useFileApis from '@hooks/apis/useFileApis.mjs';
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import * as S from '@styles/recipe/recipeadd.style';
 import { useQuery } from '@tanstack/react-query';
+import { useModalStore } from '@zustand/modalStore.mjs';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -33,6 +35,7 @@ function RecipeEdit() {
 
   const axios = useCustomAxios();
   const navigate = useNavigate();
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const { data } = useQuery({
     queryKey: ['posts', _id],
@@ -75,8 +78,10 @@ function RecipeEdit() {
         delete formData.extra;
       }
 
-      const res = await axios.post('/posts', formData);
-      navigate(`/recipe/${res.data.item._id}`);
+      const res = await axios.patch(`/posts/${_id}`, formData);
+
+      console.log(res);
+      navigate(`/recipe/${_id}`);
     } catch (err) {
       console.log(err);
       // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
@@ -86,6 +91,12 @@ function RecipeEdit() {
         alert(err.response?.data.message);
       }
     }
+  };
+
+  const handleDelete = async () => {
+    await axios.delete(`/posts/${_id}`);
+    toggleModal();
+    navigate('/recipe');
   };
 
   const optionData = [
@@ -99,6 +110,8 @@ function RecipeEdit() {
 
   return (
     <Section>
+      <Modal handleSubmit={handleDelete} contentText="정말 삭제하시겠습니까?" submitText="예" closeText="아니오" />
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <S.RecipeAddWrapper>
           <S.RecipeAddSideBar>
@@ -107,10 +120,14 @@ function RecipeEdit() {
             </Text>
 
             <S.RecipeAddButton>
-              <Submit>등록하기</Submit>
-              <Button color="var(--gray-06)" onClick={() => navigate('/recipe')}>
-                취소하기
+              <Button color="var(--gray-06)" onClick={toggleModal}>
+                삭제하기
               </Button>
+
+              <Button color="var(--primary-02)" onClick={() => navigate(`/recipe/${_id}`)}>
+                수정 취소
+              </Button>
+              <Submit>수정 완료</Submit>
             </S.RecipeAddButton>
           </S.RecipeAddSideBar>
 
