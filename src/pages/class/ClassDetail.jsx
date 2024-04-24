@@ -78,9 +78,8 @@ function ClassDetail() {
     if (!user) {
       setToast({ show: true, message: '로그인 후 이용해주시기 바랍니다.' });
       setTimeout(() => {
-        navigate(`/class/login`);
-      }, 1000);
-      toggleModal();
+        navigate(`/login`);
+      }, 3000);
     } else {
       toggleModal();
     }

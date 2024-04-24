@@ -40,3 +40,9 @@ export const SignUpEmailWrapper = styled.div`
 export const SignUpValidation = styled.div`
   margin-left: auto;
 `;
+
+export const SignUpWelcomeButton = styled.div`
+  @media all and (min-width: 768px) {
+    width: 64%;
+  }
+`;
