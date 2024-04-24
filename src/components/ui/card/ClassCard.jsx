@@ -4,7 +4,7 @@ import Text from '@components/ui/Text';
 import BookmarkButton from '@components/ui/button/BookmarkButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useBadge from '@hooks/utils/useBadge';
 
 const ClassCardContainer = styled.article`
@@ -127,14 +127,17 @@ ClassCard.propTypes = {
 
 function ClassCard({ item }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const test = pathname.includes('mypage');
+  console.log(test);
 
-  const mainImage = item?.mainImages[0].name;
+  const mainImage = item.mainImages ? item?.mainImages[0]?.name : item?.image.name;
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
 
   return (
     <ClassCardContainer>
       <ClassCardBookmark>
-        <BookmarkButton toggle />
+        <BookmarkButton toggle="true" />
       </ClassCardBookmark>
 
       <ClassCardNavigation onClick={() => navigate(`/class/${item._id}`)}>
@@ -167,13 +170,13 @@ function ClassCard({ item }) {
                 {item.extra.classAt}
               </Text>
               <Text typography="black_s" color={quantityColor}>
-                {item.buyQuantity}/{item.quantity}명
+                {pathname.includes('mypage') ? item.extra.address : `${item.buyQuantity}/${item.quantity}명`}
               </Text>
             </ClassCardActive>
 
             <ClassCardStatic>
               <Text typography="extrabold_s" color={textColor}>
-                {item.extra.address}
+                {pathname.includes('mypage') ? null : item.extra.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
                 {item.seller?.name}
