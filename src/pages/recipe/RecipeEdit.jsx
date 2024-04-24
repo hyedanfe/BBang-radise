@@ -63,19 +63,23 @@ function RecipeEdit() {
     }
   }, [item]);
 
+  console.log(item);
+
   const onSubmit = async (formData) => {
     try {
       formData.content = quillValue;
       formData.type = 'recipe';
       console.log(formData);
 
-      if (formData.extra.length > 0) {
-        // console.log(formData);
+      if (formData.extra) {
+        console.log(formData);
         const fileRes = await postSingleFile(formData.extra[0]);
         console.log(fileRes);
-        formData.extra = fileRes.data.item[0].name;
-      } else {
-        delete formData.extra;
+        if (fileRes.data.item.length > 0) {
+          formData.extra = fileRes.data.item[0].name;
+        } else {
+          formData.extra = item.extra;
+        }
       }
 
       const res = await axios.patch(`/posts/${_id}`, formData);
