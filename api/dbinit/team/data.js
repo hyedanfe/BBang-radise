@@ -124,18 +124,22 @@ export const initData = async (nextSeq) => {
     // QnA, 공지사항, 게시판
     post: [
       {
-        type: 'recipe',
-        title: '지옥에서 온 츄러스..',
-        content: '홀랑 태워버렸군요',
-        extra: 'churos.jpg',
-        views: 0,
-        user: {
-          _id: 4,
-          name: '셀러',
-        },
         _id: 1,
-        createdAt: '2024.04.11 23:27:32',
-        updatedAt: '2024.04.11 23:27:32',
+        title: '지옥에서 온 츄러스..',
+        extra: 'churos.jpg',
+        content:
+          '<p>유튜브 보고 따라한건데 반죽 단계에서부터 반죽이 너무 질다 싶더라구요..</p><p>반죽이 너무 질다 보니 모양도 안 예쁘게 짜지고 심지어 태웠네요..ㅋㅋㅋㅋ</p><p><br></p><p><img src="https://api.frontendschool.shop/api/files/08-bbangradise/churos.jpg"></p><p><br></p><p><img src="https://api.frontendschool.shop/api/files/08-bbangradise/churos2.jpg"></p><p><br></p><p>맛은 그런대로 먹을 만 했는데 이유가 뭘까요.. 마스터님들 아신다면 답변 부탁드립니다</p>',
+        type: 'recipe',
+        views: 9,
+        user: {
+          _id: 2,
+          name: 'GD',
+          profile: 'profile02.png',
+        },
+        createdAt: '2024.04.24 14:52:21',
+        updatedAt: '2024.04.24 14:52:21',
+        seller_id: null,
+        replies: [],
       },
       {
         type: 'recipe',

@@ -8,11 +8,13 @@ import ReplyItem from '@pages/recipe/ReplyItem';
 import ReplyAdd from '@pages/recipe/ReplyAdd';
 import Text from '@components/ui/Text';
 import * as S from '@styles/recipe/replylist.style';
+import { useModalStore } from '@zustand/modalStore.mjs';
 
 function ReplyList() {
   const post = useOutletContext();
   const axios = useCustomAxios();
   const queryClient = useQueryClient();
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const { data, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ['posts', post._id, 'replies?type=recipe'],
@@ -53,51 +55,44 @@ function ReplyList() {
 
   // 후기 삭제
   async function handleDelete(reply_id) {
-    if (confirm('후기를 삭제하시겠습니까?')) {
-      await axios.delete(`/posts/${post._id}/replies/${reply_id}`);
+    await axios.delete(`/posts/${post._id}/replies/${reply_id}`);
 
-      // 삭제한 후기 제거
-      const newPagesArray =
-        produce(data.pages, (draft) =>
-          draft.forEach((page) => {
-            _.remove(page.data.item, (item) => item._id === reply_id);
-          }),
-        ) || [];
+    // 삭제한 후기 제거
+    const newPagesArray =
+      produce(data.pages, (draft) =>
+        draft.forEach((page) => {
+          _.remove(page.data.item, (item) => item._id === reply_id);
+        }),
+      ) || [];
 
-      // 지정한 queryKey의 캐시된 값을 수정
-      queryClient.setQueryData(['posts', post._id, 'replies'], (data) => ({
-        pages: newPagesArray,
-        pageParams: data.pageParams,
-      }));
-    }
+    // 지정한 queryKey의 캐시된 값을 수정
+    queryClient.setQueryData(['posts', post._id, 'replies'], (data) => ({
+      pages: newPagesArray,
+    }));
   }
 
   // 후기 수정
   async function handleUpdate(reply_id, formData) {
-    if (confirm('후기를 수정하시겠습니까?')) {
-      const response = await axios.patch(`/posts/${post._id}/replies/${reply_id}`, formData);
+    const response = await axios.patch(`/posts/${post._id}/replies/${reply_id}`, formData);
+    toggleModal();
 
-      const newItem = response.data.item;
-      // 화면에서 후기 수정
-      const newPagesArray =
-        produce(data.pages, (draft) =>
-          draft.forEach((page) => {
-            const target = _.find(page.data.item, (item) => item._id === reply_id);
-            if (target) {
-              (target.content = newItem.content), (target.updatedAt = newItem.updatedAt);
-            }
-          }),
-        ) || [];
+    const newItem = response.data.item;
+    // 화면에서 후기 수정
+    const newPagesArray =
+      produce(data.pages, (draft) =>
+        draft.forEach((page) => {
+          const target = _.find(page.data.item, (item) => item._id === reply_id);
+          if (target) {
+            (target.content = newItem.content), (target.updatedAt = newItem.updatedAt);
+          }
+        }),
+      ) || [];
 
-      // 지정한 queryKey의 캐시된 값을 수정
-      queryClient.setQueryData(['posts', post._id, 'replies'], (data) => ({
-        pages: newPagesArray,
-        pageParams: data.pageParams,
-      }));
-      return true;
-    } else {
-      return false;
-    }
+    // 지정한 queryKey의 캐시된 값을 수정
+    queryClient.setQueryData(['posts', post._id, 'replies'], (data) => ({
+      pages: newPagesArray,
+    }));
+    return true;
   }
 
   return (
