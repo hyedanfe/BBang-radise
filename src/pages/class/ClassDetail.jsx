@@ -188,9 +188,11 @@ function ClassDetail() {
           </ClassDetailInfoTop>
 
           <ClassDetailContent>
-            <Text typography="regular_m" color={textColor} display="block">
-              {item?.content}
-            </Text>
+            <pre>
+              <Text typography="regular_m" color={textColor} display="block">
+                {item?.content}
+              </Text>
+            </pre>
           </ClassDetailContent>
         </ClassDetailInfo>
       </ClassDetailWrapper>
