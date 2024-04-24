@@ -20,7 +20,7 @@ function RecipeListItem({ item }) {
       <S.RecipeListItemImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.extra}`} alt="" />
       <S.RecipeListItemContent>
         <S.RecipeListItemTitle>
-          <Text style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', wordBreak: 'break-all', maxWidth: '500px' }} color="gray08" typography="semibold_l" display="block">
+          <Text style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', wordBreak: 'break-all', maxWidth: '500px' }} color="gray08" typography="semibold_m" display="block">
             {item.title}
           </Text>
         </S.RecipeListItemTitle>
@@ -35,7 +35,9 @@ function RecipeListItem({ item }) {
           </Text>
         </S.RecipeListItemInfo>
       </S.RecipeListItemContent>
-      <BookmarkButton />
+      <S.RecipeListBookmark>
+        <BookmarkButton />
+      </S.RecipeListBookmark>
     </S.RecipeListItemContainer>
   );
 }

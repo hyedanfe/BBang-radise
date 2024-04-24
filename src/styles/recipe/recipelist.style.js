@@ -28,6 +28,7 @@ export const RecipeListPage = styled.div`
 
   @media all and (min-width: 768px) {
     max-width: 500px;
+    min-width: 300px;
     height: 100vh;
     position: sticky;
     top: 120px;

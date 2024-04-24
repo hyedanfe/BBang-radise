@@ -71,3 +71,8 @@ export const TabHandler = styled.hr`
   height: 66px;
   background-color: var(--gray-07);
 `;
+
+export const MyPageListAlert = styled.div`
+  text-align: center;
+  padding: 0 20px;
+`;
