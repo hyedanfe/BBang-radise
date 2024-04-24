@@ -67,15 +67,15 @@ password: 11111111
 
 ### 2. 베이킹 클래스
 
-| 클래스 검색 | 클래스 상세 페이지 | 클래스 추가 | 클래스 수정 | 클래스 삭제 | 
-|:---:|:---:|:---:|:---:|:---:|
-|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/765e1e0e-1b56-4840-8bc9-689db082d3a1" alt="클래스 검색"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/b8132603-0804-408e-af64-55ca7d5118f4" alt="회원가입 성공 페이지">|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/962b2f21-b538-42d0-8fc3-9d3a4254304f" width="100%" alt="클래스 추가"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/78cb45df-f9fc-40ff-b189-dba3f0b8e33a" alt="클래스 수정"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/6cefe777-581a-4d5d-86b7-758241903781" alt="클래스 삭제">|
+| 클래스 검색 | 클래스 추가 | 클래스 수정 | 클래스 삭제 | 
+|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/765e1e0e-1b56-4840-8bc9-689db082d3a1" alt="클래스 검색"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/962b2f21-b538-42d0-8fc3-9d3a4254304f" width="100%" alt="클래스 추가"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/78cb45df-f9fc-40ff-b189-dba3f0b8e33a" alt="클래스 수정"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/6cefe777-581a-4d5d-86b7-758241903781" alt="클래스 삭제">|
 
 ### 3. 레시피
 
-| 레시피 리스트 | 레시피 등록 | 레시피 수정 | 레시피 삭제 | 레시피 댓글 추가 |
-|:---:|:---:|:---:|:---:|:---:|
-|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/e31493c9-4b5c-4229-96ee-c94836abd286" alt="레시피 리스트"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/64db91e5-5d99-4710-81f0-633d1573a1dc" alt="레시피 등록">|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/74135d65-9e0f-4078-9f76-90b353be64fe" alt="레시피 수정">|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/f3c891c0-55bd-4dfe-8650-6b80b11e4184" alt="레시피 삭제"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/2c488600-17b9-4bc0-8138-295c3c9a33e5" alt="레시피 댓글 추가">|
+| 레시피 리스트 | 레시피 수정 | 레시피 삭제 | 레시피 댓글 추가 |
+|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/e31493c9-4b5c-4229-96ee-c94836abd286" alt="레시피 리스트"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/74135d65-9e0f-4078-9f76-90b353be64fe" alt="레시피 수정">|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/f3c891c0-55bd-4dfe-8650-6b80b11e4184" alt="레시피 삭제"/>|<img src="https://github.com/FRONTENDSCHOOL9/BBang-radise/assets/142205401/2c488600-17b9-4bc0-8138-295c3c9a33e5" alt="레시피 댓글 추가">|
 
 ### 4. 마이페이지
 
