@@ -5,8 +5,7 @@ export const ReplyEditContainer = styled.div`
 `;
 
 export const ReplyEditButtonContainer = styled.div`
-  padding: 15px 10px;
+  padding: 15px 5px 15px 500px;
   display: flex;
-  flex-direction: column;
   gap: 10px;
 `;

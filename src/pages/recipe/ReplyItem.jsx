@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import * as S from '@styles/recipe/replyitem.style';
 import Text from '@components/ui/Text';
+import { useModalStore } from '@zustand/modalStore.mjs';
+import Modal from '@components/ui/Modal';
 
 ReplyItem.propTypes = {
   item: PropTypes.object.isRequired,
@@ -18,12 +20,18 @@ ReplyItem.propTypes = {
 function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
   const user = useMemberStore().user;
   const [editMode, setEditMode] = useState(false);
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   // 댓글 수정 후 수정모드 off
   const handleUpdateAndSetEditMode = async (formData) => {
     if (await handleUpdate(item._id, formData)) {
       setEditMode(false);
     }
+  };
+
+  const handleDeleteModal = () => {
+    handleDelete(item._id);
+    toggleModal();
   };
 
   return (
@@ -57,12 +65,9 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
             </S.ReplyItemContent>
             {user?._id === item.user._id && (
               <S.ReplyItemButtonContainer>
-                <CommentEditButton width="14px" onClick={() => setEditMode(true)}>
-                  수정
-                </CommentEditButton>
-                <CommentDeleteButton width="12px" onClick={() => handleDelete(item._id)}>
-                  삭제
-                </CommentDeleteButton>
+                <CommentEditButton width="14px" onClick={() => setEditMode(true)} />
+                <CommentDeleteButton width="12px" onClick={toggleModal} />
+                <Modal handleSubmit={handleDeleteModal} contentText="정말 삭제하시겠습니까?" submitText="예" closeText="아니오" />
               </S.ReplyItemButtonContainer>
             )}
           </>

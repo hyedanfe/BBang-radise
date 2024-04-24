@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import TextArea from '@components/ui/TextArea';
-import Submit from '@components/ui/button/Submit';
 import Button from '@components/ui/button/Button';
 import * as S from '@styles/recipe/replyedit.style';
+import { useModalStore } from '@zustand/modalStore.mjs';
+import Modal from '@components/ui/Modal';
 
 ReplyEdit.propTypes = {
   content: PropTypes.string,
@@ -19,6 +20,7 @@ function ReplyEdit({ content, setEditMode, handleUpdate }) {
   } = useForm({
     values: { content },
   });
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   return (
     <S.ReplyEditContainer>
@@ -39,8 +41,13 @@ function ReplyEdit({ content, setEditMode, handleUpdate }) {
           {errors.content && <p>{errors.content.message}</p>}
         </div>
         <S.ReplyEditButtonContainer>
-          <Submit>수정</Submit>
-          <Button onClick={() => setEditMode(false)}>취소</Button>
+          <Button color="var(--primary-01)" onClick={toggleModal}>
+            수정
+          </Button>
+          <Modal handleSubmit={handleSubmit} contentText="정말 수정하시겠습니까?" submitText="예" closeText="아니오" />
+          <Button color="var(--gray-06)" onClick={() => setEditMode(false)}>
+            취소
+          </Button>
         </S.ReplyEditButtonContainer>
       </form>
     </S.ReplyEditContainer>

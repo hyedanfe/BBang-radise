@@ -16,7 +16,9 @@ export const ReplyItemHeaderleft = styled.div`
 `;
 
 export const ReplyItemProfileImage = styled.img`
+  object-fit: cover;
   width: 52px;
+  height: 52px;
   border-radius: 50%;
 `;
 
