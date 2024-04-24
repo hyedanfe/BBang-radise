@@ -10,6 +10,7 @@ import Section from '@components/ui/Section';
 import * as S from '@styles/signup/signup.style';
 import Text from '@components/ui/Text';
 import ValidationButton from '@components/ui/button/ValidationButton';
+import Toast from '@components/ui/Toast';
 
 function SignUp() {
   const [emailMsg, setEmailMsg] = useState('');
@@ -24,6 +25,11 @@ function SignUp() {
     formState: { errors },
   } = useForm({ mode: 'onChange' });
   const { email } = watch();
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
 
   const onSubmit = async (formData) => {
     try {
@@ -46,7 +52,7 @@ function SignUp() {
       if (err.response?.data.errors) {
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
-        alert(err.response?.data.message);
+        setToast({ show: true, message: err.response?.data.message });
       }
     }
   };
@@ -66,6 +72,8 @@ function SignUp() {
     <Section>
       <S.SignUpWrapper>
         <Text typography="display_l">회원가입</Text>
+        {toast.show && <Toast setToast={setToast} text={toast.message} />}
+
         <S.SignUpForm onSubmit={handleSubmit(onSubmit)}>
           <S.SignUpInputWrapper>
             <div>
@@ -109,7 +117,7 @@ function SignUp() {
                     {emailMsg}
                   </Text>
                 )}
-                <ValidationButton disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
+                <ValidationButton type="button" disabled={email === '' || errors.email ? true : false} onClick={checkDuplicateEmail}>
                   중복 확인
                 </ValidationButton>
               </S.SignUpValidation>
