@@ -164,30 +164,28 @@ function ClassEdit() {
           <Text typography="light_l" color="black" display="block">
             마스터님의 베이킹 클래스를 기다리고 있는 주민들이 있습니다. 모집 중인 베이킹 클래스를 수정하시거나 삭제하실 때에는 신중해 주세요.
           </Text>
+          <S.ClassFormButton>
+            <Button color="var(--gray-06)" onClick={toggleModal}>
+              삭제하기
+            </Button>
+            <div>
+              <Button
+                color="var(--primary-02)"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                수정 취소
+              </Button>
+            </div>
+            <Submit color="var(--primary-01)" onClick={handleSubmit}>
+              수정 완료
+            </Submit>
+          </S.ClassFormButton>
         </S.ClassFormText>
 
         <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
-          <S.ClassFormButton>
-            <>
-              <Modal handleSubmit={handleClassDelete} contentText="삭제하시겠습니까?" submitText="예" closeText="아니오" />
-              <Button color="var(--gray-06)" onClick={toggleModal}>
-                삭제하기
-              </Button>
-              <div>
-                <Button
-                  color="var(--primary-02)"
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  수정 취소
-                </Button>
-              </div>
-              <Submit color="var(--primary-01)" onClick={handleSubmit}>
-                수정 완료
-              </Submit>
-            </>
-          </S.ClassFormButton>
+          <Modal handleSubmit={handleClassDelete} contentText="삭제하시겠습니까?" submitText="예" closeText="아니오" />
 
           <div>
             <Input type="file" accept="image/*" id="mainImages" label="대표 이미지 (1개)" placeholder="이미지를 선택하세요" {...register('mainImages')} />

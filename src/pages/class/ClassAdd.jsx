@@ -121,27 +121,26 @@ function ClassAdd() {
           <Text typography="light_l" color="black" display="block">
             마스터님의 베이킹 클래스를 기다리고 있는 주민들이 있습니다. 마스터님이 보유하고 계신 레시피를 공유해주세요!.
           </Text>
+          <S.ClassFormButton>
+            <Button color="var(--primary-01)" onClick={toggleModal}>
+              개설하기
+            </Button>
+            <div>
+              <Button
+                color="var(--gray-06)"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                취소하기
+              </Button>
+            </div>
+          </S.ClassFormButton>
         </S.ClassFormText>
 
         <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
-          <S.ClassFormButton>
-            <>
-              <Modal handleSubmit={handleSubmit} contentText="개설하시겠습니까?" submitText="예" closeText="아니오" />
-              <Button color="var(--primary-01)" onClick={toggleModal}>
-                개설하기
-              </Button>
-              <div>
-                <Button
-                  color="var(--gray-06)"
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  취소하기
-                </Button>
-              </div>
-            </>
-          </S.ClassFormButton>
+          <Modal handleSubmit={handleSubmit} contentText="개설하시겠습니까?" submitText="예" closeText="아니오" />
+
           <div>
             <Input
               type="file"
@@ -292,6 +291,7 @@ function ClassAdd() {
               label="클래스 세부 내용"
               type="txt"
               id="content"
+              rows="10"
               placeholder="클래스 세부 내용을 10자 이상 입력해주세요"
               error={errors.content?.message}
               {...register('content', {

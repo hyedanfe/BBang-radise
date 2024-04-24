@@ -21,14 +21,17 @@ function SignUpWelcome() {
       {user && (
         <Section>
           <S.SignUpWrapper>
-            <div>
-              <div>
-                <Text typography="display_l">
-                  빵라다이스의 주민이 되신 {user.name}님 환영합니다!
-                  <br />
-                  빵라다이스에 로그인하여 다양한 주민 혜택을 즐겨보세요.
-                </Text>
-              </div>
+            <div style={{ marginBottom: '70px' }}>
+              <Text typography="display_l">
+                빵라다이스의 주민이 되신 <br />
+                {user.name}님 환영합니다!
+                <br />
+                <br />
+                빵라다이스에 로그인하여 <br />
+                다양한 주민 혜택을 즐겨보세요.
+              </Text>
+            </div>
+            <S.SignUpWelcomeButton>
               <Button
                 type="button"
                 color="var(--primary-01)"
@@ -38,7 +41,7 @@ function SignUpWelcome() {
               >
                 로그인
               </Button>
-            </div>
+            </S.SignUpWelcomeButton>
           </S.SignUpWrapper>
         </Section>
       )}
