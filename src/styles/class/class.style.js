@@ -101,6 +101,9 @@ export const ClassFormButton = styled.div`
 
   @media all and (min-width: 768px) {
     margin-top: 80px;
-    position: static;
+    position: absolute;
+    left: 0px;
+    top: 400px;
+    width: 25%;
   }
 `;

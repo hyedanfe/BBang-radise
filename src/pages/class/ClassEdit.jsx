@@ -164,6 +164,9 @@ function ClassEdit() {
           <Text typography="light_l" color="black" display="block">
             마스터님의 베이킹 클래스를 기다리고 있는 주민들이 있습니다. 모집 중인 베이킹 클래스를 수정하시거나 삭제하실 때에는 신중해 주세요.
           </Text>
+        </S.ClassFormText>
+
+        <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
           <S.ClassFormButton>
             <Button color="var(--gray-06)" onClick={toggleModal}>
               삭제하기
@@ -182,9 +185,6 @@ function ClassEdit() {
               수정 완료
             </Submit>
           </S.ClassFormButton>
-        </S.ClassFormText>
-
-        <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
           <Modal handleSubmit={handleClassDelete} contentText="삭제하시겠습니까?" submitText="예" closeText="아니오" />
 
           <div>
