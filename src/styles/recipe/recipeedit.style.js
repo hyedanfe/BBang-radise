@@ -59,29 +59,3 @@ export const RecipeAddButton = styled.div`
     position: static;
   }
 `;
-
-// file input
-export const FileInputBoxStyle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 10px;
-  margin-top: 10px;
-  padding: 0 3px;
-`;
-
-export const PreviewImageWrapper = styled.div`
-  display: flex;
-  position: relative;
-  width: 23%;
-  aspect-ratio: 1/1;
-
-  @media all and (min-width: 768px) {
-    width: 18%;
-  }
-`;
-
-export const PreviewImageStyle = styled.img`
-  object-fit: cover;
-  border-radius: 8px;
-`;

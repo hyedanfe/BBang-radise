@@ -78,5 +78,3 @@ export const RecipeListDate = styled.div`
   padding-right: 10px;
   border-right: 2px solid var(--gray-07);
 `;
-
-export const RecipeListBookmark = styled.div``;
