@@ -31,14 +31,10 @@ function Login() {
     setError,
   } = useForm({
     values: {
-      email: 'GD@market.com',
+      email: 'seller1@market.com',
       password: '11111111',
     },
   });
-
-  // const showErrorToast = (error) => {
-  //   setToast({ show: true, message: error.msg, type: 'error' });
-  // };
 
   const onSubmit = async (formData) => {
     console.log(formData);
@@ -46,7 +42,6 @@ function Login() {
       const res = await postLogin(formData);
       console.log(res);
 
-      // 사용자 정보를 zustand에 저장
       setUserData({
         _id: res.data.item._id,
         name: res.data.item.name,
@@ -56,12 +51,10 @@ function Login() {
       setToast({ show: true, message: `${res.data.item.name}님 로그인 되었습니다.` });
       setTimeout(() => {
         navigate(location.state?.from ? location.state?.from : '/');
-      }, 1000);
+      }, 3000);
     } catch (err) {
       console.log(err);
-      // AxiosError(네트워크 에러-response가 없음, 서버의 4xx, 5xx 응답 상태 코드를 받았을 때-response 있음)
       if (err.response?.data.errors) {
-        // API 서버가 응답한 에러
         err.response?.data.errors.forEach((error) => setError(error.path, { message: error.msg }));
       } else if (err.response?.data.message) {
         setToast({ show: true, message: err.response?.data.message });
