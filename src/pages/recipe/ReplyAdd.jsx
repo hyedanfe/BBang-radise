@@ -1,14 +1,20 @@
 import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TextArea from '@components/ui/TextArea';
 import Submit from '@components/ui/button/Submit';
 import * as S from '@styles/recipe/replyadd.style';
+import useMemberStore from '@zustand/memberStore.mjs';
+import Modal from '@components/ui/Modal';
+import { useModalStore } from '@zustand/modalStore.mjs';
 
 function ReplyAdd() {
   const { _id } = useParams();
   const axios = useCustomAxios();
+  const user = useMemberStore().user;
+  const navigate = useNavigate();
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   const {
     register,
@@ -33,7 +39,16 @@ function ReplyAdd() {
     // await axios.post(`/posts/${ _id }/replies`, formData);
     // fetchList();
     // reset();
-    addReply.mutate(formData);
+    if (!user) {
+      toggleModal();
+    } else {
+      addReply.mutate(formData);
+    }
+  };
+
+  const handleConfirm = () => {
+    toggleModal();
+    navigate(`/login`);
   };
 
   return (
@@ -55,6 +70,7 @@ function ReplyAdd() {
           {errors.content && <p>{errors.content.message}</p>}
         </S.ReplyInput>
         <Submit>댓글 등록</Submit>
+        <Modal handleConfirm={handleConfirm} contentText="로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?" confirmText="예" closeText="아니오" />
       </form>
     </div>
   );
