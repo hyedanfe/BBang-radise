@@ -38,7 +38,7 @@ export const initData = async (nextSeq) => {
         phone: '01034567890',
         address: '대전시 성심당',
         type: 'seller',
-        profileImage: 'profile03.png',
+        profileImage: 'profile03.jpeg',
       },
       {
         _id: 4,
@@ -48,7 +48,7 @@ export const initData = async (nextSeq) => {
         phone: '01111111111',
         address: '인천시',
         type: 'seller',
-        profileImage: 'profile04.png',
+        profileImage: 'profile04.jpeg',
       },
       {
         _id: 5,
@@ -58,7 +58,7 @@ export const initData = async (nextSeq) => {
         phone: '01133334444',
         address: '방탄시',
         type: 'seller',
-        profileImage: 'profile05.png',
+        profileImage: 'profile05.jpeg',
       },
       {
         _id: 6,
@@ -68,7 +68,7 @@ export const initData = async (nextSeq) => {
         phone: '01133335555',
         address: '광주시',
         type: 'seller',
-        profileImage: 'profile06.png',
+        profileImage: 'profile06.jpeg',
       },
       {
         _id: 7,
@@ -78,7 +78,7 @@ export const initData = async (nextSeq) => {
         phone: '0116666666',
         address: '부산시',
         type: 'seller',
-        profileImage: 'profile07.png',
+        profileImage: 'profile07.jpeg',
       },
       {
         _id: 8,
@@ -88,7 +88,7 @@ export const initData = async (nextSeq) => {
         phone: '01188888888',
         address: '삼척시',
         type: 'seller',
-        profileImage: 'profile08.png',
+        profileImage: 'profile08.jpeg',
       },
       {
         _id: 9,
