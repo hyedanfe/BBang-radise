@@ -2,7 +2,7 @@ import DeleteIcon from '@assets/DeleteIcon';
 import styled from 'styled-components';
 
 const CommentDeleteButtonStyle = styled.button`
-  width: 100%;
+  padding: 7px;
 `;
 
 function CommentDeleteButton({ type = 'button', width, onClick }) {

@@ -59,10 +59,6 @@ export const ClassListContent = styled.div`
   gap: 40px;
   padding: 0 2px;
 
-  > article:last-of-type {
-    padding-bottom: 120px;
-  }
-
   @media all and (min-width: 768px) {
     flex-grow: 1;
     column-gap: 30px;

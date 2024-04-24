@@ -66,7 +66,6 @@ function MyPageEdit() {
     }
   };
 
-  //TODO: 인풋에 바뀐 값이 있어야 버튼 활성화
   return (
     <Section>
       <S.MyPageWrapper>
@@ -83,7 +82,6 @@ function MyPageEdit() {
               <Button color="var(--primary-01)" onClick={toggleModal}>
                 수정 완료
               </Button>
-              <Modal handleSubmit={handleSubmit} contentText="정말 수정하시겠습니까?" submitText="예" closeText="아니오" />
             </div>
             <div>
               <Button
@@ -99,6 +97,7 @@ function MyPageEdit() {
         </S.MyPageContent>
         {user && (
           <S.MyPageForm onSubmit={handleSubmit(onSubmit)}>
+            <Modal handleSubmit={handleSubmit} contentText="회원정보를 수정하시겠습니까?" submitText="예" closeText="아니오" />
             <div>
               <Input
                 type="text"

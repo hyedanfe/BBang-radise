@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
 
-// TODO: 메인컬러, 서브컬러 지정
 export const palette = css`
   :root {
     --black: rgb(47, 40, 36);

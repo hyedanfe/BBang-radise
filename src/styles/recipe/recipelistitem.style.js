@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const RecipeListItemContainer = styled.div`
   background-color: var(--gray-02);
   display: flex;
-  height: 7vh;
+  height: 50px;
   align-items: center;
-  padding: 2px 6px;
+  padding: 3px 14px 3px 6px;
   justify-content: space-between;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -20,6 +20,10 @@ export const RecipeListItemContainer = styled.div`
   &:hover .item-hover {
     display: block;
     flex-shrink: 0;
+  }
+
+  @media all and (min-width: 768px) {
+    height: 60px;
   }
 `;
 
@@ -40,18 +44,20 @@ export const RecipeListItemImage = styled.img`
   height: 95%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 25%;
+  border-radius: 10px;
 `;
 
 export const RecipeListItemContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: center;
 
   @media all and (min-width: 768px) {
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
   }
 `;
 
@@ -72,6 +78,7 @@ export const RecipeListItemInfo = styled.div`
   gap: 10px;
   align-items: center;
   padding-right: 5px;
+  flex-shrink: 0;
 `;
 
 export const RecipeListDate = styled.div`
@@ -79,4 +86,8 @@ export const RecipeListDate = styled.div`
   border-right: 2px solid var(--gray-07);
 `;
 
-export const RecipeListBookmark = styled.div``;
+export const RecipeListBookmark = styled.div`
+  display: flex;
+  margin: auto 0;
+  margin-left: 10px;
+`;

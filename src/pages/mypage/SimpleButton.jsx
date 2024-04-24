@@ -9,7 +9,9 @@ const SimpleButtonStyle = styled.button`
 const SimpleButton = ({ children, ...rest }) => {
   return (
     <SimpleButtonStyle type="button" {...rest}>
-      <Text typography="light_s">{children}</Text>
+      <Text typography="light_s" color="gray07">
+        {children}
+      </Text>
     </SimpleButtonStyle>
   );
 };

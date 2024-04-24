@@ -46,7 +46,8 @@ export const ClassFormWrapper = styled.form`
 export const FileInputBoxStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  column-gap: 2.4%;
   row-gap: 10px;
   margin-top: 10px;
   padding: 0 3px;
@@ -70,6 +71,8 @@ export const PreviewImageWrapper = styled.div`
 export const PreviewImageStyle = styled.img`
   object-fit: cover;
   border-radius: 8px;
+  width: 100%;
+  height: auto;
 `;
 
 export const DeleteButtonWrapper = styled.div`

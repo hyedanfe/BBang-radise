@@ -15,8 +15,8 @@ import useClassApis from '@hooks/apis/useClassApis.mjs';
 import Modal from '@components/ui/Modal';
 import { useModalStore } from '@zustand/modalStore.mjs';
 import Toast from '@components/ui/Toast';
+import Submit from '@components/ui/button/Submit';
 
-// TODO: 파일 미리보기 공동 컴포넌트
 function ClassEdit() {
   const navigate = useNavigate();
   const { _id } = useParams();
@@ -55,7 +55,6 @@ function ClassEdit() {
   const [toast, setToast] = useState({
     show: false,
     message: '',
-    type: '',
   });
 
   const optionData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((number) => ({
@@ -117,8 +116,8 @@ function ClassEdit() {
   const renderImageArray = [...detailImagesPreview, ...Array(10 - detailImagesPreview.length).fill(DefaultImagePreview)];
 
   const handleClassDelete = async () => {
-    deleteClass(_id);
     toggleModal();
+    deleteClass(_id);
     navigate(`/class`);
   };
 
@@ -144,7 +143,6 @@ function ClassEdit() {
       }
       {
         await patchClass(_id, formData);
-        toggleModal();
         navigate(`/class/${_id}`);
       }
     } catch (err) {
@@ -171,8 +169,8 @@ function ClassEdit() {
         <S.ClassFormWrapper onSubmit={handleSubmit(onSubmit)}>
           <S.ClassFormButton>
             <>
-              <Modal handleSubmit={handleSubmit} contentText="수정하시겠습니까?" submitText="예" closeText="아니오" />
-              <Button color="var(--gray-06)" onClick={handleClassDelete}>
+              <Modal handleSubmit={handleClassDelete} contentText="삭제하시겠습니까?" submitText="예" closeText="아니오" />
+              <Button color="var(--gray-06)" onClick={toggleModal}>
                 삭제하기
               </Button>
               <div>
@@ -185,9 +183,9 @@ function ClassEdit() {
                   수정 취소
                 </Button>
               </div>
-              <Button color="var(--primary-01)" onClick={toggleModal}>
+              <Submit color="var(--primary-01)" onClick={handleSubmit}>
                 수정 완료
-              </Button>
+              </Submit>
             </>
           </S.ClassFormButton>
 
@@ -327,21 +325,20 @@ function ClassEdit() {
               required: '참여 비용을 입력하세요.',
             })}
           />
-          <div>
-            <TextArea
-              label="클래스 세부 내용"
-              type="txt"
-              id="content"
-              placeholder="텍스트를 입력해주세요"
-              {...register('content', {
-                required: '클래스 세부 내용을 입력하세요.',
-                minLength: {
-                  value: 10,
-                  message: '클래스 세부 내용을 10자 이상 입력하세요.',
-                },
-              })}
-            />
-          </div>
+          <TextArea
+            label="클래스 세부 내용"
+            type="txt"
+            id="content"
+            placeholder="텍스트를 입력해주세요"
+            error={errors.content?.message}
+            {...register('content', {
+              required: '클래스 세부 내용을 10자 이상 입력해주세요',
+              minLength: {
+                value: 10,
+                message: '클래스 세부 내용을 10자 이상 입력하세요.',
+              },
+            })}
+          />
         </S.ClassFormWrapper>
       </S.ClassAddWrapper>
     </Section>

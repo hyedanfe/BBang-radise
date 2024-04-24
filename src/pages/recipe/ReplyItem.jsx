@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import * as S from '@styles/recipe/replyitem.style';
 import Text from '@components/ui/Text';
+import { useModalStore } from '@zustand/modalStore.mjs';
+import Modal from '@components/ui/Modal';
 
 ReplyItem.propTypes = {
   item: PropTypes.object.isRequired,
@@ -18,6 +20,7 @@ ReplyItem.propTypes = {
 function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
   const user = useMemberStore().user;
   const [editMode, setEditMode] = useState(false);
+  const toggleModal = useModalStore((state) => state.toggleModal);
 
   // 댓글 수정 후 수정모드 off
   const handleUpdateAndSetEditMode = async (formData) => {
@@ -26,38 +29,51 @@ function ReplyItem({ item, postUserId, handleDelete, handleUpdate }) {
     }
   };
 
+  const handleDeleteModal = () => {
+    handleDelete(item._id);
+    toggleModal();
+  };
+
   return (
-    <div className="CommentWrapper">
-      <div className="CommentHeader">
-        {item.user.profile ? <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" /> : <DefaultProfile />}
-        <a href="">
-          <Text typography="semibold_s">{item.user.name}</Text>
-        </a>
-        {postUserId === item.user._id && <Text typography="semibold_s">작성자</Text>}
-        <time dateTime={item.updatedAt}>
-          <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
-        </time>
-      </div>
+    <S.ReplyItemContainer>
+      <S.ReplyItemHeader>
+        <S.ReplyItemHeaderleft>
+          {item.user.profile ? (
+            <S.ReplyItemProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${item.user.profile}`} alt="" />
+          ) : (
+            <DefaultProfile stroke="var(--gray-06)" width="50px" />
+          )}
+          <S.ReplyItemUserName href="">
+            <Text typography="semibold_s">{item.user.name}</Text>
+          </S.ReplyItemUserName>
+          {postUserId === item.user._id && <S.ReplyItemWriterBadge>작성자</S.ReplyItemWriterBadge>}
+        </S.ReplyItemHeaderleft>
+
+        <div className="replyitem-date">
+          <time dateTime={item.updatedAt}>
+            <Text typography="semibold_s">{item.updatedAt.substr(0, 10)}</Text>
+          </time>
+        </div>
+      </S.ReplyItemHeader>
       <div>
         {editMode ? (
           <ReplyEdit content={item.content} setEditMode={setEditMode} handleUpdate={handleUpdateAndSetEditMode} />
         ) : (
           <>
-            <Text typography="semibold_s">{item.content}</Text>
+            <S.ReplyItemContent>
+              <Text typography="semibold_s">{item.content}</Text>
+            </S.ReplyItemContent>
             {user?._id === item.user._id && (
               <S.ReplyItemButtonContainer>
-                <CommentEditButton width="12px" onClick={() => setEditMode(true)}>
-                  수정
-                </CommentEditButton>
-                <CommentDeleteButton width="12px" onClick={() => handleDelete(item._id)}>
-                  삭제
-                </CommentDeleteButton>
+                <CommentEditButton width="14px" onClick={() => setEditMode(true)} />
+                <CommentDeleteButton width="12px" onClick={toggleModal} />
+                <Modal handleSubmit={handleDeleteModal} contentText="정말 삭제하시겠습니까?" submitText="예" closeText="아니오" />
               </S.ReplyItemButtonContainer>
             )}
           </>
         )}
       </div>
-    </div>
+    </S.ReplyItemContainer>
   );
 }
 
