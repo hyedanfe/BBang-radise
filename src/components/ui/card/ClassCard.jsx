@@ -128,12 +128,10 @@ ClassCard.propTypes = {
 function ClassCard({ item }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const test = pathname.includes('mypage');
-  console.log(test);
 
   const mainImage = item.mainImages ? item?.mainImages[0]?.name : item?.image.name;
   const { badgeType, quantityColor, textColor, expired } = useBadge(item);
-
+  console.log(badgeType);
   return (
     <ClassCardContainer>
       <ClassCardBookmark>
@@ -179,7 +177,7 @@ function ClassCard({ item }) {
                 {pathname.includes('mypage') ? null : item.extra.address}
               </Text>
               <Text typography="extrabold_s" color={textColor}>
-                {item.seller?.name}
+                {pathname.includes('mypage') ? null : item.seller?.name}
               </Text>
             </ClassCardStatic>
           </ClassCardInfo>
