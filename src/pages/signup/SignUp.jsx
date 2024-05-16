@@ -19,19 +19,19 @@ function SignUp() {
     show: false,
     message: '',
   });
-  const [formData, setFormData] = useState({});
   const [step, setStep] = useState(0);
 
   const handleRequiredSubmit = (formData) => {
-    // Required 컴포넌트에서 입력된 데이터를 formData에 저장
-    setFormData((prevData) => ({ ...prevData, ...formData }));
     setStep(1);
     console.log(formData);
   };
 
-  const handleOptionalSubmit = async (formData) => {
-    setFormData((prevData) => ({ ...prevData, ...formData }));
+  const handleSaveFormData = (formData) => {
+    setStep(0);
+    console.log(formData);
+  };
 
+  const handleOptionalSubmit = async (formData) => {
     try {
       formData.type = 'seller';
       console.log(formData);
@@ -61,14 +61,12 @@ function SignUp() {
     <Section>
       <Text typography="display_l">회원가입</Text>
       {toast.show && <Toast setToast={setToast} text={toast.message} />}
-      {/* <S.SignUpForm onSubmit={handleSubmit(onSubmit)}> */}
       <S.SignUpWrapper>
         <S.SignUpInputWrapper>
           {step === 0 && <Required setStep={setStep} onSubmit={handleRequiredSubmit} />}
-          {step === 1 && <Optional setStep={setStep} onSubmit={handleOptionalSubmit} />}
+          {step === 1 && <Optional setStep={setStep} onSaveFormData={handleSaveFormData} onSubmit={handleOptionalSubmit} />}
         </S.SignUpInputWrapper>
       </S.SignUpWrapper>
-      {/* </S.SignUpForm> */}
     </Section>
   );
 }

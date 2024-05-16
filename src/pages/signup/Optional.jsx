@@ -1,16 +1,43 @@
 import Input from '@components/ui/Input';
 import TextArea from '@components/ui/TextArea';
 import { useForm } from 'react-hook-form';
-import Button from '@components/ui/button/Button';
 import Submit from '@components/ui/button/Submit';
 import * as S from '@styles/signup/signup.style';
+import useFormStore from '@zustand/formStore.mjs';
+import PropTypes from 'prop-types';
 
-function Optional({ setStep, onSubmit }) {
+Optional.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+function Optional({ onSubmit }) {
   const { register, handleSubmit } = useForm({ mode: 'onChange' });
-  // const { register } = useFormContext();
+  const { formData, setFormData } = useFormStore((state) => ({
+    formData: state.formData,
+    setFormData: state.setFormData,
+  }));
+
+  // useEffect(() => {
+  //   if (formData)
+  //     reset({
+  //       profileImage: formData.profileImage,
+  //       introduction: formData.introduction,
+  //     });
+  // }, [formData]);
+
+  // const handlePrevButtonClick = (data) => {
+  //   handleSubmit(onSaveFormData)();
+  //   const mergedData = { ...formData, ...data };
+  //   setFormData(mergedData);
+  //   setStep(0);
+  // };
 
   const onOptionalSubmit = (data) => {
-    onSubmit(data);
+    console.log(data);
+    const mergedData = { ...formData, ...data };
+    onSubmit(mergedData);
+    setFormData(null);
+    console.log(mergedData);
   };
 
   return (
@@ -22,9 +49,9 @@ function Optional({ setStep, onSubmit }) {
         <div>
           <TextArea label="자기소개 (40자 이내)" type="txt" id="introduction" placeholder="자기소개를 입력해주세요" rows="5" {...register('introduction')} />
         </div>
-        <div>
-          <Button onClick={() => setStep(0)}>이전</Button>
-        </div>
+        {/* <div>
+          <Button onClick={handlePrevButtonClick}>이전</Button>
+        </div> */}
         <div>
           <Submit>회원가입</Submit>
         </div>

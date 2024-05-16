@@ -6,6 +6,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as S from '@styles/signup/signup.style';
 import Submit from '@components/ui/button/Submit';
+import useFormStore from '@zustand/formStore.mjs';
+import PropTypes from 'prop-types';
+
+Required.propTypes = {
+  setStep: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 function Required({ setStep, onSubmit }) {
   const [emailMsg, setEmailMsg] = useState('');
@@ -14,9 +21,24 @@ function Required({ setStep, onSubmit }) {
     register,
     watch,
     handleSubmit,
+    // reset,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
   const { email } = watch();
+  const setFormData = useFormStore((state) => state.setFormData);
+  // const { formData, setFormData } = useFormStore((state) => ({
+  //   formData: state.formData,
+  //   setFormData: state.setFormData,
+  // }));
+
+  // useEffect(() => {
+  //   if (formData)
+  //     reset({
+  //       name: formData.name,
+  //       email: formData.email,
+  //       password: formData.password,
+  //     });
+  // }, [formData]);
 
   const checkDuplicateEmail = async () => {
     try {
@@ -30,6 +52,7 @@ function Required({ setStep, onSubmit }) {
   };
 
   const onRequiredSubmit = (data) => {
+    setFormData(data);
     onSubmit(data);
     setStep(1);
   };
@@ -95,7 +118,7 @@ function Required({ setStep, onSubmit }) {
           />
         </div>
         <div>
-          <Submit onClick={() => setStep(1)}>다음</Submit>
+          <Submit>다음</Submit>
         </div>
       </S.SignUpForm>
     </>
