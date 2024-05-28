@@ -168,6 +168,10 @@ export const ClassDetailContent = styled.div`
   margin: 0 -5px;
   margin-top: 10px;
 
+  & pre {
+    white-space: pre-wrap;
+  }
+
   @media all and (min-width: 768px) and (max-width: 1200px) {
     margin: 0 -7px;
     margin-top: unset;

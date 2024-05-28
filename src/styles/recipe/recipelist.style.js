@@ -52,8 +52,4 @@ export const RecipeListSearch = styled.div`
 export const RecipeListContent = styled.section`
   width: 100%;
   padding-right: 12px;
-
-  > div:last-of-type {
-    padding-bottom: 120px;
-  }
 `;

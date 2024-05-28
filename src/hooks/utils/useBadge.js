@@ -4,14 +4,14 @@ function useBadge(item) {
   const date = new Date();
   const today = useGetDate(date);
 
-  if (item?.classAt < today || item?.endAt < today) {
+  if (item?.extra.classAt < today || item?.extra.endAt < today) {
     return {
       badgeType: 'inactive',
       quantityColor: 'gray06',
       textColor: 'gray06',
       expired: true,
     };
-  } else if (item?.startAt > today) {
+  } else if (item?.extra.startAt > today) {
     return {
       badgeType: 'queue',
       quantityColor: 'gray07',

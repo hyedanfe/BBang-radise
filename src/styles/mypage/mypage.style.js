@@ -26,7 +26,7 @@ export const MyPageInfo = styled.div`
   max-width: 76%;
 
   @media all and (min-width: 768px) {
-    max-width: 30%;
+    max-width: 20%;
   }
 `;
 

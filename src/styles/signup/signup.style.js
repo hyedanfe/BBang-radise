@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SignUpWrapper = styled.div`
   width: 100%;
-  position: reltaive;
+  position: relative;
   padding-top: 100px;
   display: flex;
   flex-direction: column;
@@ -39,4 +39,10 @@ export const SignUpEmailWrapper = styled.div`
 
 export const SignUpValidation = styled.div`
   margin-left: auto;
+`;
+
+export const SignUpWelcomeButton = styled.div`
+  @media all and (min-width: 768px) {
+    width: 64%;
+  }
 `;
