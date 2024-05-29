@@ -34,7 +34,7 @@ function MyPageMyInfo() {
           {user.profileImage && user.profileImage.length > 0 ? (
             <S.MyPageProfileImage src={`${import.meta.env.VITE_API_SERVER}/files/${import.meta.env.VITE_CLIENT_ID}/${user.profileImage}`} alt="프로필 이미지" />
           ) : (
-            <DefaultProfile width={71} height={71} stroke="gray" />
+            <DefaultProfile width={71} stroke="gray" />
           )}
           <S.MyPageInfoUser>
             <Text typography="extrabold_l" display="block">
