@@ -12,7 +12,3 @@ PrivateRoute.propTypes = {
   children: PropTypes.object,
   requiredRole: PropTypes.string,
 };
-
-PrivateRoute.defaultProps = {
-  requiredRole: null,
-};
