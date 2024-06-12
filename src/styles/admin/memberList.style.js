@@ -26,3 +26,9 @@ export const Ul = styled.ul`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
   border-radius: 16px;
 `;
+
+export const AdminHeader = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
