@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from '@styles/mypage/mypageList.style';
 import Text from '@components/ui/Text';
+import useMemberStore from '@zustand/memberStore.mjs';
+import { MyPageNoAuth } from '@pages/mypage';
 
 function MyPageList() {
   const { _id } = useParams();
@@ -15,12 +17,25 @@ function MyPageList() {
   const { data: myJoinClass } = useGetMyJoinList();
   const [tab, setTab] = useState(0);
 
+  const user = useMemberStore((state) => state.user);
+  const userType = user?.type;
+
+  // const ROLE = {
+  //   USER: 'USER',
+  //   SELLER: 'SELLER',
+  //   ADMIN: 'ADMIN',
+  // };
+
+  // useEffect(() => {
+  //   setTab(0);
+  // }, [userType]);
+
   return (
     <S.ListWrapper>
       <ul>
         <li>
           <S.Tab>
-            <S.ButtonWrapper tab={tab == 0 ? 'true' : 'false'}>
+            <S.ButtonWrapper tab={tab === 0 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(0)}>
                 <Text color="gray07" typography="semibold_s">
                   클래스
@@ -28,7 +43,7 @@ function MyPageList() {
               </S.TabButton>
             </S.ButtonWrapper>
 
-            <S.ButtonWrapper tab={tab == 1 ? 'true' : 'false'}>
+            <S.ButtonWrapper tab={tab === 1 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(1)}>
                 <Text color="gray07" typography="semibold_s">
                   레시피
@@ -36,7 +51,7 @@ function MyPageList() {
               </S.TabButton>
             </S.ButtonWrapper>
 
-            <S.ButtonWrapper tab={tab == 2 ? 'true' : 'false'}>
+            <S.ButtonWrapper tab={tab === 2 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(2)} disabled>
                 <Text color="gray07" typography="semibold_s">
                   북마크
@@ -44,7 +59,7 @@ function MyPageList() {
               </S.TabButton>
             </S.ButtonWrapper>
 
-            <S.ButtonWrapper tab={tab == 3 ? 'true' : 'false'}>
+            <S.ButtonWrapper tab={tab === 3 ? 'true' : 'false'}>
               <S.TabButton onClick={() => setTab(3)}>
                 <Text color="gray07" typography="semibold_s">
                   신청 목록
@@ -55,10 +70,19 @@ function MyPageList() {
         </li>
       </ul>
       <div>
-        {tab === 0 && <MyPageClassList myCreateClass={myCreateClass} />}
-        {tab === 1 && <MyPageRecipeList myRecipe={myRecipe} />}
-        {tab === 2 && <MyPageBookmarkList />}
-        {tab === 3 && <MyPageJoinList myJoinClass={myJoinClass} />}
+        {tab === 0 && userType === 'seller' ? (
+          <MyPageClassList myCreateClass={myCreateClass} />
+        ) : tab === 0 && userType !== 'seller' ? (
+          <MyPageNoAuth />
+        ) : tab === 1 ? (
+          <MyPageRecipeList myRecipe={myRecipe} />
+        ) : tab === 2 ? (
+          <MyPageBookmarkList />
+        ) : tab === 3 ? (
+          <MyPageJoinList myJoinClass={myJoinClass} />
+        ) : (
+          <div>No content to display</div>
+        )}
       </div>
     </S.ListWrapper>
   );
