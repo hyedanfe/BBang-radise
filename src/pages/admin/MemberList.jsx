@@ -1,17 +1,53 @@
 import Section from '@components/ui/Section';
 import Text from '@components/ui/Text';
 import MemberCard from '@components/ui/card/MemberCard';
-import { useGetUserList } from '@hooks/queries/admin';
+import useCustomAxios from '@hooks/useCustomAxios.mjs';
 import SimpleButton from '@pages/mypage/SimpleButton';
 import * as S from '@styles/admin/memberList.style';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import useMemberStore from '@zustand/memberStore.mjs';
+import { useEffect, useRef } from 'react';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
+import { Loader } from '@components/ui/Loading';
 
 function MemberList() {
-  const { data } = useGetUserList();
+  const axios = useCustomAxios();
   const setUserData = useMemberStore((state) => state.setUser);
   const clearUserDataStorage = useMemberStore.persist.clearStorage;
 
-  const userList = data?.item;
+  const ref = useRef(null);
+  const pageRef = useIntersectionObserver(ref, {});
+  const isPageEnd = !!pageRef?.isIntersecting;
+
+  const fetchStores = async ({ pageParam = 1 }) => {
+    const { data } = await axios(`admin/users`, {
+      params: {
+        limit: import.meta.env.VITE_USER,
+        page: pageParam,
+      },
+    });
+    console.log(data);
+    return { users: data?.item, nextPage: data?.item?.length > 0 ? pageParam + 1 : undefined };
+  };
+
+  const {
+    data: userList,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['userList'],
+    queryFn: fetchStores,
+    suspense: true,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+  });
+
+  useEffect(() => {
+    if (isPageEnd) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, isPageEnd]);
+
   console.log(userList);
 
   const handleLogout = () => {
@@ -30,9 +66,9 @@ function MemberList() {
         </S.AdminHeader>
 
         <S.Ul>
-          {userList?.map((memberItemData) => (
-            <MemberCard key={memberItemData._id} memberItemData={memberItemData} />
-          ))}
+          {userList?.pages?.map((page) => page.users.map((memberItemData) => <MemberCard key={memberItemData._id} memberItemData={memberItemData} />))}
+          <div ref={ref} />
+          {isFetching && hasNextPage && <Loader />}
         </S.Ul>
       </S.AdminWrapper>
     </Section>
