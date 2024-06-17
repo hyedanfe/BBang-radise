@@ -3,6 +3,7 @@ import Button from '@components/ui/button/Button';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useAdminApis from '@hooks/apis/useAdminApis.mjs';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 const Li = styled.li`
   width: 100%;
@@ -47,10 +48,10 @@ const TextInfo = styled.div`
 const MemberTypeChip = styled.div`
   padding: 5px 4px;
   width: 146px;
-  color: #fff;
+  color: var(--white);
   text-align: center;
   border-radius: 20px;
-  background-color: #56c9b6;
+  background-color: var(--primary-01);
   font-size: 16px;
   font-weight: 600;
 `;
@@ -66,7 +67,7 @@ const Name = styled.p`
 
 const Instruction = styled.span`
   font-size: 18px;
-  color: #464646;
+  color: var(--black);
   width: 300px;
   white-space: nowrap;
   overflow: hidden;
