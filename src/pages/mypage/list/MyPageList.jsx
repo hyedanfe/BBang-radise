@@ -1,18 +1,18 @@
-import { useGetMyClassList, useGetMyJoinList, useGetMyRecipeList } from '@hooks/queries/user';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetMyJoinList, useGetMyRecipeList } from '@hooks/queries/user';
+import * as S from '@styles/mypage/mypageList.style';
+import Text from '@components/ui/Text';
+import { MyPageListAlert } from '@styles/mypage/mypageList.style';
 import MyPageBookmarkList from '@pages/mypage/list/bookmark/MyPageBookmarkList';
 import MyPageClassList from '@pages/mypage/list/MyPageClassList';
 import MyPageJoinList from '@pages/mypage/list/MyPageJoinList';
 import MyPageRecipeList from '@pages/mypage/list/MyPageRecipeList';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import * as S from '@styles/mypage/mypageList.style';
-import Text from '@components/ui/Text';
 import useMemberStore from '@zustand/memberStore.mjs';
-import { MyPageNoAuth } from '@pages/mypage';
 
 function MyPageList() {
   const { _id } = useParams();
-  const { data: myCreateClass } = useGetMyClassList();
+  // const { data: myCreateClass } = useGetMyClassList();
   const { data: myRecipe } = useGetMyRecipeList(_id);
   const { data: myJoinClass } = useGetMyJoinList();
   const [tab, setTab] = useState(0);
@@ -71,9 +71,13 @@ function MyPageList() {
       </ul>
       <div>
         {tab === 0 && userType === 'seller' ? (
-          <MyPageClassList myCreateClass={myCreateClass} />
+          <MyPageClassList />
         ) : tab === 0 && userType !== 'seller' ? (
-          <MyPageNoAuth />
+          <MyPageListAlert>
+            <Text typography="regular_m" color="gray06">
+              클래스는 베이킹 마스터 등급부터 개설하실 수 있습니다
+            </Text>
+          </MyPageListAlert>
         ) : tab === 1 ? (
           <MyPageRecipeList myRecipe={myRecipe} />
         ) : tab === 2 ? (
@@ -81,7 +85,7 @@ function MyPageList() {
         ) : tab === 3 ? (
           <MyPageJoinList myJoinClass={myJoinClass} />
         ) : (
-          <div>No content to display</div>
+          <div>데이터가 없습니다.</div>
         )}
       </div>
     </S.ListWrapper>
