@@ -76,6 +76,10 @@ function MyPageList() {
           <MyPageListAlert>
             <Text typography="regular_m" color="gray06">
               클래스는 베이킹 마스터 등급부터 개설하실 수 있습니다
+              <br />
+              베이킹 레시피 5개 이상 공유 시 승급 신청 가능합니다
+              <br />
+              (승급까지 최대 3일 소요)
             </Text>
           </MyPageListAlert>
         ) : tab === 1 ? (
