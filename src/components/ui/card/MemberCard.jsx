@@ -3,7 +3,6 @@ import Button from '@components/ui/button/Button';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useAdminApis from '@hooks/apis/useAdminApis.mjs';
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 const Li = styled.li`
   width: 100%;
